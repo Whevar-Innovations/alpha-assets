@@ -186,16 +186,16 @@ export const InvestDetail: React.FC = () => {
                         to={`/invest/${item.id}`}
                         className={`text-sm font-semibold flex items-center justify-between group transition-all duration-150 py-1 ${
                           isActive 
-                            ? 'text-brand-accent border-b-2 border-brand-accent w-fit font-extrabold' 
-                            : 'text-brand-dark hover:text-brand-accent'
+                            ? 'text-brand-primary border-b-2 border-brand-primary w-fit font-extrabold' 
+                            : 'text-brand-dark hover:text-brand-primary'
                         }`}
                       >
                         <span className="flex items-center gap-2">
-                          <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-brand-accent' : 'bg-transparent group-hover:bg-brand-accent'}`} />
+                          <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-brand-primary' : 'bg-transparent group-hover:bg-brand-primary'}`} />
                           {item.title}
                         </span>
                         {!isActive && (
-                          <ArrowRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity duration-150 text-brand-accent" />
+                          <ArrowRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity duration-150 text-brand-primary" />
                         )}
                       </Link>
                     );
@@ -235,7 +235,7 @@ export const InvestDetail: React.FC = () => {
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {data.bullets.map((bullet, index) => (
                     <li key={index} className="text-sm font-medium text-brand-dark flex items-start gap-3">
-                      <span className="w-5 h-5 rounded-full bg-brand-cardBg flex items-center justify-center shrink-0 text-brand-accent font-bold text-xs select-none">
+                      <span className="w-5 h-5 rounded-full bg-brand-cardBg flex items-center justify-center shrink-0 text-brand-primary font-bold text-xs select-none">
                         ✓
                       </span>
                       {bullet}
@@ -247,26 +247,26 @@ export const InvestDetail: React.FC = () => {
               {/* Factsheet Download Section */}
               <div className="border border-brand-cardBg bg-brand-cardBg bg-opacity-20 rounded-lg p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-4 text-left">
-                  <div className="p-3 bg-brand-accent text-white rounded">
+                  <div className="p-3 bg-brand-primary text-white rounded">
                     <FileText size={24} />
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-brand-dark leading-snug">{data.factsheetName}</h4>
-                    <p className="text-xs text-brand-grayText font-medium">Factsheet Document (PDF)</p>
+                    <p className="text-xs text-brand-gray font-medium">Factsheet Document (PDF)</p>
                   </div>
                 </div>
                 
                 <div className="flex gap-3">
                   <button
                     onClick={() => handleView(data.factsheetName)}
-                    className="flex items-center gap-1.5 px-4 py-2 border border-brand-accent text-brand-accent hover:bg-brand-accent hover:text-white rounded text-xs font-bold uppercase tracking-wider transition-all duration-150"
+                    className="flex items-center gap-1.5 px-4 py-2 border border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white rounded text-xs font-bold uppercase tracking-wider transition-all duration-150"
                   >
                     <Eye size={14} />
                     View
                   </button>
                   <button
                     onClick={() => handleDownload(data.factsheetName)}
-                    className="flex items-center gap-1.5 px-4 py-2 bg-brand-accent hover:bg-brand-dark text-white rounded text-xs font-bold uppercase tracking-wider transition-all duration-150 shadow-sm"
+                    className="flex items-center gap-1.5 px-4 py-2 bg-brand-primary hover:bg-brand-dark text-white rounded text-xs font-bold uppercase tracking-wider transition-all duration-150 shadow-sm"
                   >
                     <Download size={14} />
                     Download

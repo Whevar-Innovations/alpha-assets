@@ -43,12 +43,12 @@ export const Accordion: React.FC<AccordionProps> = ({ items }) => {
               tabIndex={0}
               onClick={() => toggleItem(item.id)}
               onKeyDown={(e) => handleKeyDown(e, item.id)}
-              className="flex justify-between items-center p-6 cursor-pointer hover:bg-gray-50 transition-colors duration-150 focus:outline-none focus:bg-gray-50 focus:ring-2 focus:ring-inset focus:ring-brand-accent select-none"
+              className="flex justify-between items-center p-6 cursor-pointer hover:bg-gray-50 transition-colors duration-150 focus:outline-none focus:bg-gray-50 focus:ring-2 focus:ring-inset focus:ring-brand-primary select-none"
             >
               <h3 className="text-sm sm:text-base font-bold text-brand-dark pr-4">
                 {item.question}
               </h3>
-              <span className="text-brand-accent shrink-0">
+              <span className="text-brand-primary shrink-0">
                 {isOpen ? (
                   <Minus size={18} className="stroke-[3]" />
                 ) : (

@@ -181,9 +181,9 @@ export const Home: React.FC = () => {
             {howWeWork.map((item, index) => (
               <div 
                 key={index} 
-                className="bg-teal-950 bg-opacity-40 border border-teal-900 rounded-lg p-8 flex gap-6 items-start shadow-sm hover:border-brand-accent transition-colors duration-200"
+                className="bg-teal-950 bg-opacity-40 border border-teal-900 rounded-lg p-8 flex gap-6 items-start shadow-sm hover:border-brand-primary transition-colors duration-200"
               >
-                <div className="w-12 h-12 rounded-full bg-brand-accent flex items-center justify-center shrink-0 text-white">
+                <div className="w-12 h-12 rounded-full bg-brand-primary flex items-center justify-center shrink-0 text-white">
                   <item.icon size={20} />
                 </div>
                 <div className="space-y-3">
@@ -200,7 +200,7 @@ export const Home: React.FC = () => {
       <section className="py-16 bg-gray-50 border-t border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center gap-8">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-brand-grayText text-center">
+            <h2 className="text-xs font-bold uppercase tracking-widest text-brand-gray text-center">
               Building Strong Relationships With Every Client We Serve
             </h2>
             <div className="flex flex-wrap justify-center items-center gap-12 sm:gap-20">

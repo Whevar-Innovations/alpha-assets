@@ -71,7 +71,7 @@ export const Contact: React.FC = () => {
               <div className="space-y-6">
                 
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-brand-cardBg flex items-center justify-center shrink-0 text-brand-accent">
+                  <div className="w-10 h-10 rounded-full bg-brand-cardBg flex items-center justify-center shrink-0 text-brand-primary">
                     <MapPin size={18} />
                   </div>
                   <div>
@@ -83,31 +83,31 @@ export const Contact: React.FC = () => {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-brand-cardBg flex items-center justify-center shrink-0 text-brand-accent">
+                  <div className="w-10 h-10 rounded-full bg-brand-cardBg flex items-center justify-center shrink-0 text-brand-primary">
                     <Phone size={18} />
                   </div>
                   <div>
                     <h3 className="text-sm font-extrabold text-brand-dark uppercase tracking-wider mb-1">Call Us</h3>
-                    <p className="text-sm text-teal-900 opacity-90 font-light hover:text-brand-accent transition-colors duration-150">
+                    <p className="text-sm text-teal-900 opacity-90 font-light hover:text-brand-primary transition-colors duration-150">
                       <a href="tel:+256200911875">+256 200 911875</a>
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-brand-cardBg flex items-center justify-center shrink-0 text-brand-accent">
+                  <div className="w-10 h-10 rounded-full bg-brand-cardBg flex items-center justify-center shrink-0 text-brand-primary">
                     <Mail size={18} />
                   </div>
                   <div>
                     <h3 className="text-sm font-extrabold text-brand-dark uppercase tracking-wider mb-1">Email</h3>
-                    <p className="text-sm text-teal-900 opacity-90 font-light hover:text-brand-accent transition-colors duration-150">
+                    <p className="text-sm text-teal-900 opacity-90 font-light hover:text-brand-primary transition-colors duration-150">
                       <a href="mailto:invest@alphaeastafrica.com">invest@alphaeastafrica.com</a>
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-brand-cardBg flex items-center justify-center shrink-0 text-brand-accent">
+                  <div className="w-10 h-10 rounded-full bg-brand-cardBg flex items-center justify-center shrink-0 text-brand-primary">
                     <Clock size={18} />
                   </div>
                   <div>
@@ -136,10 +136,10 @@ export const Contact: React.FC = () => {
                 </svg>
                 
                 {/* Visual Kampala Tag */}
-                <div className="relative z-10 bg-white border border-brand-accent px-4 py-2.5 rounded shadow flex items-center gap-2">
+                <div className="relative z-10 bg-white border border-brand-primary px-4 py-2.5 rounded shadow flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-brand-green animate-ping shrink-0" />
                   <div>
-                    <p className="text-[10px] font-extrabold uppercase tracking-widest text-brand-accent">KAMPALA OFFICE</p>
+                    <p className="text-[10px] font-extrabold uppercase tracking-widest text-brand-primary">KAMPALA OFFICE</p>
                     <p className="text-xs font-bold text-brand-dark">Alpha Asset Managers Ltd.</p>
                   </div>
                 </div>
@@ -154,7 +154,7 @@ export const Contact: React.FC = () => {
                 {submitted ? (
                   // Success Message
                   <div className="text-center py-12 space-y-6 animate-fadeIn">
-                    <div className="w-16 h-16 rounded-full bg-brand-faqBg text-brand-accent flex items-center justify-center mx-auto shadow-sm">
+                    <div className="w-16 h-16 rounded-full bg-brand-faqBg text-brand-primary flex items-center justify-center mx-auto shadow-sm">
                       <CheckCircle size={36} className="stroke-[2.5]" />
                     </div>
                     <div className="space-y-2">
@@ -168,7 +168,7 @@ export const Contact: React.FC = () => {
                         setSubmitted(false);
                         setFormData({ name: '', email: '', phone: '', service: 'general', message: '' });
                       }}
-                      className="text-xs font-bold uppercase tracking-wider text-brand-accent border border-brand-accent px-6 py-3 rounded hover:bg-brand-accent hover:text-white transition-colors duration-150"
+                      className="text-xs font-bold uppercase tracking-wider text-brand-primary border border-brand-primary px-6 py-3 rounded hover:bg-brand-primary hover:text-white transition-colors duration-150"
                     >
                       Send another message
                     </button>
@@ -178,7 +178,7 @@ export const Contact: React.FC = () => {
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="space-y-2">
                       <h3 className="text-xl font-bold text-brand-dark">Send a Message</h3>
-                      <p className="text-xs text-brand-grayText font-medium">Fields marked with * are required.</p>
+                      <p className="text-xs text-brand-gray font-medium">Fields marked with * are required.</p>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -193,7 +193,7 @@ export const Contact: React.FC = () => {
                           required
                           value={formData.name}
                           onChange={handleChange}
-                          className="w-full px-4 py-2.5 text-sm bg-white border border-gray-250 rounded focus:outline-none focus:ring-1 focus:ring-brand-accent text-brand-dark placeholder-gray-400"
+                          className="w-full px-4 py-2.5 text-sm bg-white border border-gray-250 rounded focus:outline-none focus:ring-1 focus:ring-brand-primary text-brand-dark placeholder-gray-400"
                           placeholder="e.g. John Doe"
                         />
                       </div>
@@ -209,7 +209,7 @@ export const Contact: React.FC = () => {
                           required
                           value={formData.email}
                           onChange={handleChange}
-                          className="w-full px-4 py-2.5 text-sm bg-white border border-gray-250 rounded focus:outline-none focus:ring-1 focus:ring-brand-accent text-brand-dark placeholder-gray-400"
+                          className="w-full px-4 py-2.5 text-sm bg-white border border-gray-250 rounded focus:outline-none focus:ring-1 focus:ring-brand-primary text-brand-dark placeholder-gray-400"
                           placeholder="e.g. john@example.com"
                         />
                       </div>
@@ -226,7 +226,7 @@ export const Contact: React.FC = () => {
                           name="phone"
                           value={formData.phone}
                           onChange={handleChange}
-                          className="w-full px-4 py-2.5 text-sm bg-white border border-gray-250 rounded focus:outline-none focus:ring-1 focus:ring-brand-accent text-brand-dark placeholder-gray-400"
+                          className="w-full px-4 py-2.5 text-sm bg-white border border-gray-250 rounded focus:outline-none focus:ring-1 focus:ring-brand-primary text-brand-dark placeholder-gray-400"
                           placeholder="e.g. +256 700 000 000"
                         />
                       </div>
@@ -240,7 +240,7 @@ export const Contact: React.FC = () => {
                           name="service"
                           value={formData.service}
                           onChange={handleChange}
-                          className="w-full px-4 py-2.5 text-sm bg-white border border-gray-250 rounded focus:outline-none focus:ring-1 focus:ring-brand-accent text-brand-dark"
+                          className="w-full px-4 py-2.5 text-sm bg-white border border-gray-250 rounded focus:outline-none focus:ring-1 focus:ring-brand-primary text-brand-dark"
                         >
                           <option value="general">General Enquiry</option>
                           <option value="separately-managed-accounts">Separately Managed Accounts</option>
@@ -264,14 +264,14 @@ export const Contact: React.FC = () => {
                         rows={4}
                         value={formData.message}
                         onChange={handleChange}
-                        className="w-full px-4 py-2.5 text-sm bg-white border border-gray-250 rounded focus:outline-none focus:ring-1 focus:ring-brand-accent text-brand-dark placeholder-gray-400"
+                        className="w-full px-4 py-2.5 text-sm bg-white border border-gray-250 rounded focus:outline-none focus:ring-1 focus:ring-brand-primary text-brand-dark placeholder-gray-400"
                         placeholder="Write your message here..."
                       />
                     </div>
 
                     <button
                       type="submit"
-                      className="w-full bg-brand-accent hover:bg-brand-dark text-white font-bold text-xs uppercase tracking-wider py-4 rounded transition-all duration-150 shadow focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2"
+                      className="w-full bg-brand-primary hover:bg-brand-dark text-white font-bold text-xs uppercase tracking-wider py-4 rounded transition-all duration-150 shadow focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
                     >
                       Send Message
                     </button>

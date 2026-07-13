@@ -180,7 +180,7 @@ export const About: React.FC = () => {
           </div>
           
           {/* Center Quote */}
-          <div className="bg-brand-accent text-white rounded-lg p-8 sm:p-10 flex flex-col justify-center items-center text-center shadow-md relative min-h-[300px] lg:min-h-0">
+          <div className="bg-brand-primary text-white rounded-lg p-8 sm:p-10 flex flex-col justify-center items-center text-center shadow-md relative min-h-[300px] lg:min-h-0">
             <div className="text-5xl font-serif text-teal-350 leading-none absolute top-4 left-6">“</div>
             <p className="text-base sm:text-lg leading-relaxed font-light mb-6 relative z-10">
               We take a structured approach to investment management from understanding our clients' objectives, developing tailored strategies to diversification across asset classes.
@@ -218,7 +218,7 @@ export const About: React.FC = () => {
                 key={index} 
                 className="bg-brand-cardBg text-brand-dark rounded-lg p-8 flex gap-6 items-start shadow-sm"
               >
-                <div className="w-12 h-12 rounded-full bg-brand-accent text-white flex items-center justify-center shrink-0">
+                <div className="w-12 h-12 rounded-full bg-brand-primary text-white flex items-center justify-center shrink-0">
                   <value.icon size={20} />
                 </div>
                 <div className="space-y-2">
@@ -235,7 +235,7 @@ export const About: React.FC = () => {
       <section className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-brand-accent">Our Team</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-brand-primary">Our Team</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-brand-dark">
               Meet the Experts Behind Our Investment Success
             </h2>
@@ -247,8 +247,8 @@ export const About: React.FC = () => {
               onClick={() => { setActiveTab('leadership'); setSelectedMember(null); }}
               className={`py-3 px-6 text-xs uppercase tracking-wider font-extrabold transition-all duration-150 border-b-2 ${
                 activeTab === 'leadership'
-                  ? 'border-brand-accent text-brand-accent'
-                  : 'border-transparent text-brand-grayText hover:text-brand-dark'
+                  ? 'border-brand-primary text-brand-primary'
+                  : 'border-transparent text-brand-gray hover:text-brand-dark'
               }`}
             >
               Leadership
@@ -257,8 +257,8 @@ export const About: React.FC = () => {
               onClick={() => { setActiveTab('board'); setSelectedMember(null); }}
               className={`py-3 px-6 text-xs uppercase tracking-wider font-extrabold transition-all duration-150 border-b-2 ${
                 activeTab === 'board'
-                  ? 'border-brand-accent text-brand-accent'
-                  : 'border-transparent text-brand-grayText hover:text-brand-dark'
+                  ? 'border-brand-primary text-brand-primary'
+                  : 'border-transparent text-brand-gray hover:text-brand-dark'
               }`}
             >
               Board
@@ -274,17 +274,17 @@ export const About: React.FC = () => {
                   key={member.id}
                   onClick={() => handleMemberClick(member)}
                   aria-expanded={isSelected}
-                  className={`flex flex-col items-center bg-white rounded-lg p-6 text-center shadow-sm border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-accent ${
-                    isSelected ? 'border-brand-accent scale-[1.02] bg-teal-50 bg-opacity-30' : 'border-gray-100 hover:border-brand-accent'
+                  className={`flex flex-col items-center bg-white rounded-lg p-6 text-center shadow-sm border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-primary ${
+                    isSelected ? 'border-brand-primary scale-[1.02] bg-teal-50 bg-opacity-30' : 'border-gray-100 hover:border-brand-primary'
                   }`}
                 >
                   <div className={`w-20 h-20 rounded-full flex items-center justify-center mb-4 transition-colors duration-150 ${
-                    isSelected ? 'bg-brand-accent text-white' : 'bg-brand-cardBg text-brand-accent'
+                    isSelected ? 'bg-brand-primary text-white' : 'bg-brand-cardBg text-brand-primary'
                   }`}>
                     <User size={36} />
                   </div>
                   <h3 className="text-sm sm:text-base font-extrabold text-brand-dark leading-tight mb-1">{member.name}</h3>
-                  <p className="text-xs text-brand-grayText font-medium">{member.role}</p>
+                  <p className="text-xs text-brand-gray font-medium">{member.role}</p>
                 </button>
               );
             })}
@@ -296,7 +296,7 @@ export const About: React.FC = () => {
               {/* Close trigger */}
               <button
                 onClick={() => setSelectedMember(null)}
-                className="absolute top-4 right-4 text-brand-grayText hover:text-brand-dark p-2 hover:bg-gray-100 rounded-full transition-all duration-150"
+                className="absolute top-4 right-4 text-brand-gray hover:text-brand-dark p-2 hover:bg-gray-100 rounded-full transition-all duration-150"
                 aria-label="Close details"
               >
                 <X size={20} />
@@ -304,7 +304,7 @@ export const About: React.FC = () => {
               
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-brand-accent">
+                  <span className="text-xs font-bold uppercase tracking-wider text-brand-primary">
                     {selectedMember.role}
                   </span>
                   <h3 className="text-xl sm:text-2xl font-extrabold text-brand-dark">

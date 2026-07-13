@@ -23,7 +23,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   const baseStyles = "rounded-lg p-8 transition-all duration-300 flex flex-col justify-between h-full shadow-sm hover:shadow-md hover:-translate-y-1";
   
   const themeStyles = isActive
-    ? "bg-brand-accent text-white"
+    ? "bg-brand-primary text-white"
     : "bg-brand-cardBg text-brand-dark";
 
   return (
@@ -31,7 +31,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
       <div>
         {/* Icon container */}
         <div className={`w-14 h-14 rounded-full flex items-center justify-center mb-6 ${
-          isActive ? 'bg-teal-950 text-white' : 'bg-brand-accent text-white'
+          isActive ? 'bg-teal-950 text-white' : 'bg-brand-primary text-white'
         }`}>
           {IconComponent && <IconComponent size={24} />}
         </div>
@@ -51,7 +51,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
       <Link 
         to={`/invest/${id}`}
         className={`inline-flex items-center text-xs font-bold uppercase tracking-wider gap-2 group focus:outline-none focus:underline ${
-          isActive ? 'text-white hover:text-brand-green' : 'text-brand-accent hover:text-brand-dark'
+          isActive ? 'text-white hover:text-brand-green' : 'text-brand-primary hover:text-brand-dark'
         }`}
       >
         Learn More

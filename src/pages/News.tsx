@@ -95,8 +95,8 @@ export const News: React.FC = () => {
                 onClick={() => setFilter(cat)}
                 className={`px-5 py-2.5 rounded text-xs font-bold uppercase tracking-wider transition-all duration-150 border ${
                   filter === cat
-                    ? 'bg-brand-accent text-white border-brand-accent shadow-sm'
-                    : 'bg-white text-brand-dark border-gray-200 hover:border-brand-accent hover:text-brand-accent'
+                    ? 'bg-brand-primary text-white border-brand-primary shadow-sm'
+                    : 'bg-white text-brand-dark border-gray-200 hover:border-brand-primary hover:text-brand-primary'
                 }`}
               >
                 {cat}
@@ -109,11 +109,11 @@ export const News: React.FC = () => {
             {filteredArticles.map((article) => (
               <article 
                 key={article.id}
-                className="bg-white border border-gray-150 rounded-lg p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-brand-accent transition-all duration-200"
+                className="bg-white border border-gray-150 rounded-lg p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-brand-primary transition-all duration-200"
               >
                 <div>
                   {/* Category Tag */}
-                  <span className="text-[10px] font-extrabold uppercase tracking-widest text-brand-accent bg-teal-50 px-2.5 py-1 rounded">
+                  <span className="text-[10px] font-extrabold uppercase tracking-widest text-brand-primary bg-teal-50 px-2.5 py-1 rounded">
                     {article.category}
                   </span>
                   
@@ -130,7 +130,7 @@ export const News: React.FC = () => {
 
                 <div>
                   {/* Article Metadata */}
-                  <div className="flex items-center gap-4 text-xs text-brand-grayText font-medium border-t border-gray-100 pt-6 mb-6">
+                  <div className="flex items-center gap-4 text-xs text-brand-gray font-medium border-t border-gray-100 pt-6 mb-6">
                     <span className="flex items-center gap-1.5">
                       <Calendar size={14} />
                       {article.date}
@@ -144,7 +144,7 @@ export const News: React.FC = () => {
                   {/* Read Article Link */}
                   <button 
                     onClick={() => alert(`Mock opening article: ${article.title}`)}
-                    className="text-xs font-bold uppercase tracking-wider text-brand-accent hover:text-brand-dark inline-flex items-center gap-2 group"
+                    className="text-xs font-bold uppercase tracking-wider text-brand-primary hover:text-brand-dark inline-flex items-center gap-2 group"
                   >
                     Read Article
                     <ArrowRight size={14} className="transform translate-x-0 group-hover:translate-x-1 transition-transform duration-150" />
