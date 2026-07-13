@@ -20,7 +20,7 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+        sans: ['BentonSans', 'Inter', 'sans-serif'],
       },
       maxWidth: {
         'xl': '40rem',   // 640px  (default is 36rem)

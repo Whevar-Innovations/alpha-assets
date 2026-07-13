@@ -183,8 +183,9 @@ export const Home: React.FC = () => {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-brand-dark">
-              Expert advisory for maximum returns
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-brand-primary text-center leading-tight">
+              Expert advisory for<br/> 
+              maximum returns
             </h2>
             <p className="text-base text-teal-900 opacity-80 leading-relaxed">
               We don't just manage your assets; we empower you with clarity, control and confidence every step of the way
