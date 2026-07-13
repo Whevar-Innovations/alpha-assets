@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ServiceCard } from '../components/UI/ServiceCard';
 import { Accordion } from '../components/UI/Accordion';
 import { FooterCTA } from '../components/UI/FooterCTA';
+import { Button } from '../components/UI/Button';
 import heroMan from '../assets/images/hero_man.jpg';
 import { Compass, ShieldCheck, Eye, TrendingUp } from 'lucide-react';
 
@@ -15,7 +16,7 @@ export const Home: React.FC = () => {
       title: 'Advisory & Capital Solutions',
       description: 'Strategic guidance for corporates, foundations, institutions, and sophisticated investors on portfolio strategy, asset allocation, manager selection, and investment structuring.',
       iconName: 'Briefcase' as const,
-      isActive: true,
+      isActive: false,
     },
     {
       id: 'direct-lending-fund',
@@ -104,41 +105,45 @@ export const Home: React.FC = () => {
     <div className="flex flex-col min-h-screen">
       
       {/* Hero Section */}
-      <section 
-        className="relative min-h-[600px] md:min-h-[700px] flex items-center bg-brand-dark overflow-hidden"
-        style={{
-          backgroundImage: `linear-gradient(to right, rgba(0, 46, 46, 0.95) 0%, rgba(0, 46, 46, 0.85) 45%, rgba(0, 46, 46, 0.3) 100%), url(${heroMan})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'right center'
-        }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10 w-full">
-          <div className="max-w-2xl text-white space-y-8">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light leading-tight sm:leading-none">
-              Grow your capital with <br />
-              <span className="font-extrabold text-brand-green">smarter investments</span>
-            </h1>
-            <p className="text-base sm:text-lg text-teal-50 leading-relaxed font-light">
-              Watch your money and assets work harder: <br className="hidden sm:inline" />
-              for today, for tomorrow and for generations
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 pt-2">
-              <button
-                onClick={() => navigate('/contact')}
-                className="bg-brand-green hover:bg-opacity-90 text-brand-dark text-xs uppercase tracking-wider font-extrabold px-6 py-4 rounded transition-all duration-150 text-center"
-              >
-                Speak to an Advisor
-              </button>
-              <button
-                onClick={() => navigate('/contact')}
-                className="bg-transparent border border-white hover:bg-white hover:text-brand-dark text-white text-xs uppercase tracking-wider font-bold px-6 py-4 rounded transition-all duration-150 text-center"
-              >
-                Sign Up / Login
-              </button>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 sm:mt-8 w-full">
+        <section 
+          className="relative min-h-[500px] md:min-h-[640px] flex items-center bg-brand-dark overflow-hidden rounded-2xl md:rounded-[32px] shadow-sm"
+          style={{
+            backgroundImage: `linear-gradient(to right, rgba(0, 46, 46, 0.95) 0%, rgba(0, 46, 46, 0.85) 45%, rgba(0, 46, 46, 0.3) 100%), url(${heroMan})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'right center'
+          }}
+        >
+          <div className="px-6 sm:px-12 lg:px-16 py-20 relative z-10 w-full">
+            <div className="max-w-2xl text-white space-y-8">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light leading-tight sm:leading-none">
+                Grow your capital with <br />
+                <span className="font-extrabold text-brand-green">smarter investments</span>
+              </h1>
+              <p className="text-base sm:text-lg text-teal-50 leading-relaxed font-light">
+                Watch your money and assets work harder: <br className="hidden sm:inline" />
+                for today, for tomorrow and for generations
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <Button
+                  variant="primary"
+                  size="lg"
+                  onClick={() => navigate('/contact')}
+                >
+                  Speak to an Advisor
+                </Button>
+                <Button
+                  variant="white"
+                  size="lg"
+                  onClick={() => navigate('/contact')}
+                >
+                  Sign Up/Login
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       {/* Services Section */}
       <section className="py-24 bg-white">
@@ -161,6 +166,11 @@ export const Home: React.FC = () => {
                 description={service.description}
                 iconName={service.iconName}
                 isActive={service.isActive}
+                // Custom style overrides via reusable props
+                activeBgClass={service.isActive ? 'bg-brand-dark' : 'bg-brand-primary'}
+                activeTitleColorClass="text-brand-green"
+                activeIconBgClass="bg-white"
+                activeIconColorClass={service.isActive ? 'text-brand-dark' : 'text-brand-primary'}
               />
             ))}
           </div>

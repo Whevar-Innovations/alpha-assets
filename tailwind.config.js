@@ -8,19 +8,28 @@ export default {
     extend: {
       colors: {
         brand: {
-          dark: 'var(--color-brand-dark, #002e2e)',       // Dark teal/green (primary background, footer)
-          primary: 'var(--color-brand-primary, #005b5c)', // Logo teal, primary headings
-          accent: 'var(--color-brand-primary, #005b5c)',  // Subheadings (legacy)
-          gray: 'var(--color-brand-gray, #818286)',       // Logo gray, body text
-          cardBg: 'var(--color-brand-card-bg, #e1efef)',  // Light minty card background
-          faqBg: 'var(--color-brand-faq-bg, #e8f4e8)',    // Sage/light green accordion background
-          green: 'var(--color-brand-green, #b0de96)',     // Speak to Advisor button green
-          gold: 'var(--color-brand-gold, #c5a880)',       // Accent gold/beige
-          grayText: 'var(--color-brand-gray-text, #96a8a8)', // Navigation default, secondary elements
+          dark: 'var(--color-brand-dark)',       // Dark teal/green (primary background, footer)
+          primary: 'var(--color-brand-primary)', // Logo teal, primary headings
+          accent: 'var(--color-brand-primary)',  // Subheadings (legacy)
+          gray: 'var(--color-brand-gray)',       // Logo gray, body text
+          cardBg: 'var(--color-brand-card-bg)',  // Light minty card background
+          faqBg: 'var(--color-brand-faq-bg)',    // Sage/light green accordion background
+          green: 'var(--color-brand-green)',     // Speak to Advisor button green
+          gold: 'var(--color-brand-gold)',       // Accent gold/beige
+          grayText: 'var(--color-brand-gray-text)', // Navigation default, secondary elements
         }
       },
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+      },
+      maxWidth: {
+        'xl': '40rem',   // 640px  (default is 36rem)
+        '2xl': '48rem',  // 768px  (default is 42rem)
+        '3xl': '56rem',  // 896px  (default is 48rem)
+        '4xl': '64rem',  // 1024px (default is 56rem)
+        '5xl': '72rem',  // 1152px (default is 64rem)
+        '6xl': '80rem',  // 1280px (default is 72rem)
+        '7xl': '90rem',  // 1440px (default is 80rem)
       },
       spacing: {
         '18': '4.5rem',

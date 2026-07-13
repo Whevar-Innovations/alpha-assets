@@ -17,7 +17,7 @@ export const Invest: React.FC = () => {
       title: 'Direct Lending Fund',
       description: 'Secured senior lending strategy for institutional and sophisticated investors seeking attractive risk-adjusted income.',
       iconName: 'Coins' as const,
-      isActive: true, // Let's make this one active on this page for layout visual balance!
+      isActive: false, // Let's make this one active on this page for layout visual balance!
     },
     {
       id: 'private-equity',
@@ -87,6 +87,11 @@ export const Invest: React.FC = () => {
                 description={service.description}
                 iconName={service.iconName}
                 isActive={service.isActive}
+                // Custom style overrides via reusable props
+                activeBgClass={service.isActive ? 'bg-brand-dark' : 'bg-brand-primary'}
+                activeTitleColorClass="text-brand-green"
+                activeIconBgClass="bg-white"
+                activeIconColorClass={service.isActive ? 'text-brand-dark' : 'text-brand-primary'}
               />
             ))}
           </div>

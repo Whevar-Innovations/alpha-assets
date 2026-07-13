@@ -28,16 +28,16 @@ export const Navbar: React.FC = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-1 items-center">
+          <nav className="hidden md:flex md:space-x-4 lg:space-x-8 items-center">
             {navItems.map((item) => (
               <NavLink
                 key={item.path}
                 to={item.path}
                 className={({ isActive }) =>
-                  `px-4 py-2 rounded text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+                  `px-6 py-2.5 text-[13px] uppercase tracking-wider transition-colors duration-200 ${
                     isActive
-                      ? 'bg-brand-primary text-white shadow-sm'
-                      : 'text-brand-dark hover:text-brand-primary hover:bg-gray-50'
+                      ? 'bg-brand-primary text-brand-green font-medium'
+                      : 'text-brand-grayText hover:text-brand-primary font-normal'
                   }`
                 }
               >
@@ -74,10 +74,10 @@ export const Navbar: React.FC = () => {
               to={item.path}
               onClick={() => setIsOpen(false)}
               className={({ isActive }) =>
-                `block px-3 py-2 rounded text-sm font-semibold uppercase tracking-wider ${
+                `block px-4 py-3 text-[13px] uppercase tracking-wider transition-colors duration-200 ${
                   isActive
-                    ? 'bg-brand-primary text-white'
-                    : 'text-brand-dark hover:bg-gray-50 hover:text-brand-primary'
+                    ? 'bg-brand-primary text-brand-green font-medium'
+                    : 'text-brand-grayText hover:text-brand-primary font-normal'
                 }`
               }
             >

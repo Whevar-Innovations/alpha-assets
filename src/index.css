@@ -31,11 +31,11 @@ input[type=number] {
 
 /* Custom CSS gradients and helper styling if needed */
 .gradient-overlay {
-  background: linear-gradient(135deg, rgba(0, 46, 46, 0.85) 0%, rgba(0, 91, 92, 0.6) 100%);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--color-brand-dark) 85%, transparent) 0%, color-mix(in srgb, var(--color-brand-primary) 60%, transparent) 100%);
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #005b5c 0%, #002e2e 100%);
+  background: linear-gradient(135deg, var(--color-brand-primary) 0%, var(--color-brand-dark) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
