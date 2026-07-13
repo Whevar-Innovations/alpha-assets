@@ -26,13 +26,13 @@ export const Accordion: React.FC<AccordionProps> = ({ items }) => {
   };
 
   return (
-    <div className="space-y-4 max-w-4xl mx-auto w-full">
+    <div className="space-y-4 max-w-[850px] mx-auto w-full">
       {items.map((item) => {
         const isOpen = openId === item.id;
         return (
           <div 
             key={item.id}
-            className="bg-white rounded-lg shadow-sm border border-teal-50 overflow-hidden transition-all duration-200"
+            className="bg-white rounded-[12px] border border-[#83ACA2] overflow-hidden transition-all duration-200"
           >
             {/* Header Trigger */}
             <div
@@ -43,16 +43,16 @@ export const Accordion: React.FC<AccordionProps> = ({ items }) => {
               tabIndex={0}
               onClick={() => toggleItem(item.id)}
               onKeyDown={(e) => handleKeyDown(e, item.id)}
-              className="flex justify-between items-center p-6 cursor-pointer hover:bg-gray-50 transition-colors duration-150 focus:outline-none focus:bg-gray-50 focus:ring-2 focus:ring-inset focus:ring-brand-primary select-none"
+              className="flex justify-between items-center px-6 py-5 cursor-pointer hover:bg-gray-50 transition-colors duration-150 focus:outline-none focus:bg-gray-50 select-none"
             >
-              <h3 className="text-sm sm:text-base font-bold text-brand-dark pr-4">
+              <h3 className="text-[15px] sm:text-base font-bold text-brand-dark pr-4">
                 {item.question}
               </h3>
-              <span className="text-brand-primary shrink-0">
+              <span className="text-brand-dark shrink-0">
                 {isOpen ? (
-                  <Minus size={18} className="stroke-[3]" />
+                  <Minus size={20} className="stroke-[1.5]" />
                 ) : (
-                  <Plus size={18} className="stroke-[3]" />
+                  <Plus size={20} className="stroke-[1.5]" />
                 )}
               </span>
             </div>
@@ -62,11 +62,11 @@ export const Accordion: React.FC<AccordionProps> = ({ items }) => {
               id={`accordion-panel-${item.id}`}
               aria-labelledby={`accordion-header-${item.id}`}
               role="region"
-              className={`transition-all duration-350 ease-in-out ${
-                isOpen ? 'max-h-[500px] border-t border-gray-100' : 'max-h-0 pointer-events-none'
+              className={`transition-all duration-300 ease-in-out ${
+                isOpen ? 'max-h-[500px]' : 'max-h-0 pointer-events-none'
               } overflow-hidden`}
             >
-              <div className="p-6 text-sm leading-relaxed text-teal-900 opacity-90">
+              <div className="px-6 pb-6 text-sm sm:text-[15px] leading-relaxed text-brand-grayText font-light">
                 {item.answer}
               </div>
             </div>

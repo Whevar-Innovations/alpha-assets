@@ -4,7 +4,11 @@ import { ServiceCard } from '../components/UI/ServiceCard';
 import { Accordion } from '../components/UI/Accordion';
 import { FooterCTA } from '../components/UI/FooterCTA';
 import { Button } from '../components/UI/Button';
+import { SectionHeader } from '../components/UI/SectionHeader';
+import { FeatureCard } from '../components/UI/FeatureCard';
 import heroMan from '../assets/images/hero_man.jpg';
+import kcbLogo from '../assets/images/clients/KCB_Bank_Kenya_Limited_logo.png';
+import absaLogo from '../assets/images/clients/absa_logo.png';
 import { Compass, ShieldCheck, Eye, TrendingUp } from 'lucide-react';
 
 export const Home: React.FC = () => {
@@ -99,6 +103,36 @@ export const Home: React.FC = () => {
       question: 'How can I get started?',
       answer: 'You can get started by clicking the "Speak to an Advisor" button to set up a consultation with one of our investment managers. We will review your objectives and guide you through the registration process.',
     },
+    {
+      id: 'faq-5',
+      question: 'Who can invest with Alpha Asset Managers?',
+      answer: 'Our investment solutions are designed to accommodate a diverse range of clients, from local pension funds requiring liability-matched portfolios to private clients seeking long-term capital appreciation.',
+    },
+    {
+      id: 'faq-6',
+      question: 'How do you manage investment risk?',
+      answer: 'We deploy a robust proprietary risk assessment framework that continuously monitors market volatility, liquidity risks, and macroeconomic indicators to adjust portfolio allocations defensively when necessary.',
+    },
+    {
+      id: 'faq-7',
+      question: 'How can I get started?',
+      answer: 'Simply reach out to our team via the contact form or give us a call. Our advisory team will schedule an initial meeting to understand your financial goals and propose a tailored investment strategy.',
+    },
+    {
+      id: 'faq-8',
+      question: 'Who can invest with Alpha Asset Managers?',
+      answer: 'Both domestic and international investors can participate in our funds. We ensure compliance with all relevant regulatory frameworks to provide secure and transparent investment vehicles for our clients.',
+    },
+    {
+      id: 'faq-9',
+      question: 'How do you manage investment risk?',
+      answer: 'Beyond standard diversification, we utilize active monitoring and stress testing of our portfolios against various economic scenarios to ensure resilience and protect our clients\' capital during downturns.',
+    },
+    {
+      id: 'faq-10',
+      question: 'How can I get started?',
+      answer: 'After an initial consultation, you will complete our straightforward onboarding process, which includes standard KYC documentation. Once approved, your account will be ready to fund and deploy.',
+    },
   ];
 
   return (
@@ -178,50 +212,47 @@ export const Home: React.FC = () => {
       </section>
 
       {/* Delivering Long-Term Value (How We Work) */}
-      <section className="py-24 bg-brand-dark text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-20 space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-brand-gold">How We Work</span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold leading-tight">
-              Delivering Long-Term Value Through Investment
-            </h2>
-          </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
+        <section className="py-20 sm:py-24 bg-gradient-to-b from-brand-dark to-brand-primary rounded-3xl md:rounded-[40px] px-4 sm:px-8">
+          <SectionHeader 
+            subtitle="How We Work" 
+            title={<>Delivering Long-Term <br className="hidden sm:inline" />Value Through Investment</>} 
+            theme="dark"
+            className="mb-16 sm:mb-20"
+          />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
             {howWeWork.map((item, index) => (
-              <div 
-                key={index} 
-                className="bg-teal-950 bg-opacity-40 border border-teal-900 rounded-lg p-8 flex gap-6 items-start shadow-sm hover:border-brand-primary transition-colors duration-200"
-              >
-                <div className="w-12 h-12 rounded-full bg-brand-primary flex items-center justify-center shrink-0 text-white">
-                  <item.icon size={20} />
-                </div>
-                <div className="space-y-3">
-                  <h3 className="text-lg font-bold text-white">{item.title}</h3>
-                  <p className="text-sm leading-relaxed text-teal-50 opacity-80">{item.description}</p>
-                </div>
-              </div>
+              <FeatureCard 
+                key={index}
+                title={item.title}
+                description={item.description}
+                Icon={item.icon}
+              />
             ))}
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       {/* Trust & Partners */}
-      <section className="py-16 bg-gray-50 border-t border-b border-gray-100">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center gap-8">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-brand-gray text-center">
-              Building Strong Relationships With Every Client We Serve
+          <div className="flex flex-col items-center">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-brand-primary text-center leading-tight">
+              Building Strong Relationships <br />
+              With Every Client We Serve
             </h2>
-            <div className="flex flex-wrap justify-center items-center gap-12 sm:gap-20">
-              {/* KCB Logo Badge */}
-              <div className="bg-[#43A047] text-white px-8 py-3.5 rounded font-extrabold text-2xl tracking-tight flex items-center justify-center shadow-sm select-none">
-                KCB
-              </div>
-              {/* ABSA Logo Badge */}
-              <div className="bg-[#FF0000] text-white h-16 w-16 rounded-full font-bold text-lg flex items-center justify-center shadow-sm select-none">
-                absa
-              </div>
+            <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16 mt-12">
+              <img 
+                src={kcbLogo} 
+                alt="KCB Bank Kenya Limited" 
+                className="h-12 md:h-16 w-auto object-contain" 
+              />
+              <img 
+                src={absaLogo} 
+                alt="Absa Bank" 
+                className="h-12 md:h-16 w-auto object-contain" 
+              />
             </div>
           </div>
         </div>
@@ -230,11 +261,11 @@ export const Home: React.FC = () => {
       {/* FAQ Section */}
       <section className="py-24 bg-brand-faqBg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-brand-dark">
+          <div className="text-center max-w-3xl mx-auto mb-14 space-y-4">
+            <h2 className="text-[32px] sm:text-[44px] font-light text-[#0D382D]">
               Frequently Asked Questions
             </h2>
-            <p className="text-base text-teal-900 opacity-85">
+            <p className="text-[15px] sm:text-base text-[#758E87] font-light">
               Got questions? Here are some quick answers to help you get the most out of Alpha Asset Managers.
             </p>
           </div>
