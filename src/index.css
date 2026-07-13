@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-white text-brand-dark overflow-x-hidden antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight font-semibold;
+  }
+}
+
+/* Custom transitions and scroll behaviors */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Chrome, Safari, Edge, Opera: Hide number input arrows */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox: Hide number input arrows */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Custom CSS gradients and helper styling if needed */
+.gradient-overlay {
+  background: linear-gradient(135deg, rgba(0, 46, 46, 0.85) 0%, rgba(0, 91, 92, 0.6) 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #005b5c 0%, #002e2e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+/* Brand Colors */
+:root {
+  --color-brand-dark: #002e2e;
+  --color-brand-primary: #005b5c;
+  --color-brand-gray: #818286;
+  --color-brand-card-bg: #e1efef;
+  --color-brand-faq-bg: #e8f4e8;
+  --color-brand-green: #b0de96;
+  --color-brand-gold: #c5a880;
+  --color-brand-gray-text: #96a8a8;
+}
