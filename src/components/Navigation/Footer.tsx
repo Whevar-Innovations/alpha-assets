@@ -119,10 +119,10 @@ export const Footer: React.FC = () => {
               <div className="space-y-4">
                 <h3 className="text-base font-semibold text-white">Resources</h3>
                 <ul className="space-y-2.5 text-sm text-brand-gray-text font-light">
-                  <li><Link to="/news" className="hover:text-white transition-colors duration-150">Finance knowledge</Link></li>
-                  <li><Link to="/news" className="hover:text-white transition-colors duration-150">Market research</Link></li>
-                  <li><Link to="/news" className="hover:text-white transition-colors duration-150">Steps for 2026</Link></li>
-                  <li><Link to="/news" className="hover:text-white transition-colors duration-150">Risk advisory</Link></li>
+                  <li><span className="opacity-60 cursor-not-allowed" title="Coming Soon">Finance knowledge</span></li>
+                  <li><span className="opacity-60 cursor-not-allowed" title="Coming Soon">Market research</span></li>
+                  <li><span className="opacity-60 cursor-not-allowed" title="Coming Soon">Steps for 2026</span></li>
+                  <li><span className="opacity-60 cursor-not-allowed" title="Coming Soon">Risk advisory</span></li>
                 </ul>
               </div>
 
