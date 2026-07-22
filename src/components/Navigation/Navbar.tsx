@@ -10,8 +10,8 @@ export const Navbar: React.FC = () => {
     { label: 'Home', path: '/' },
     { label: 'About', path: '/about' },
     { label: 'Invest', path: '/invest' },
-    { label: 'News & Insights', path: '/news' },
-    { label: 'Contact', path: '/contact' },
+    { label: 'News & Insights', path: '/news', disabled: true },
+    { label: 'Contact', path: '/contact', disabled: true },
   ];
 
   return (
@@ -30,19 +30,29 @@ export const Navbar: React.FC = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex md:space-x-4 lg:space-x-8 items-center">
             {navItems.map((item) => (
-              <NavLink
-                key={item.path}
-                to={item.path}
-                className={({ isActive }) =>
-                  `px-6 py-2.5 text-[13px] uppercase tracking-wider transition-colors duration-200 ${
-                    isActive
-                      ? 'bg-brand-primary text-brand-green font-medium'
-                      : 'text-brand-grayText hover:text-brand-primary font-normal'
-                  }`
-                }
-              >
-                {item.label}
-              </NavLink>
+              item.disabled ? (
+                <span
+                  key={item.path}
+                  className="px-6 py-2.5 text-[13px] uppercase tracking-wider text-brand-grayText opacity-60 cursor-not-allowed"
+                  title="Coming Soon"
+                >
+                  {item.label}
+                </span>
+              ) : (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `px-6 py-2.5 text-[13px] uppercase tracking-wider transition-colors duration-200 ${
+                      isActive
+                        ? 'bg-brand-primary text-brand-green font-medium'
+                        : 'text-brand-grayText hover:text-brand-primary font-normal'
+                    }`
+                  }
+                >
+                  {item.label}
+                </NavLink>
+              )
             ))}
           </nav>
 
@@ -69,20 +79,30 @@ export const Navbar: React.FC = () => {
       >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-100 shadow-lg">
           {navItems.map((item) => (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              onClick={() => setIsOpen(false)}
-              className={({ isActive }) =>
-                `block px-4 py-3 text-[13px] uppercase tracking-wider transition-colors duration-200 ${
-                  isActive
-                    ? 'bg-brand-primary text-brand-green font-medium'
-                    : 'text-brand-grayText hover:text-brand-primary font-normal'
-                }`
-              }
-            >
-              {item.label}
-            </NavLink>
+            item.disabled ? (
+              <span
+                key={item.path}
+                className="block px-4 py-3 text-[13px] uppercase tracking-wider text-brand-grayText opacity-60 cursor-not-allowed"
+                title="Coming Soon"
+              >
+                {item.label}
+              </span>
+            ) : (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                onClick={() => setIsOpen(false)}
+                className={({ isActive }) =>
+                  `block px-4 py-3 text-[13px] uppercase tracking-wider transition-colors duration-200 ${
+                    isActive
+                      ? 'bg-brand-primary text-brand-green font-medium'
+                      : 'text-brand-grayText hover:text-brand-primary font-normal'
+                  }`
+                }
+              >
+                {item.label}
+              </NavLink>
+            )
           ))}
         </div>
       </div>

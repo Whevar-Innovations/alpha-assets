@@ -16,10 +16,17 @@ export const Home: React.FC = () => {
 
   const services = [
     {
+      id: 'separately-managed-accounts',
+      title: 'Separately Managed Accounts',
+      description: 'Bespoke discretionary portfolios in UGX or USD, tailored to your objectives, liquidity profile, risk tolerance, and reporting requirements.',
+      iconName: 'Sliders' as const,
+      isActive: false,
+    },
+    {
       id: 'advisory-capital-solutions',
       title: 'Advisory & Capital Solutions',
       description: 'Strategic guidance for corporates, foundations, institutions, and sophisticated investors on portfolio strategy, asset allocation, manager selection, and investment structuring.',
-      iconName: 'Briefcase' as const,
+      iconName: 'Users' as const,
       isActive: false,
     },
     {
@@ -34,13 +41,6 @@ export const Home: React.FC = () => {
       title: 'Private Equity',
       description: 'Long-term growth capital through disciplined investment in promising businesses with active ownership approach.',
       iconName: 'Building2' as const,
-      isActive: false,
-    },
-    {
-      id: 'separately-managed-accounts',
-      title: 'Separately Managed Accounts',
-      description: 'Bespoke discretionary portfolios in UGX or USD, tailored to your objectives, liquidity profile, risk tolerance, and reporting requirements.',
-      iconName: 'Sliders' as const,
       isActive: false,
     },
     {
@@ -204,6 +204,12 @@ export const Home: React.FC = () => {
                 // Custom style overrides via reusable props
                 activeBgClass={service.isActive ? 'bg-brand-dark' : 'bg-brand-primary'}
                 activeTitleColorClass="text-brand-green"
+                titleColorClass="text-brand-primary"
+                textColorClass="text-gray-500"
+                activeTextColorClass="text-white/90"
+                linkColorClass="text-brand-primary"
+                activeLinkColorClass="text-brand-green"
+                iconBgClass="bg-brand-primary"
                 activeIconBgClass="bg-white"
                 activeIconColorClass={service.isActive ? 'text-brand-dark' : 'text-brand-primary'}
               />

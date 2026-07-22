@@ -1,9 +1,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FooterCTA } from '../components/UI/FooterCTA';
-import bannerBg from '../assets/images/banner_bg.jpg';
 import investTablet from '../assets/images/invest_tablet.jpg';
-import { FileText, ArrowRight, Download, Eye } from 'lucide-react';
 
 interface ServiceContent {
   id: string;
@@ -148,23 +146,19 @@ export const InvestDetail: React.FC = () => {
     <div className="flex flex-col min-h-screen">
       
       {/* Hero Banner */}
-      <section 
-        className="relative h-48 sm:h-56 flex items-center bg-brand-dark"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0, 46, 46, 0.85), rgba(0, 46, 46, 0.85)), url(${bannerBg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
-        }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full">
-          <span className="text-xs font-bold uppercase tracking-widest text-brand-green mb-2 block">
-            {data.category}
-          </span>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-wide">
-            {data.title}
-          </h1>
-        </div>
-      </section>
+      <div className="pt-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <section className="relative h-52 sm:h-64 md:h-72 flex items-center justify-center overflow-hidden rounded-2xl md:rounded-[28px] bg-gradient-to-br from-[#005b5c] to-[#002e2e]"
+        >
+          <div className="text-center w-full px-4">
+            <span className="text-xs font-bold uppercase tracking-widest text-brand-green mb-4 block">
+              {data.category}
+            </span>
+            <h1 className="text-4xl sm:text-5xl font-light text-white tracking-wide">
+              {data.title}
+            </h1>
+          </div>
+        </section>
+      </div>
 
       {/* Main Two-Column Content */}
       <section className="py-20 bg-white">
@@ -173,31 +167,27 @@ export const InvestDetail: React.FC = () => {
             
             {/* Left Sidebar Navigation */}
             <aside className="lg:col-span-4 space-y-6">
-              <div className="bg-white border border-gray-150 rounded-lg p-6 sm:p-8 shadow-sm">
-                <h3 className="text-lg font-extrabold text-brand-dark mb-6 border-b border-gray-100 pb-4">
+              <div className="bg-white border border-brand-primary rounded-[1.5rem] p-6 sm:p-8">
+                <h3 className="text-3xl font-light text-brand-primary mb-6">
                   Our Services
                 </h3>
-                <nav className="flex flex-col space-y-4">
+                <nav className="flex flex-col">
                   {services.map((item) => {
                     const isActive = currentId === item.id;
                     return (
-                      <Link
-                        key={item.id}
-                        to={`/invest/${item.id}`}
-                        className={`text-sm font-semibold flex items-center justify-between group transition-all duration-150 py-1 ${
-                          isActive 
-                            ? 'text-brand-primary border-b-2 border-brand-primary w-fit font-extrabold' 
-                            : 'text-brand-dark hover:text-brand-primary'
-                        }`}
-                      >
-                        <span className="flex items-center gap-2">
-                          <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-brand-primary' : 'bg-transparent group-hover:bg-brand-primary'}`} />
-                          {item.title}
-                        </span>
-                        {!isActive && (
-                          <ArrowRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity duration-150 text-brand-primary" />
-                        )}
-                      </Link>
+                      <div key={item.id} className="border-b border-brand-dark">
+                        <Link
+                          to={`/invest/${item.id}`}
+                          className="group transition-all duration-150 py-3 flex items-center gap-2 w-full"
+                        >
+                          <span className={`text-base ${isActive ? 'text-brand-primary font-bold' : 'text-gray-500 font-light group-hover:text-brand-primary'}`}>
+                            •
+                          </span>
+                          <span className={`text-base ${isActive ? 'text-brand-primary font-bold' : 'text-gray-500 font-light group-hover:text-brand-primary'}`}>
+                            {item.title}
+                          </span>
+                        </Link>
+                      </div>
                     );
                   })}
                 </nav>
@@ -208,7 +198,7 @@ export const InvestDetail: React.FC = () => {
             <article className="lg:col-span-8 space-y-10">
               
               {/* Detailed image */}
-              <div className="rounded-lg overflow-hidden h-[300px] sm:h-[400px] shadow-sm">
+              <div className="rounded-[1.5rem] overflow-hidden h-[300px] sm:h-[400px] shadow-sm">
                 <img 
                   src={investTablet} 
                   alt="Hands holding tablet displaying finance chart" 
@@ -217,58 +207,45 @@ export const InvestDetail: React.FC = () => {
               </div>
 
               {/* Service copy */}
-              <div className="space-y-6">
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-brand-dark leading-tight">
-                  {data.heading}
-                </h2>
-                <div className="text-teal-900 opacity-90 text-sm sm:text-base leading-relaxed space-y-4 font-light">
-                  <p>{data.description1}</p>
-                  <p>{data.description2}</p>
-                </div>
+              <div className="text-gray-500 text-sm sm:text-base leading-relaxed space-y-6 font-light">
+                <p>{data.description1}</p>
+                <p>{data.description2}</p>
               </div>
 
               {/* Bullets List */}
-              <div className="space-y-6 bg-gray-50 rounded-lg p-6 sm:p-8 border border-gray-100">
-                <h3 className="text-lg font-extrabold text-brand-dark">
+              <div className="space-y-4 pt-2">
+                <h3 className="text-2xl font-bold text-brand-primary">
                   {data.bulletsTitle}
                 </h3>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <ul className="flex flex-col space-y-3">
                   {data.bullets.map((bullet, index) => (
-                    <li key={index} className="text-sm font-medium text-brand-dark flex items-start gap-3">
-                      <span className="w-5 h-5 rounded-full bg-brand-cardBg flex items-center justify-center shrink-0 text-brand-primary font-bold text-xs select-none">
-                        ✓
+                    <li key={index} className="text-sm sm:text-base font-light text-gray-500 flex items-start gap-2">
+                      <span className="text-brand-primary font-bold text-lg leading-none mt-[1px]">
+                        ›
                       </span>
-                      {bullet}
+                      <span>{bullet}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
               {/* Factsheet Download Section */}
-              <div className="border border-brand-cardBg bg-brand-cardBg bg-opacity-20 rounded-lg p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="flex items-center gap-4 text-left">
-                  <div className="p-3 bg-brand-primary text-white rounded">
-                    <FileText size={24} />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-brand-dark leading-snug">{data.factsheetName}</h4>
-                    <p className="text-xs text-brand-gray font-medium">Factsheet Document (PDF)</p>
-                  </div>
+              <div className="bg-[#e8f4e8] border border-brand-primary rounded-md px-5 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
+                <div className="text-left">
+                  <h4 className="text-sm font-bold text-gray-800">{data.factsheetName}</h4>
                 </div>
                 
-                <div className="flex gap-3">
+                <div className="flex items-center gap-6">
                   <button
                     onClick={() => handleView(data.factsheetName)}
-                    className="flex items-center gap-1.5 px-4 py-2 border border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white rounded text-xs font-bold uppercase tracking-wider transition-all duration-150"
+                    className="text-brand-primary hover:text-brand-dark text-sm font-bold transition-colors"
                   >
-                    <Eye size={14} />
                     View
                   </button>
                   <button
                     onClick={() => handleDownload(data.factsheetName)}
-                    className="flex items-center gap-1.5 px-4 py-2 bg-brand-primary hover:bg-brand-dark text-white rounded text-xs font-bold uppercase tracking-wider transition-all duration-150 shadow-sm"
+                    className="text-gray-500 hover:text-brand-dark text-sm font-light transition-colors"
                   >
-                    <Download size={14} />
                     Download
                   </button>
                 </div>

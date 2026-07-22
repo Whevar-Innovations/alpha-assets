@@ -105,7 +105,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
         </h3>
 
         {/* Description */}
-        <p className={`text-[15px] leading-relaxed mb-10 transition-colors duration-300 ${currentTextColor}`}>
+        <p className={`text-[15px] leading-relaxed font-normal mb-10 transition-colors duration-300 ${currentTextColor}`}>
           {description}
         </p>
       </div>

@@ -11,11 +11,11 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-brand-dark text-white pt-16 pb-12">
+    <footer className="bg-gradient-to-br from-[#002e2e] to-[#005b5c] text-white pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main Grid: Left Column (Logo, Newsletter, Copyright) & Right Column (Address, Links) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24">
           
           {/* Left Column */}
           <div className="flex flex-col justify-between space-y-12">
@@ -26,7 +26,7 @@ export const Footer: React.FC = () => {
                 <img 
                   src={logoWhite} 
                   alt="Alpha Asset Managers White Logo" 
-                  className="h-16 md:h-20 w-auto object-contain"
+                  className="h-16 lg:h-20 w-auto object-contain"
                 />
               </Link>
             </div>
@@ -57,7 +57,7 @@ export const Footer: React.FC = () => {
                   href="https://facebook.com" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="w-9 h-9 flex items-center justify-center bg-[#003d3d] rounded-full hover:bg-brand-green hover:text-brand-dark text-white transition-all duration-150"
+                  className="w-9 h-9 flex items-center justify-center bg-brand-primary rounded-full hover:bg-brand-green hover:text-brand-dark text-white transition-all duration-150"
                   aria-label="Facebook"
                 >
                   <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
@@ -68,7 +68,7 @@ export const Footer: React.FC = () => {
                   href="https://twitter.com" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="w-9 h-9 flex items-center justify-center bg-[#003d3d] rounded-full hover:bg-brand-green hover:text-brand-dark text-white transition-all duration-150"
+                  className="w-9 h-9 flex items-center justify-center bg-brand-primary rounded-full hover:bg-brand-green hover:text-brand-dark text-white transition-all duration-150"
                   aria-label="X (Twitter)"
                 >
                   <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
@@ -79,7 +79,7 @@ export const Footer: React.FC = () => {
                   href="https://linkedin.com" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="w-9 h-9 flex items-center justify-center bg-[#003d3d] rounded-full hover:bg-brand-green hover:text-brand-dark text-white transition-all duration-150"
+                  className="w-9 h-9 flex items-center justify-center bg-brand-primary rounded-full hover:bg-brand-green hover:text-brand-dark text-white transition-all duration-150"
                   aria-label="LinkedIn"
                 >
                   <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
@@ -90,7 +90,7 @@ export const Footer: React.FC = () => {
             </div>
 
             {/* Regulatory Info & Copyright (Desktop - aligned left under newsletter) */}
-            <div className="pt-4 text-xs text-brand-gray-text hidden lg:block font-light">
+            <div className="pt-4 text-xs text-brand-gray-text hidden md:block font-light">
               <p>
                 Alpha Asset Managers is regulated by the Capital Markets Authority | &copy; 2026 Alpha Asset Managers, All Rights Reserved
               </p>
@@ -102,13 +102,12 @@ export const Footer: React.FC = () => {
           <div className="flex flex-col justify-between space-y-12 lg:space-y-16">
             
             {/* Contact Info */}
-            <div className="text-white text-sm space-y-3 font-light leading-relaxed">
-              <p>Regency Plaza, 30 Lugogo Bypass<br />Kampala, Uganda</p>
-              <p className="hover:text-brand-green transition-colors duration-150">
-                <a href="tel:+256200911875">+256 200 911875</a>
-              </p>
-              <p className="hover:text-brand-green transition-colors duration-150">
-                <a href="mailto:invest@alphaeastafrica.com">invest@alphaeastafrica.com</a>
+            <div className="text-brand-gray-text text-sm font-light leading-loose">
+              <p>
+                Regency Plaza, 30 Lugogo Bypass<br />
+                Kampala, Uganda<br /><br />
+                <a href="tel:+256200911875" className="hover:text-white transition-colors block">+256 200 911875</a>
+                <a href="mailto:invest@alphaeastafrica.com" className="hover:text-white transition-colors block">invest@alphaeastafrica.com</a>
               </p>
             </div>
 
@@ -119,10 +118,10 @@ export const Footer: React.FC = () => {
               <div className="space-y-4">
                 <h3 className="text-base font-semibold text-white">Resources</h3>
                 <ul className="space-y-2.5 text-sm text-brand-gray-text font-light">
-                  <li><Link to="/news" className="hover:text-white transition-colors duration-150">Finance knowledge</Link></li>
-                  <li><Link to="/news" className="hover:text-white transition-colors duration-150">Market research</Link></li>
-                  <li><Link to="/news" className="hover:text-white transition-colors duration-150">Steps for 2026</Link></li>
-                  <li><Link to="/news" className="hover:text-white transition-colors duration-150">Risk advisory</Link></li>
+                  <li><span className="opacity-60 cursor-not-allowed" title="Coming Soon">Finance knowledge</span></li>
+                  <li><span className="opacity-60 cursor-not-allowed" title="Coming Soon">Market research</span></li>
+                  <li><span className="opacity-60 cursor-not-allowed" title="Coming Soon">Steps for 2026</span></li>
+                  <li><span className="opacity-60 cursor-not-allowed" title="Coming Soon">Risk advisory</span></li>
                 </ul>
               </div>
 
@@ -140,7 +139,7 @@ export const Footer: React.FC = () => {
             </div>
 
             {/* Regulatory Info & Copyright (Mobile only - placed at the absolute bottom) */}
-            <div className="pt-4 text-xs text-brand-gray-text text-center lg:hidden font-light">
+            <div className="pt-4 text-xs text-brand-gray-text text-left md:hidden font-light">
               <p>
                 Alpha Asset Managers is regulated by the Capital Markets Authority | &copy; 2026 Alpha Asset Managers, All Rights Reserved
               </p>
