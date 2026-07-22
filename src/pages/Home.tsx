@@ -204,8 +204,8 @@ export const Home: React.FC = () => {
                 // Custom style overrides via reusable props
                 activeBgClass={service.isActive ? 'bg-brand-dark' : 'bg-brand-primary'}
                 activeTitleColorClass="text-brand-green"
-                titleColorClass="text-brand-dark"
-                textColorClass="text-brand-primary/80"
+                titleColorClass="text-brand-primary"
+                textColorClass="text-gray-500"
                 activeTextColorClass="text-white/90"
                 linkColorClass="text-brand-primary"
                 activeLinkColorClass="text-brand-green"
