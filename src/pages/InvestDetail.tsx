@@ -1,9 +1,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FooterCTA } from '../components/UI/FooterCTA';
-import bannerBg from '../assets/images/banner_bg.jpg';
 import investTablet from '../assets/images/invest_tablet.jpg';
-import { FileText, ArrowRight, Download, Eye } from 'lucide-react';
 
 interface ServiceContent {
   id: string;
