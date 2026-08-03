@@ -7,8 +7,8 @@ import { Button } from '../components/UI/Button';
 import { SectionHeader } from '../components/UI/SectionHeader';
 import { FeatureCard } from '../components/UI/FeatureCard';
 import heroMan from '../assets/images/hero_man.jpg';
-import kcbLogo from '../assets/images/clients/KCB_Bank_Kenya_Limited_logo.png';
-import absaLogo from '../assets/images/clients/absa_logo.png';
+// import kcbLogo from '../assets/images/clients/KCB_Bank_Kenya_Limited_logo.png';
+// import absaLogo from '../assets/images/clients/absa_logo.png';
 import { Compass, ShieldCheck, Eye, TrendingUp } from 'lucide-react';
 
 export const Home: React.FC = () => {
@@ -166,13 +166,7 @@ export const Home: React.FC = () => {
                 >
                   Speak to an Advisor
                 </Button>
-                <Button
-                  variant="white"
-                  size="lg"
-                  onClick={() => navigate('/contact')}
-                >
-                  Sign Up/Login
-                </Button>
+
               </div>
             </div>
           </div>
@@ -241,7 +235,7 @@ export const Home: React.FC = () => {
         </section>
       </div>
 
-      {/* Trust & Partners */}
+      {/* TODO: Re-enable via Sanity CMS section visibility toggle
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center">
@@ -264,7 +258,9 @@ export const Home: React.FC = () => {
           </div>
         </div>
       </section>
+      */}
 
+      
       {/* FAQ Section */}
       <section className="py-24 bg-brand-faqBg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

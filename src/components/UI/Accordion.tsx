@@ -66,7 +66,7 @@ export const Accordion: React.FC<AccordionProps> = ({ items }) => {
                 isOpen ? 'max-h-[500px]' : 'max-h-0 pointer-events-none'
               } overflow-hidden`}
             >
-              <div className="px-6 pb-6 text-sm sm:text-[15px] leading-relaxed text-brand-grayText font-light">
+              <div className="px-6 pb-6 text-sm sm:text-[15px] leading-relaxed text-[#4a6360] font-normal">
                 {item.answer}
               </div>
             </div>

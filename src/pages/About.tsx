@@ -207,6 +207,11 @@ export const About: React.FC = () => {
               philosophy focuses on long-term value creation, guided by rigorous research, risk awareness,
               and strategic asset allocation.
             </p>
+            <p>
+              Alpha Asset Managers is a fully licensed fund manager, regulated by Uganda's 
+              <span className="font-bold pl-2">Capital Markets Authority (CMA)</span>  ensuring your investments are managed under
+              the highest standards of governance, transparency, and investor protection.
+            </p>
           </div>
         </div>
       </section>

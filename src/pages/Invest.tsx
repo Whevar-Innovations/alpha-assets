@@ -58,9 +58,17 @@ export const Invest: React.FC = () => {
             backgroundPositionY: 'bottom',
           }}
         >
-          <h1 className="text-4xl sm:text-5xl font-light text-white tracking-tight">
-            Invest
-          </h1>
+          <div className="flex flex-col items-center gap-6">
+            <h1 className="text-4xl sm:text-5xl font-light text-white tracking-tight">
+              Invest
+            </h1>
+            <a
+              href="#"
+              className="inline-flex items-center gap-2 bg-white text-brand-dark font-bold text-xs uppercase tracking-wider px-8 py-3.5 rounded-full transition-all duration-150 shadow-sm hover:bg-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green focus:ring-offset-2"
+            >
+              Sign Up / Login
+            </a>
+          </div>
         </section>
       </div>
 

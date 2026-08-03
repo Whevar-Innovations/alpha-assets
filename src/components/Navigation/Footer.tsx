@@ -90,9 +90,9 @@ export const Footer: React.FC = () => {
             </div>
 
             {/* Regulatory Info & Copyright (Desktop - aligned left under newsletter) */}
-            <div className="pt-4 text-xs text-brand-gray-text hidden md:block font-light">
+            <div className="pt-4 text-sm text-teal-200 hidden md:block font-normal">
               <p>
-                Alpha Asset Managers is regulated by the Capital Markets Authority | &copy; 2026 Alpha Asset Managers, All Rights Reserved
+                <span className="font-semibold">Licensed & Regulated by the Capital Markets Authority</span> | &copy; 2026 Alpha Asset Managers, All Rights Reserved
               </p>
             </div>
 
@@ -139,9 +139,9 @@ export const Footer: React.FC = () => {
             </div>
 
             {/* Regulatory Info & Copyright (Mobile only - placed at the absolute bottom) */}
-            <div className="pt-4 text-xs text-brand-gray-text text-left md:hidden font-light">
+            <div className="pt-4 text-sm text-teal-200 text-left md:hidden font-normal">
               <p>
-                Alpha Asset Managers is regulated by the Capital Markets Authority | &copy; 2026 Alpha Asset Managers, All Rights Reserved
+                <span className="font-semibold">Licensed & Regulated by the Capital Markets Authority</span> | &copy; 2026 Alpha Asset Managers, All Rights Reserved
               </p>
             </div>
 
