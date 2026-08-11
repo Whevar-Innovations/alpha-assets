@@ -1,24 +1,66 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Button } from './Button';
 
-export const FooterCTA: React.FC = () => {
+interface FooterCTAProps {
+  text?: string;
+  boldText?: string;
+  buttonConfig?: {
+    label: string;
+    linkType: string;
+    url: string;
+    variant: string;
+    isVisible: boolean;
+  };
+}
+
+export const FooterCTA: React.FC<FooterCTAProps> = ({ 
+  text = 'Ready to optimize your portfolio?',
+  boldText = 'Start investing today',
+  buttonConfig
+}) => {
   const navigate = useNavigate();
 
+  const handleCTA = () => {
+    if (buttonConfig) {
+      if (buttonConfig.linkType === 'external') window.open(buttonConfig.url, '_blank');
+      else if (buttonConfig.linkType === 'internal') void navigate(buttonConfig.url);
+    } else {
+      void navigate('/invest');
+    }
+  };
+
+  const showButton = buttonConfig ? buttonConfig.isVisible : true;
+  const buttonLabel = buttonConfig ? buttonConfig.label : 'Open an Account';
+  const buttonVariant = buttonConfig ? (buttonConfig.variant as 'primary' | 'secondary' | 'white' | 'outline') : 'white';
+
   return (
-    <section className="bg-white border-t border-b border-gray-100 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-lg md:text-[22px] font-light text-brand-primary text-center md:text-left leading-relaxed">
-            Let us help you build a strategy that works for you.{' '}
-            <span className="font-bold text-brand-dark">Speak to our team today.</span>
-          </p>
-          <button
-            onClick={() => navigate('/contact')}
-            className="bg-brand-green hover:bg-opacity-95 text-brand-dark font-bold text-xs uppercase tracking-wider px-8 py-3.5 rounded-full transition-all duration-150 shadow-sm shrink-0 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
+    <section className="bg-brand-primary py-24 sm:py-32 relative overflow-hidden flex-shrink-0">
+      {/* Abstract Background Pattern */}
+      <div 
+        className="absolute inset-0 opacity-10"
+        style={{
+          backgroundImage: 'radial-gradient(circle at 100% 100%, #ffffff 2px, transparent 2.5px), radial-gradient(circle at 0% 0%, #ffffff 2px, transparent 2.5px)',
+          backgroundSize: '40px 40px',
+        }}
+        aria-hidden="true"
+      />
+      
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-white mb-10 leading-tight">
+          {text} <br className="hidden sm:inline" />
+          <span className="font-extrabold text-brand-green">{boldText}</span>
+        </h2>
+        {showButton && (
+          <Button
+            variant={buttonVariant}
+            size="lg"
+            onClick={handleCTA}
+            className="w-full sm:w-auto min-w-[200px]"
           >
-            Speak to an Advisor
-          </button>
-        </div>
+            {buttonLabel}
+          </Button>
+        )}
       </div>
     </section>
   );

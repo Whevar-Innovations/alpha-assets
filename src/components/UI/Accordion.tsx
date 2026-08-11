@@ -41,8 +41,8 @@ export const Accordion: React.FC<AccordionProps> = ({ items }) => {
               aria-controls={`accordion-panel-${item.id}`}
               aria-expanded={isOpen}
               tabIndex={0}
-              onClick={() => toggleItem(item.id)}
-              onKeyDown={(e) => handleKeyDown(e, item.id)}
+              onClick={() => { toggleItem(item.id); }}
+              onKeyDown={(e) => { handleKeyDown(e, item.id); }}
               className="flex justify-between items-center px-6 py-5 cursor-pointer hover:bg-gray-50 transition-colors duration-150 focus:outline-none focus:bg-gray-50 select-none"
             >
               <h3 className="text-[15px] sm:text-base font-bold text-brand-dark pr-4">

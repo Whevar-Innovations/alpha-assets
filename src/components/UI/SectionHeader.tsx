@@ -20,7 +20,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
       <span className={`text-xs font-semibold uppercase tracking-widest ${theme === 'dark' ? 'text-brand-grayText' : 'text-brand-gray'}`}>
         {subtitle}
       </span>
-      <h2 className={`text-4xl sm:text-5xl lg:text-[56px] font-light leading-[1.1] tracking-tight ${theme === 'dark' ? 'text-brand-green' : 'text-brand-dark'}`}>
+      <h2 className={`text-4xl sm:text-5xl lg:text-[56px] font-light leading-[1.1] tracking-tight whitespace-pre-line ${theme === 'dark' ? 'text-brand-green' : 'text-brand-dark'}`}>
         {title}
       </h2>
     </div>

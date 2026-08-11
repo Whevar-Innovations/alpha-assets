@@ -25,3 +25,5 @@ dist-ssr
 scratch/
 asset-dump/
 .env
+studio/.sanity/runtime/app.js
+studio/.sanity/runtime/index.html
