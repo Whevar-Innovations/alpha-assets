@@ -13,8 +13,12 @@ export const socialLink = defineType({
       validation: (Rule) => Rule.required()
     },
     { name: 'url', type: 'url', title: 'URL', validation: (Rule) => Rule.required() },
+    { name: 'isVisible', type: 'boolean', title: 'Visible on Website', initialValue: true },
   ],
   preview: {
-    select: { title: 'platform', subtitle: 'url' },
+    select: { title: 'platform', subtitle: 'url', isVisible: 'isVisible' },
+    prepare({ title, subtitle, isVisible }) {
+      return { title: `${isVisible !== false ? '🟢' : '🔴'} ${title ?? ''}`, subtitle };
+    }
   },
 });

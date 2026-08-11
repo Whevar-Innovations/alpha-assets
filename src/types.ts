@@ -80,14 +80,14 @@ export interface HomePageData {
   howWeWorkVisible?: boolean;
   howWeWorkSubtitle?: string;
   howWeWorkHeading?: string;
-  howWeWorkItems?: { title: string; description: string; icon?: { name?: string } }[];
+  howWeWorkItems?: { title: string; description: string; icon?: { name?: string }; isVisible?: boolean }[];
   partnersVisible?: boolean;
   partnersHeading?: string;
-  partnerLogos?: { name: string; logo: unknown; url?: string }[];
+  partnerLogos?: { name: string; logo: unknown; url?: string; isVisible?: boolean }[];
   faqVisible?: boolean;
   faqHeading?: string;
   faqSubtext?: string;
-  faqItems?: { question: string; answer: string }[];
+  faqItems?: { question: string; answer: string; isVisible?: boolean }[];
   footerCtaVisible?: boolean;
   footerCtaText?: string;
   footerCtaBoldText?: string;
@@ -109,7 +109,7 @@ export interface AboutPageData {
   coreValuesVisible?: boolean;
   coreValuesSubtitle?: string;
   coreValuesHeading?: string;
-  coreValues?: { title: string; description: string; icon?: { name?: string } }[];
+  coreValues?: { title: string; description: string; icon?: { name?: string }; isVisible?: boolean }[];
   teamVisible?: boolean;
   teamSubtitle?: string;
   teamHeading?: string;
@@ -149,10 +149,10 @@ export interface ContactPageData {
 }
 
 export interface SiteSettingsData {
-  navItems?: { label: string; path: string; isDisabled: boolean; order?: number }[];
+  navItems?: { label: string; path: string; isDisabled: boolean; order?: number; isVisible?: boolean }[];
   primaryLogo?: SanityImage;
   whiteLogo?: SanityImage;
-  socialLinks?: { platform: string; url: string }[];
+  socialLinks?: { platform: string; url: string; isVisible?: boolean }[];
   contactInfo?: { address?: string; phone?: string; email?: string; officeHours?: string };
   regulatoryText?: string;
   copyrightText?: string;

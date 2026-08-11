@@ -156,7 +156,7 @@ export const Home: React.FC = () => {
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
-              {howWeWorkItems?.map((item: { title: string; description: string; icon?: { name?: string } }, index: number) => {
+              {howWeWorkItems?.filter(item => item.isVisible !== false).map((item: { title: string; description: string; icon?: { name?: string }; isVisible?: boolean }, index: number) => {
                 // FeatureCard expects an Icon component, so we wrap DynamicIcon
                 const IconComponent = (props: React.SVGProps<SVGSVGElement>) => <DynamicIcon name={item.icon?.name ?? ''} {...props} />;
                 return (
@@ -182,7 +182,7 @@ export const Home: React.FC = () => {
                 {formatCMSLines(partnersHeading)}
               </h2>
               <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16 mt-12">
-                {partnerLogos?.map((partner: { name: string; logo: unknown; url?: string }, idx: number) => {
+                {partnerLogos?.filter(p => p.isVisible !== false).map((partner: { name: string; logo: unknown; url?: string; isVisible?: boolean }, idx: number) => {
                   const partnerLogo = partner.logo as { image?: unknown; alt?: string } | undefined;
                   return (
                   <a key={idx} href={partner.url} target="_blank" rel="noopener noreferrer">
@@ -212,7 +212,7 @@ export const Home: React.FC = () => {
               </p>
             </div>
 
-            <Accordion items={(faqs ?? []).map((f: { question: string; answer: string }, i: number) => ({ id: `faq-${String(i)}`, question: f.question, answer: f.answer }))} />
+            <Accordion items={(faqs ?? []).filter(f => f.isVisible !== false).map((f: { question: string; answer: string; isVisible?: boolean }, i: number) => ({ id: `faq-${String(i)}`, question: f.question, answer: f.answer }))} />
           </div>
         </section>
       )}

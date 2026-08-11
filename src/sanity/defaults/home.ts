@@ -73,21 +73,25 @@ export const homeDefaults: HomePageData = {
       title: 'Strategic Investment',
       description: 'We align your capital with high-performing, researched assets tailored to deliver consistent yields across changing market cycles.',
       icon: { name: 'Compass' },
+      isVisible: true,
     },
     {
       title: 'Risk Management',
       description: 'Our proprietary risk screening processes prioritize capital preservation through deep sector analysis and active diversification.',
       icon: { name: 'ShieldCheck' },
+      isVisible: true,
     },
     {
       title: 'Transparent Process',
       description: 'We believe in full clarity, providing detailed regular performance reports and direct access to client management tools.',
       icon: { name: 'Eye' },
+      isVisible: true,
     },
     {
       title: 'Forecasting & Review',
       description: 'Continuous portfolio reviews and predictive macroeconomic mapping ensure your strategy shifts ahead of critical market changes.',
       icon: { name: 'TrendingUp' },
+      isVisible: true,
     },
   ],
   partnersVisible: false,
@@ -100,18 +104,22 @@ export const homeDefaults: HomePageData = {
     {
       question: 'What does Alpha Asset Managers do?',
       answer: 'Alpha Asset Managers provides professional investment management services, helping individuals and institutions grow and preserve their wealth through carefully structured portfolios and strategic financial guidance.',
+      isVisible: true,
     },
     {
       question: 'Who can invest with Alpha Asset Managers?',
       answer: 'We cater to institutional investors (corporates, pensions, foundations), high-net-worth individuals, family offices, and retail clients looking for disciplined and structured asset management services.',
+      isVisible: true,
     },
     {
       question: 'How do you manage investment risk?',
       answer: 'Risk management is core to our philosophy. We diversify assets across sectors and currencies, perform deep fundamental research, and implement strict risk control limits to safeguard capital.',
+      isVisible: true,
     },
     {
       question: 'How can I get started?',
       answer: 'You can get started by clicking the "Speak to an Advisor" button to set up a consultation with one of our investment managers. We will review your objectives and guide you through the registration process.',
+      isVisible: true,
     },
   ],
   footerCtaVisible: true,

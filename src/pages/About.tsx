@@ -174,7 +174,7 @@ export const About: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
-              {coreValues?.map((value: { icon?: { name?: string }; title: string; description: string }, index: number) => (
+              {coreValues?.filter(v => v.isVisible !== false).map((value: { icon?: { name?: string }; title: string; description: string; isVisible?: boolean }, index: number) => (
                 <div
                   key={index}
                   className="bg-brand-cardBg rounded-2xl p-6 sm:p-8 flex gap-5 items-start"
