@@ -9,6 +9,7 @@ import { teamMember } from './documents/teamMember'
 import { article } from './documents/article'
 import { author } from './documents/author'
 
+import { iconPicker } from './objects/iconPicker'
 import { seo } from './objects/seo'
 import { heroBanner } from './objects/heroBanner'
 import { ctaButton } from './objects/ctaButton'
@@ -24,6 +25,7 @@ import { richText } from './objects/richText'
 
 export const schemaTypes = [
   // Objects
+  iconPicker,
   seo,
   heroBanner,
   ctaButton,

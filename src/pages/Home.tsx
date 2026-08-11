@@ -125,7 +125,7 @@ export const Home: React.FC = () => {
                   id={service.slug?.current ?? service._id}
                   title={service.title}
                   description={service.shortDescription ?? ''}
-                  iconName={service.iconName ?? 'Briefcase'}
+                  icon={service.icon}
                   isActive={false} // Home page doesn't highlight one by default
                   activeBgClass="bg-brand-primary"
                   activeTitleColorClass="text-brand-green"
@@ -156,9 +156,9 @@ export const Home: React.FC = () => {
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
-              {howWeWorkItems?.map((item: { title: string; description: string; iconName: string }, index: number) => {
+              {howWeWorkItems?.map((item: { title: string; description: string; icon?: { name?: string } }, index: number) => {
                 // FeatureCard expects an Icon component, so we wrap DynamicIcon
-                const IconComponent = (props: React.SVGProps<SVGSVGElement>) => <DynamicIcon name={item.iconName} {...props} />;
+                const IconComponent = (props: React.SVGProps<SVGSVGElement>) => <DynamicIcon name={item.icon?.name ?? ''} {...props} />;
                 return (
                   <FeatureCard 
                     key={index}

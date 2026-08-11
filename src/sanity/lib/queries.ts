@@ -4,7 +4,7 @@ export const HOME_QUERY = `*[_type == "homePage" && _id == "homePage"][0]{
     ctaButtons[]{ label, linkType, url, variant, isVisible }
   },
   servicesVisible, servicesHeading, servicesSubtext,
-  servicesList[@->isActive == true]->{ _id, title, slug, shortDescription, iconName, order },
+  servicesList[@->isActive == true]->{ _id, title, slug, shortDescription, icon, order },
   howWeWorkVisible, howWeWorkSubtitle, howWeWorkHeading, howWeWorkItems[],
   partnersVisible, partnersHeading, partnerLogos[]{ name, logo, url },
   faqVisible, faqHeading, faqSubtext, faqItems[],
@@ -24,7 +24,7 @@ export const ABOUT_QUERY = `*[_type == "aboutPage" && _id == "aboutPage"][0]{
 export const INVEST_QUERY = `*[_type == "investPage" && _id == "investPage"][0]{
   pageVisible, seo, heroVisible, hero,
   servicesVisible, servicesSubtitle, servicesHeading,
-  servicesList[@->isActive == true]->{ _id, title, slug, shortDescription, iconName, order }
+  servicesList[@->isActive == true]->{ _id, title, slug, shortDescription, icon, order }
 }`;
 
 export const NEWS_QUERY = `*[_type == "newsPage" && _id == "newsPage"][0]{
@@ -46,12 +46,12 @@ export const SITE_SETTINGS_QUERY = `*[_type == "siteSettings" && _id == "siteSet
 }`;
 
 export const SERVICE_DETAIL_QUERY = `*[_type == "service" && slug.current == $slug && isActive == true][0]{
-  title, slug, category, detailHeading, description1, description2,
-  detailImage, bulletsTitle, bullets, factsheet{ asset->{url} }
+  title, slug, category, description,
+  detailImage, featuresVisible, bulletsTitle, bullets, factsheetVisible, factsheet{ asset->{url, originalFilename} }
 }`;
 
 export const ALL_SERVICES_QUERY = `*[_type == "service" && isActive == true] | order(order asc){
-  _id, title, slug, shortDescription, iconName, order
+  _id, title, slug, shortDescription, icon, order
 }`;
 
 export const ARTICLES_QUERY = `*[_type == "article" && isActive == true] | order(publishedAt desc){

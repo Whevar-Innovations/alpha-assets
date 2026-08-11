@@ -174,13 +174,13 @@ export const About: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
-              {coreValues?.map((value: { iconName?: string; title: string; description: string }, index: number) => (
+              {coreValues?.map((value: { icon?: { name?: string }; title: string; description: string }, index: number) => (
                 <div
                   key={index}
                   className="bg-brand-cardBg rounded-2xl p-6 sm:p-8 flex gap-5 items-start"
                 >
                   <div className="w-12 h-12 rounded-full bg-brand-primary shrink-0 flex items-center justify-center text-white" aria-hidden="true">
-                    {value.iconName && <DynamicIcon name={value.iconName} size={20} />}
+                    {value.icon?.name && <DynamicIcon name={value.icon.name} size={20} />}
                   </div>
                   <div className="space-y-1.5">
                     <h3 className="text-base font-bold text-brand-dark">{value.title}</h3>

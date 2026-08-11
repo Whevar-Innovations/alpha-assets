@@ -32,14 +32,14 @@ export interface ServiceItem {
   title: string;
   slug?: { current: string };
   shortDescription?: string;
-  iconName?: string;
+  icon?: { name?: string };
   category?: string;
-  detailHeading?: string;
-  description1?: string;
-  description2?: string;
+  description?: unknown;
   detailImage?: SanityImage;
+  featuresVisible?: boolean;
   bulletsTitle?: string;
-  bullets?: string[];
+  bullets?: { _type: 'serviceFeatureItem'; _key?: string; text: string; isVisible?: boolean }[];
+  factsheetVisible?: boolean;
   factsheet?: { asset?: { url?: string; originalFilename?: string } };
   order?: number;
   isActive?: boolean;
@@ -80,7 +80,7 @@ export interface HomePageData {
   howWeWorkVisible?: boolean;
   howWeWorkSubtitle?: string;
   howWeWorkHeading?: string;
-  howWeWorkItems?: { title: string; description: string; iconName: string }[];
+  howWeWorkItems?: { title: string; description: string; icon?: { name?: string } }[];
   partnersVisible?: boolean;
   partnersHeading?: string;
   partnerLogos?: { name: string; logo: unknown; url?: string }[];
@@ -109,7 +109,7 @@ export interface AboutPageData {
   coreValuesVisible?: boolean;
   coreValuesSubtitle?: string;
   coreValuesHeading?: string;
-  coreValues?: { title: string; description: string; iconName: string }[];
+  coreValues?: { title: string; description: string; icon?: { name?: string } }[];
   teamVisible?: boolean;
   teamSubtitle?: string;
   teamHeading?: string;

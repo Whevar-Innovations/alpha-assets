@@ -6,7 +6,7 @@ export interface ServiceCardProps {
   id: string;
   title: string;
   description: string;
-  iconName: string;
+  icon?: { name?: string };
   isActive?: boolean;
   
   // Customization Props
@@ -36,7 +36,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   id,
   title,
   description,
-  iconName,
+  icon,
   isActive = false,
   bgClass = 'bg-brand-cardBg',
   activeBgClass = 'bg-brand-dark',
@@ -57,7 +57,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   const [isHovered, setIsHovered] = useState(false);
 
   // Dynamically resolve the Lucide icon, fallback to Briefcase if not found
-  const IconComponent = ((Icons as unknown as Record<string, React.ElementType | undefined>)[iconName] ?? Icons.Briefcase) as React.ComponentType<{ className?: string; size?: number }>;
+  const IconComponent = ((Icons as unknown as Record<string, React.ElementType | undefined>)[icon?.name ?? ''] ?? Icons.Briefcase) as React.ComponentType<{ className?: string; size?: number }>;
 
   const isCardActive = isActive || (enableHoverEffect && isHovered);
 

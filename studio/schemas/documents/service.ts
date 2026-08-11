@@ -16,17 +16,33 @@ export const service = defineType({
     { name: 'title', type: 'string', validation: (Rule) => Rule.required(), group: 'card' },
     { name: 'slug', type: 'slug', options: { source: 'title' }, validation: (Rule) => Rule.required(), group: 'card' },
     { name: 'shortDescription', type: 'text', title: 'Card Description', rows: 3, group: 'card' },
-    { name: 'iconName', type: 'string', title: 'Lucide Icon Name', description: 'e.g. Sliders, Users, Coins, Building2, Layers, PiggyBank', group: 'card' },
+    { name: 'icon', type: 'iconPicker', title: 'Icon', group: 'card' },
     { name: 'order', type: 'number', title: 'Display Order', group: 'settings' },
 
     // Detail page fields
     { name: 'category', type: 'string', initialValue: 'OUR SERVICES', group: 'detail' },
-    { name: 'detailHeading', type: 'string', title: 'Detail Page Heading', group: 'detail' },
-    { name: 'description1', type: 'text', title: 'First Paragraph', rows: 4, group: 'detail' },
-    { name: 'description2', type: 'text', title: 'Second Paragraph', rows: 6, group: 'detail' },
+    { name: 'description', type: 'richText', title: 'Description (Rich Text)', group: 'detail' },
     { name: 'detailImage', type: 'imageWithAlt', title: 'Detail Page Image', group: 'detail' },
+    { name: 'featuresVisible', type: 'boolean', title: 'Show Features Section', initialValue: true, group: 'detail' },
     { name: 'bulletsTitle', type: 'string', title: 'Bullet List Heading', group: 'detail' },
-    { name: 'bullets', type: 'array', of: [{ type: 'string' }], title: 'Key Features', group: 'detail' },
+    {
+      name: 'bullets',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          name: 'serviceFeatureItem',
+          title: 'Feature Item',
+          fields: [
+            { name: 'text', type: 'string', title: 'Feature Text' },
+            { name: 'isVisible', type: 'boolean', title: 'Is Visible', initialValue: true },
+          ],
+        },
+      ],
+      title: 'Key Features / Bullets',
+      group: 'detail',
+    },
+    { name: 'factsheetVisible', type: 'boolean', title: 'Show Factsheet Section', description: 'Toggle to show or hide the factsheet download card on the service page.', initialValue: true, group: 'detail' },
     { name: 'factsheet', type: 'file', title: 'Factsheet PDF', group: 'detail' },
   ],
   orderings: [{ title: 'Display Order', name: 'order', by: [{ field: 'order', direction: 'asc' }] }],

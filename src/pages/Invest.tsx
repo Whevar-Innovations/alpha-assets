@@ -86,7 +86,7 @@ export const Invest: React.FC = () => {
                   id={service.slug?.current ?? service._id}
                   title={service.title}
                   description={service.shortDescription ?? ''}
-                  iconName={service.iconName ?? 'Briefcase'}
+                  icon={service.icon}
                   isActive={false}
                   bgClass="bg-brand-cardBg"
                   activeBgClass="bg-brand-primary"

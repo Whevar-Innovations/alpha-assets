@@ -3,6 +3,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FooterCTA } from '../components/UI/FooterCTA';
 import { SEO } from '../components/SEO';
+import { PortableText } from '../components/UI/PortableText';
 import investTablet from '../assets/images/invest_tablet.jpg';
 
 import { useSanityPage } from '../sanity/hooks/useSanityPage';
@@ -10,34 +11,36 @@ import { ALL_SERVICES_QUERY, SERVICE_DETAIL_QUERY } from '../sanity/lib/queries'
 import { resolveImage } from '../sanity/lib/image';
 import { getServiceDefault } from '../sanity/defaults/services';
 
+const getPlainText = (val: unknown): string => {
+  if (typeof val === 'string') return val;
+  if (Array.isArray(val)) {
+    return val
+      .map((block: { children?: { text?: string }[] }) =>
+        block.children ? block.children.map((c) => c.text ?? '').join('') : ''
+      )
+      .join(' ');
+  }
+  return '';
+};
+
 export const InvestDetail: React.FC = () => {
   const { serviceId } = useParams<{ serviceId: string }>();
-
 
   const currentId = serviceId ?? 'unit-trusts';
 
   // Fetch all services for the sidebar
   const { data: allServices } = useSanityPage(ALL_SERVICES_QUERY, []);
-  
-  // We can't use useSanityPage hook directly with params, it's just a simple wrapper without params.
-  // We will need to either fetch directly with sanityClient or we can update useSanityPage to take params.
-  // For now, if allServices is loaded, we can find the matching service. Wait, ALL_SERVICES_QUERY doesn't fetch detailed info.
-  // I need to update useSanityPage to take params or fetch manually.
 
   return <InvestDetailContent currentId={currentId} allServices={allServices} />;
 };
 
-const InvestDetailContent = ({ currentId, allServices }: { currentId: string, allServices: { _id: string; title: string; slug?: { current: string } }[] }) => {
+const InvestDetailContent = ({ currentId, allServices }: { currentId: string; allServices: { _id: string; title: string; slug?: { current: string } }[] }) => {
   const fallback = getServiceDefault(currentId);
   const { data, isLoading } = useSanityPage(SERVICE_DETAIL_QUERY, fallback, { slug: currentId });
-
-
 
   if (isLoading) {
     return <InvestDetailSkeleton allServices={allServices} currentId={currentId} />;
   }
-
-
 
   const handleDownload = (url: string, fileName: string) => {
     if (url) {
@@ -55,15 +58,15 @@ const InvestDetailContent = ({ currentId, allServices }: { currentId: string, al
     }
   };
 
-
-
   const imageUrl = resolveImage(data.detailImage, investTablet);
   const factsheetUrl = data.factsheet?.asset?.url;
   const factsheetName = data.factsheet?.asset?.originalFilename ?? 'Factsheet.pdf';
+  const seoDescription = getPlainText(data.description) || data.shortDescription;
+  const bulletsList = (data.featuresVisible ?? true) && Array.isArray(data.bullets) ? data.bullets : [];
 
   return (
     <div className="flex flex-col min-h-screen">
-      <SEO title={data.title} description={data.description1} />
+      <SEO title={data.title} description={seoDescription} />
       
       {/* Hero Banner */}
       <div className="pt-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
@@ -125,47 +128,56 @@ const InvestDetailContent = ({ currentId, allServices }: { currentId: string, al
               </div>
 
               <div className="text-gray-500 text-sm sm:text-base leading-relaxed space-y-6 font-light">
-                <p className="whitespace-pre-line">{data.description1}</p>
-                <p className="whitespace-pre-line">{data.description2}</p>
+                {typeof data.description === 'string' ? (
+                  <p className="whitespace-pre-line">{data.description}</p>
+                ) : (
+                  <PortableText value={data.description} />
+                )}
               </div>
 
-              {data.bullets && data.bullets.length > 0 && (
+              {bulletsList.length > 0 && (
                 <div className="space-y-4 pt-2">
-                  <h3 className="text-2xl font-bold text-brand-primary">
-                    {data.bulletsTitle}
-                  </h3>
+                  {data.bulletsTitle && (
+                    <h3 className="text-2xl font-bold text-brand-primary">
+                      {data.bulletsTitle}
+                    </h3>
+                  )}
                   <ul className="flex flex-col space-y-3">
-                    {data.bullets.map((bullet: string, index: number) => (
-                      <li key={index} className="text-sm sm:text-base font-light text-gray-500 flex items-start gap-2">
-                        <span className="text-brand-primary font-bold text-lg leading-none mt-[1px]">›</span>
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
+                    {bulletsList
+                      .filter((item) => item.isVisible !== false)
+                      .map((item, index: number) => (
+                        <li key={item._key ?? index} className="text-sm sm:text-base font-light text-gray-500 flex items-start gap-2">
+                          <span className="text-brand-primary font-bold text-lg leading-none mt-[1px]">›</span>
+                          <span>{item.text}</span>
+                        </li>
+                      ))}
                   </ul>
                 </div>
               )}
 
               {/* Factsheet Download Section */}
-              <div className="bg-[#e8f4e8] border border-brand-primary rounded-md px-5 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
-                <div className="text-left">
-                  <h4 className="text-sm font-bold text-gray-800">{factsheetName}</h4>
+              {(data.factsheetVisible ?? true) && factsheetUrl && (
+                <div className="bg-[#e8f4e8] border border-brand-primary rounded-md px-5 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
+                  <div className="text-left">
+                    <h4 className="text-sm font-bold text-gray-800">{factsheetName}</h4>
+                  </div>
+                  
+                  <div className="flex items-center gap-6">
+                    <button
+                      onClick={() => { handleView(factsheetUrl, factsheetName); }}
+                      className="text-brand-primary hover:text-brand-dark text-sm font-bold transition-colors"
+                    >
+                      View
+                    </button>
+                    <button
+                      onClick={() => { handleDownload(factsheetUrl, factsheetName); }}
+                      className="text-gray-500 hover:text-brand-dark text-sm font-light transition-colors"
+                    >
+                      Download
+                    </button>
+                  </div>
                 </div>
-                
-                <div className="flex items-center gap-6">
-                  <button
-                    onClick={() => { handleView(factsheetUrl ?? '', factsheetName); }}
-                    className="text-brand-primary hover:text-brand-dark text-sm font-bold transition-colors"
-                  >
-                    View
-                  </button>
-                  <button
-                    onClick={() => { handleDownload(factsheetUrl ?? '', factsheetName); }}
-                    className="text-gray-500 hover:text-brand-dark text-sm font-light transition-colors"
-                  >
-                    Download
-                  </button>
-                </div>
-              </div>
+              )}
 
             </article>
 
