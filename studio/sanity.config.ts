@@ -6,7 +6,6 @@ import {schemaTypes} from './schemas'
 export default defineConfig({
   name: 'default',
   title: 'Alpha Asset Managers',
-
   projectId: '4earmfty',
   dataset: 'production',
 

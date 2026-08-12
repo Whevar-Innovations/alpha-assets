@@ -27,3 +27,6 @@ asset-dump/
 .env
 studio/.sanity/runtime/app.js
 studio/.sanity/runtime/index.html
+
+# Local Netlify folder
+.netlify

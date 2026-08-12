@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && npm run build:studio",
+    "build:studio": "npm --prefix studio install && npm --prefix studio run build ../dist/studio -y",
     "lint": "eslint .",
     "preview": "vite preview",
     "lint:fix": "eslint . --fix"
