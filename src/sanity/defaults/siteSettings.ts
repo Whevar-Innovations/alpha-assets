@@ -9,10 +9,10 @@ export const siteSettingsDefaults: SiteSettingsData = {
     { label: 'Contact', path: '/contact', isDisabled: true, order: 5, isVisible: true },
   ],
   contactInfo: {
-    address: 'Regency Plaza, 30 Lugogo Bypass\\nKampala, Uganda',
+    address: 'Regency Plaza, 30 Lugogo Bypass\nKampala, Uganda',
     phone: '+256 200 911875',
     email: 'invest@alphaeastafrica.com',
-    officeHours: 'Monday - Friday: 8:00 AM - 5:00 PM\\nClosed on Weekends & Public Holidays',
+    officeHours: 'Monday - Friday: 8:00 AM - 5:00 PM\nClosed on Weekends & Public Holidays',
   },
   socialLinks: [
     { platform: 'Facebook', url: 'https://facebook.com', isVisible: true },

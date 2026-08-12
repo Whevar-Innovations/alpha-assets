@@ -13,12 +13,15 @@ export const HOME_QUERY = `*[_type == "homePage" && _id == "homePage"][0]{
 
 export const ABOUT_QUERY = `*[_type == "aboutPage" && _id == "aboutPage"][0]{
   pageVisible, seo,
-  heroVisible, hero,
+  heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt } },
   introVisible, introHeading, introParagraphs,
-  quoteVisible, quoteText, quoteAuthor, quoteAuthorTitle,
+  quoteVisible,
+  quoteLeftImage{ image{ asset->{url, metadata} }, alt },
+  quoteText, quoteAuthor, quoteAuthorTitle,
+  quoteRightImage{ image{ asset->{url, metadata} }, alt },
   coreValuesVisible, coreValuesSubtitle, coreValuesHeading, coreValues[],
   teamVisible, teamSubtitle, teamHeading,
-  teamMembers[@->isActive == true]->{ _id, name, role, category, photo, bio, order } | order(order asc)
+  teamMembers[@->isActive == true]->{_id, name, role, category, photo{ image{ asset->{url, metadata} }, alt }, bio, order} | order(order asc)
 }`;
 
 export const INVEST_QUERY = `*[_type == "investPage" && _id == "investPage"][0]{

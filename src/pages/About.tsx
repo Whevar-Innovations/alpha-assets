@@ -8,6 +8,7 @@ import { PortableText } from '../components/UI/PortableText';
 import { SEO } from '../components/SEO';
 import bannerBg from '../assets/images/banner_bg.jpg';
 import aboutWoman from '../assets/images/about_woman.jpg';
+import aboutChart from '../assets/images/about_chart.jpg';
 
 import { useSanityPage } from '../sanity/hooks/useSanityPage';
 import { ABOUT_QUERY } from '../sanity/lib/queries';
@@ -59,9 +60,11 @@ export const About: React.FC = () => {
   const introParagraphs = data.introParagraphs ?? aboutDefaults.introParagraphs;
   
   const quoteVisible = data.quoteVisible ?? true;
+  const quoteLeftImage  = resolveImage(data.quoteLeftImage,  aboutWoman);
   const quoteText = data.quoteText ?? aboutDefaults.quoteText;
   const quoteAuthor = data.quoteAuthor ?? aboutDefaults.quoteAuthor;
   const quoteAuthorTitle = data.quoteAuthorTitle ?? aboutDefaults.quoteAuthorTitle;
+  const quoteRightImage = resolveImage(data.quoteRightImage, aboutChart);
   
   const coreValuesVisible = data.coreValuesVisible ?? true;
   const coreValuesSubtitle = data.coreValuesSubtitle ?? aboutDefaults.coreValuesSubtitle;
@@ -126,17 +129,18 @@ export const About: React.FC = () => {
       {quoteVisible && (
         <section className="pb-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-stretch max-w-5xl mx-auto">
-              {/* Image */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
+
+              {/* Left image */}
               <div className="rounded-2xl overflow-hidden h-[320px] lg:h-[420px]">
                 <img
-                  src={aboutWoman}
-                  alt="Professional"
+                  src={quoteLeftImage}
+                  alt="Professional female executive talking on phone"
                   className="w-full h-full object-cover"
                 />
               </div>
 
-              {/* Quote Card */}
+              {/* Center quote card */}
               <div className="bg-brand-primary rounded-2xl p-8 sm:p-10 flex flex-col justify-center shadow-md relative min-h-[320px] lg:min-h-0 overflow-hidden">
                 <div
                   className="absolute bottom-4 right-6 text-[180px] font-serif leading-none select-none pointer-events-none"
@@ -155,6 +159,16 @@ export const About: React.FC = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Right image */}
+              <div className="rounded-2xl overflow-hidden h-[320px] lg:h-[420px]">
+                <img
+                  src={quoteRightImage}
+                  alt="Hands analyzing market trends during meeting"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
             </div>
           </div>
         </section>
@@ -369,7 +383,7 @@ const AboutSkeleton: React.FC = () => (
     {/* Quote Section */}
     <div className="pb-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-stretch max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
           <div className="rounded-2xl bg-gray-200 h-[320px] lg:h-[420px]"></div>
           <div className="bg-gray-100 rounded-2xl p-8 sm:p-10 flex flex-col justify-center min-h-[320px] lg:min-h-0 space-y-6">
             <div className="h-4 bg-gray-200 rounded w-full"></div>
@@ -380,6 +394,7 @@ const AboutSkeleton: React.FC = () => (
               <div className="h-3 bg-gray-200 rounded w-1/4"></div>
             </div>
           </div>
+          <div className="rounded-2xl bg-gray-200 h-[320px] lg:h-[420px]"></div>
         </div>
       </div>
     </div>

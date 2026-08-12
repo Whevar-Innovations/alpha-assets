@@ -12,6 +12,7 @@ import { author } from './documents/author'
 import { iconPicker } from './objects/iconPicker'
 import { seo } from './objects/seo'
 import { heroBanner } from './objects/heroBanner'
+import { pageHeader } from './objects/pageHeader'
 import { ctaButton } from './objects/ctaButton'
 import { imageWithAlt } from './objects/imageWithAlt'
 import { faqItem } from './objects/faqItem'
@@ -28,6 +29,7 @@ export const schemaTypes = [
   iconPicker,
   seo,
   heroBanner,
+  pageHeader,
   ctaButton,
   imageWithAlt,
   faqItem,

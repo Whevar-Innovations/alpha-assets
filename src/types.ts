@@ -103,9 +103,11 @@ export interface AboutPageData {
   introHeading?: string;
   introParagraphs?: unknown[];
   quoteVisible?: boolean;
+  quoteLeftImage?: SanityImage;
   quoteText?: string;
   quoteAuthor?: string;
   quoteAuthorTitle?: string;
+  quoteRightImage?: SanityImage;
   coreValuesVisible?: boolean;
   coreValuesSubtitle?: string;
   coreValuesHeading?: string;
