@@ -6,7 +6,12 @@ export const newsDefaults: NewsPageData = {
   heroVisible: true,
   hero: {
     heading: 'News & Insights',
-    highlightText: '',
-    subtext: '',
+    ctaButton: {
+      label: '',
+      linkType: 'internal',
+      url: '',
+      variant: 'primary',
+      isVisible: false
+    }
   }
 };

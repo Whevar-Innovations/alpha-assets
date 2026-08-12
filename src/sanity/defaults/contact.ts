@@ -6,8 +6,13 @@ export const contactDefaults: ContactPageData = {
   heroVisible: true,
   hero: {
     heading: 'Contact Us',
-    highlightText: '',
-    subtext: '',
+    ctaButton: {
+      label: '',
+      linkType: 'internal',
+      url: '',
+      variant: 'primary',
+      isVisible: false
+    }
   },
   contactVisible: true,
   contactHeading: 'Get in touch with an Advisor',

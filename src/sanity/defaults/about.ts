@@ -14,6 +14,13 @@ export const aboutDefaults: AboutPageData = {
   heroVisible: true,
   hero: {
     heading: 'Who We Are',
+    ctaButton: {
+      label: '',
+      linkType: 'internal',
+      url: '',
+      variant: 'primary',
+      isVisible: false
+    }
   },
   introVisible: true,
   introHeading: 'For Those Who Want More',

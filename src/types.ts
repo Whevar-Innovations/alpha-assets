@@ -94,11 +94,17 @@ export interface HomePageData {
   footerCtaButton?: { label: string; linkType?: string; url: string; variant?: string; isVisible?: boolean };
 }
 
+export interface PageHeaderData {
+  heading?: string;
+  backgroundImage?: SanityImage;
+  ctaButton?: CTAButton;
+}
+
 export interface AboutPageData {
   seo?: SEOData;
   pageVisible?: boolean;
   heroVisible?: boolean;
-  hero?: HeroData;
+  hero?: PageHeaderData;
   introVisible?: boolean;
   introHeading?: string;
   introParagraphs?: unknown[];
@@ -122,7 +128,7 @@ export interface InvestPageData {
   seo?: SEOData;
   pageVisible?: boolean;
   heroVisible?: boolean;
-  hero?: HeroData;
+  hero?: PageHeaderData;
   servicesVisible?: boolean;
   servicesSubtitle?: string;
   servicesHeading?: string;
@@ -133,14 +139,14 @@ export interface NewsPageData {
   seo?: SEOData;
   pageVisible?: boolean;
   heroVisible?: boolean;
-  hero?: HeroData;
+  hero?: PageHeaderData;
 }
 
 export interface ContactPageData {
   seo?: SEOData;
   pageVisible?: boolean;
   heroVisible?: boolean;
-  hero?: HeroData;
+  hero?: PageHeaderData;
   contactVisible?: boolean;
   contactHeading?: string;
   contactSubtext?: string;

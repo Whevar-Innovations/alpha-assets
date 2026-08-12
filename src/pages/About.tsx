@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { X } from 'lucide-react';
 import { FooterCTA } from '../components/UI/FooterCTA';
 import { DynamicIcon } from '../components/UI/DynamicIcon';
+import { Button } from '../components/UI/Button';
 import { PortableText } from '../components/UI/PortableText';
 import { SEO } from '../components/SEO';
 import bannerBg from '../assets/images/banner_bg.jpg';
@@ -104,9 +105,28 @@ export const About: React.FC = () => {
               backgroundPosition: 'center',
             }}
           >
-            <h1 className="text-4xl sm:text-5xl font-light text-white tracking-tight">
-              {hero?.heading}
-            </h1>
+            <div className="flex flex-col items-center gap-6 text-center">
+              <h1 className="text-4xl sm:text-5xl font-light text-white tracking-tight">
+                {hero?.heading}
+              </h1>
+              {hero?.ctaButton?.isVisible && hero.ctaButton.label && (
+                <Button
+                  variant={hero.ctaButton.variant}
+                  onClick={() => {
+                    const cta = hero.ctaButton;
+                    if (cta) {
+                      if (cta.linkType === 'external') {
+                        window.open(cta.url, '_blank');
+                      } else {
+                        void navigate(cta.url);
+                      }
+                    }
+                  }}
+                >
+                  {hero.ctaButton.label}
+                </Button>
+              )}
+            </div>
           </section>
         </div>
       )}

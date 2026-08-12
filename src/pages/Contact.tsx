@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import bannerBg from '../assets/images/banner_bg.jpg';
 import { Phone, Mail, MapPin, Clock, CheckCircle } from 'lucide-react';
 import { SEO } from '../components/SEO';
+import { Button } from '../components/UI/Button';
 
 import { useSanityPage } from '../sanity/hooks/useSanityPage';
 import { CONTACT_QUERY, SITE_SETTINGS_QUERY } from '../sanity/lib/queries';
@@ -74,10 +75,27 @@ export const Contact: React.FC = () => {
             backgroundPosition: 'center'
           }}
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full flex flex-col items-center gap-6">
             <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-wide">
               {hero?.heading}
             </h1>
+            {hero?.ctaButton?.isVisible && hero.ctaButton.label && (
+              <Button
+                variant={hero.ctaButton.variant}
+                onClick={() => {
+                  const cta = hero.ctaButton;
+                  if (cta) {
+                    if (cta.linkType === 'external') {
+                      window.open(cta.url, '_blank');
+                    } else {
+                      void navigate(cta.url);
+                    }
+                  }
+                }}
+              >
+                {hero.ctaButton.label}
+              </Button>
+            )}
           </div>
         </section>
       )}

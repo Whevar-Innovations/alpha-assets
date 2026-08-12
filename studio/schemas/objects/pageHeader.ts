@@ -7,5 +7,6 @@ export const pageHeader = defineType({
   fields: [
     { name: 'heading', type: 'string', title: 'Page Title' },
     { name: 'backgroundImage', type: 'imageWithAlt', title: 'Background Image' },
+    { name: 'ctaButton', type: 'ctaButton', title: 'Call to Action Button' },
   ],
 });

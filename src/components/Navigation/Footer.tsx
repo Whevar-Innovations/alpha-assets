@@ -58,7 +58,7 @@ export const Footer: React.FC = () => {
               </form>
 
               <div className="flex space-x-3 pt-4">
-                {socialLinks?.filter((s: any) => s.isVisible !== false).map((social: { platform: string; url: string; isVisible?: boolean }, idx: number) => {
+                {socialLinks?.filter((s: { isVisible?: boolean }) => s.isVisible !== false).map((social: { platform: string; url: string; isVisible?: boolean }, idx: number) => {
                   let iconPath = '';
                   if (social.platform === 'Facebook') iconPath = "M9 8H7v3h2v9h4v-9h3.6l.4-3H13V6c0-.5.5-1 1-1h3V1H13c-3.3 0-5 1.7-5 5v2z";
                   else if (social.platform === 'X') iconPath = "M18.2 2.4h3.3L14.3 11l8.5 11.3H16.2L11 15.6 5 22.4H1.7l7.6-8.7L1.2 2.4h6.8l4.7 6.2 5.5-6.2zm-1.2 17.6h1.8L7.1 4.2H5.1l11.9 15.8z";

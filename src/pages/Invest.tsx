@@ -5,6 +5,7 @@ import { FooterCTA } from '../components/UI/FooterCTA';
 import { SEO } from '../components/SEO';
 import type { ServiceItem } from '../types';
 import heroBg from '../assets/images/hero_person_laptop.jpg';
+import { Button } from '../components/UI/Button';
 
 import { useSanityPage } from '../sanity/hooks/useSanityPage';
 import { INVEST_QUERY } from '../sanity/lib/queries';
@@ -55,13 +56,22 @@ export const Invest: React.FC = () => {
                 {hero?.heading}
               </h1>
               
-              {hero?.ctaButtons && hero.ctaButtons.length > 0 && hero.ctaButtons[0].isVisible && (
-                <a
-                  href={hero.ctaButtons[0].url}
-                  className="inline-flex items-center gap-2 bg-white text-brand-dark font-bold text-xs uppercase tracking-wider px-8 py-3.5 rounded-full transition-all duration-150 shadow-sm hover:bg-brand-green focus:outline-none focus:ring-2 focus:ring-brand-green focus:ring-offset-2"
+              {hero?.ctaButton?.isVisible && hero.ctaButton.label && (
+                <Button
+                  variant={hero.ctaButton.variant}
+                  onClick={() => {
+                    const cta = hero.ctaButton;
+                    if (cta) {
+                      if (cta.linkType === 'external') {
+                        window.open(cta.url, '_blank');
+                      } else {
+                        void navigate(cta.url);
+                      }
+                    }
+                  }}
                 >
-                  {hero.ctaButtons[0].label}
-                </a>
+                  {hero.ctaButton.label}
+                </Button>
               )}
             </div>
           </section>

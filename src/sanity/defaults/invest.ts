@@ -8,17 +8,13 @@ export const investDefaults: InvestPageData = {
   heroVisible: true,
   hero: {
     heading: 'Invest',
-    highlightText: '',
-    subtext: '',
-    ctaButtons: [
-      {
-        label: 'Sign Up / Login',
-        linkType: 'external',
-        url: '#',
-        variant: 'white',
-        isVisible: true
-      }
-    ]
+    ctaButton: {
+      label: 'Sign Up / Login',
+      linkType: 'external',
+      url: '#',
+      variant: 'white',
+      isVisible: true
+    }
   },
   servicesVisible: true,
   servicesSubtitle: 'Our Services',

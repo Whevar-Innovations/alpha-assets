@@ -30,7 +30,7 @@ export const Navbar: React.FC = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex md:space-x-4 lg:space-x-8 items-center">
-            {navItems?.filter((item: any) => item.isVisible !== false).map((item: { label: string; path: string; isDisabled: boolean; isVisible?: boolean }) => (
+            {navItems?.filter((item: { isVisible?: boolean }) => item.isVisible !== false).map((item: { label: string; path: string; isDisabled: boolean; isVisible?: boolean }) => (
               item.isDisabled ? (
                 <span
                   key={item.path}
@@ -79,7 +79,7 @@ export const Navbar: React.FC = () => {
         id="mobile-menu"
       >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-100 shadow-lg">
-          {navItems?.filter((item: any) => item.isVisible !== false).map((item: { label: string; path: string; isDisabled: boolean; isVisible?: boolean }) => (
+          {navItems?.filter((item: { isVisible?: boolean }) => item.isVisible !== false).map((item: { label: string; path: string; isDisabled: boolean; isVisible?: boolean }) => (
             item.isDisabled ? (
               <span
                 key={item.path}

@@ -13,7 +13,7 @@ export const HOME_QUERY = `*[_type == "homePage" && _id == "homePage"][0]{
 
 export const ABOUT_QUERY = `*[_type == "aboutPage" && _id == "aboutPage"][0]{
   pageVisible, seo,
-  heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt } },
+  heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt }, ctaButton{ label, linkType, url, variant, isVisible } },
   introVisible, introHeading, introParagraphs,
   quoteVisible,
   quoteLeftImage{ image{ asset->{url, metadata} }, alt },
@@ -25,17 +25,17 @@ export const ABOUT_QUERY = `*[_type == "aboutPage" && _id == "aboutPage"][0]{
 }`;
 
 export const INVEST_QUERY = `*[_type == "investPage" && _id == "investPage"][0]{
-  pageVisible, seo, heroVisible, hero,
+  pageVisible, seo, heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt }, ctaButton{ label, linkType, url, variant, isVisible } },
   servicesVisible, servicesSubtitle, servicesHeading,
   servicesList[@->isActive == true]->{ _id, title, slug, shortDescription, icon, order }
 }`;
 
 export const NEWS_QUERY = `*[_type == "newsPage" && _id == "newsPage"][0]{
-  pageVisible, seo, heroVisible, hero
+  pageVisible, seo, heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt }, ctaButton{ label, linkType, url, variant, isVisible } }
 }`;
 
 export const CONTACT_QUERY = `*[_type == "contactPage" && _id == "contactPage"][0]{
-  pageVisible, seo, heroVisible, hero,
+  pageVisible, seo, heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt }, ctaButton{ label, linkType, url, variant, isVisible } },
   contactVisible, contactHeading, contactSubtext,
   formVisible, formHeading, formSuccessHeading, formSuccessMessage
 }`;

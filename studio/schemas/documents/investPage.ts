@@ -7,14 +7,14 @@ export const investPage = defineType({
   icon: () => '💼',
   groups: [
     { name: 'seo', title: 'SEO', default: false },
-    { name: 'hero', title: 'Hero Banner', default: true },
+    { name: 'hero', title: 'Page Header', default: true },
     { name: 'services', title: 'Services Grid' },
   ],
   fields: [
     { name: 'pageVisible', type: 'boolean', title: 'Page is Visible (Active)', initialValue: true },
     { name: 'seo', type: 'seo', group: 'seo' },
-    { name: 'heroVisible', type: 'boolean', title: 'Show Hero Section', initialValue: true, group: 'hero' },
-    { name: 'hero', type: 'heroBanner', group: 'hero' },
+    { name: 'heroVisible', type: 'boolean', title: 'Show Page Header', initialValue: true, group: 'hero' },
+    { name: 'hero', type: 'pageHeader', title: 'Page Header', group: 'hero' },
     
     // Services
     { name: 'servicesVisible', type: 'boolean', title: 'Show Services Section', initialValue: true, group: 'services' },
