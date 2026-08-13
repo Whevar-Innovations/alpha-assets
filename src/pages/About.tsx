@@ -22,7 +22,7 @@ export const About: React.FC = () => {
   const navigate = useNavigate();
   const { data, isLoading } = useSanityPage<AboutPageData>(ABOUT_QUERY, aboutDefaults);
   
-  const [activeTab, setActiveTab] = useState<'leadership' | 'board'>('leadership');
+  const [activeTab, setActiveTab] = useState<'leadership' | 'board'>('board');
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
 
   useEffect(() => {
@@ -243,17 +243,6 @@ export const About: React.FC = () => {
             <div className="flex justify-center mb-10">
               <div className="flex border-b border-gray-200">
                 <button
-                  onClick={() => { setActiveTab('leadership'); setSelectedMember(null); }}
-                  aria-selected={activeTab === 'leadership'}
-                  className={`py-3 px-8 text-xs uppercase tracking-wider font-semibold transition-all duration-150 border-b-2 ${
-                    activeTab === 'leadership'
-                      ? 'border-brand-primary text-brand-primary'
-                      : 'border-transparent text-[#758E87] hover:text-brand-dark'
-                  }`}
-                >
-                  Leadership
-                </button>
-                <button
                   onClick={() => { setActiveTab('board'); setSelectedMember(null); }}
                   aria-selected={activeTab === 'board'}
                   className={`py-3 px-8 text-xs uppercase tracking-wider font-semibold transition-all duration-150 border-b-2 ${
@@ -264,6 +253,18 @@ export const About: React.FC = () => {
                 >
                   Board
                 </button>
+                <button
+                  onClick={() => { setActiveTab('leadership'); setSelectedMember(null); }}
+                  aria-selected={activeTab === 'leadership'}
+                  className={`py-3 px-8 text-xs uppercase tracking-wider font-semibold transition-all duration-150 border-b-2 ${
+                    activeTab === 'leadership'
+                      ? 'border-brand-primary text-brand-primary'
+                      : 'border-transparent text-[#758E87] hover:text-brand-dark'
+                  }`}
+                >
+                  Leadership
+                </button>
+                
               </div>
             </div>
 

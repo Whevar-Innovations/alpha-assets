@@ -12,9 +12,10 @@ export const teamMember = defineType({
     {
       name: 'category',
       type: 'string',
+      initialValue: 'board',
       options: { list: [
-        { title: 'Leadership', value: 'leadership' },
         { title: 'Board', value: 'board' },
+        { title: 'Leadership', value: 'leadership' },
       ], layout: 'radio' },
     },
     { name: 'photo', type: 'imageWithAlt' },
