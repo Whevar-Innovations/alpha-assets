@@ -3,16 +3,17 @@ import { NavLink, Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import logoPrimary from '../../assets/logos/primary.png';
 
+import { useSanityPage } from '../../sanity/hooks/useSanityPage';
+import { SITE_SETTINGS_QUERY } from '../../sanity/lib/queries';
+import { siteSettingsDefaults } from '../../sanity/defaults/siteSettings';
+import { resolveImage } from '../../sanity/lib/image';
+
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { data } = useSanityPage(SITE_SETTINGS_QUERY, siteSettingsDefaults);
 
-  const navItems = [
-    { label: 'Home', path: '/' },
-    { label: 'About', path: '/about' },
-    { label: 'Invest', path: '/invest' },
-    { label: 'News & Insights', path: '/news', disabled: true },
-    { label: 'Contact', path: '/contact', disabled: true },
-  ];
+  const navItems = data.navItems?.length ? data.navItems : siteSettingsDefaults.navItems;
+  const logoUrl = resolveImage(data.primaryLogo, logoPrimary);
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
@@ -21,16 +22,16 @@ export const Navbar: React.FC = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img 
-              src={logoPrimary} 
-              alt="Alpha Asset Managers Logo" 
+              src={logoUrl} 
+              alt={data.primaryLogo?.alt ?? "Alpha Asset Managers Logo"} 
               className="h-10 sm:h-12 w-auto object-contain"
             />
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex md:space-x-4 lg:space-x-8 items-center">
-            {navItems.map((item) => (
-              item.disabled ? (
+            {navItems?.filter((item: { isVisible?: boolean }) => item.isVisible !== false).map((item: { label: string; path: string; isDisabled: boolean; isVisible?: boolean }) => (
+              item.isDisabled ? (
                 <span
                   key={item.path}
                   className="px-6 py-2.5 text-[13px] uppercase tracking-wider text-brand-grayText opacity-60 cursor-not-allowed"
@@ -59,7 +60,7 @@ export const Navbar: React.FC = () => {
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => { setIsOpen(!isOpen); }}
               type="button"
               className="inline-flex items-center justify-center p-2 rounded-md text-brand-dark hover:text-brand-primary hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand-primary"
               aria-controls="mobile-menu"
@@ -78,8 +79,8 @@ export const Navbar: React.FC = () => {
         id="mobile-menu"
       >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-100 shadow-lg">
-          {navItems.map((item) => (
-            item.disabled ? (
+          {navItems?.filter((item: { isVisible?: boolean }) => item.isVisible !== false).map((item: { label: string; path: string; isDisabled: boolean; isVisible?: boolean }) => (
+            item.isDisabled ? (
               <span
                 key={item.path}
                 className="block px-4 py-3 text-[13px] uppercase tracking-wider text-brand-grayText opacity-60 cursor-not-allowed"
@@ -91,7 +92,7 @@ export const Navbar: React.FC = () => {
               <NavLink
                 key={item.path}
                 to={item.path}
-                onClick={() => setIsOpen(false)}
+                onClick={() => { setIsOpen(false); }}
                 className={({ isActive }) =>
                   `block px-4 py-3 text-[13px] uppercase tracking-wider transition-colors duration-200 ${
                     isActive

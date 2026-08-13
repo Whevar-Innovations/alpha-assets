@@ -6,7 +6,7 @@ export interface ServiceCardProps {
   id: string;
   title: string;
   description: string;
-  iconName: keyof typeof Icons;
+  icon?: { name?: string };
   isActive?: boolean;
   
   // Customization Props
@@ -36,7 +36,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   id,
   title,
   description,
-  iconName,
+  icon,
   isActive = false,
   bgClass = 'bg-brand-cardBg',
   activeBgClass = 'bg-brand-dark',
@@ -57,7 +57,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   const [isHovered, setIsHovered] = useState(false);
 
   // Dynamically resolve the Lucide icon, fallback to Briefcase if not found
-  const IconComponent = (Icons[iconName] || Icons.Briefcase) as React.ComponentType<{ className?: string; size?: number }>;
+  const IconComponent = ((Icons as unknown as Record<string, React.ElementType | undefined>)[icon?.name ?? ''] ?? Icons.Briefcase) as React.ComponentType<{ className?: string; size?: number }>;
 
   const isCardActive = isActive || (enableHoverEffect && isHovered);
 
@@ -70,7 +70,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   const currentLinkColor = isCardActive ? activeLinkColorClass : linkColorClass;
 
   const handleClick = () => {
-    navigate(`/invest/${id}`);
+    void navigate(`/invest/${id}`);
   };
 
   return (
@@ -84,19 +84,17 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
           handleClick();
         }
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => { setIsHovered(true); }}
+      onMouseLeave={() => { setIsHovered(false); }}
       className={`rounded-[32px] p-8 lg:p-9 flex flex-col justify-between h-full shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out cursor-pointer select-none outline-none focus-visible:ring-2 focus-visible:ring-brand-primary ${currentBg} ${className}`}
     >
       <div>
         {/* Icon Circle Container (Bigger size per requirements) */}
         <div className={`w-20 h-20 rounded-full flex items-center justify-center mb-8 transition-colors duration-300 ${currentIconBg}`}>
-          {IconComponent && (
-            <IconComponent 
-              className={`transition-colors duration-300 ${currentIconColor}`} 
-              size={36} 
-            />
-          )}
+          <IconComponent 
+            className={`transition-colors duration-300 ${currentIconColor}`} 
+            size={36} 
+          />
         </div>
 
         {/* Title */}
