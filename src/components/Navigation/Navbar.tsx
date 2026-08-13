@@ -105,6 +105,13 @@ export const Navbar: React.FC = () => {
               </NavLink>
             )
           ))}
+          <a
+            href="/studio"
+            onClick={() => { setIsOpen(false); }}
+            className="block px-4 py-3 text-[13px] uppercase tracking-wider text-brand-grayText opacity-40 hover:opacity-100 hover:text-brand-primary font-normal transition-all duration-200"
+          >
+            Studio
+          </a>
         </div>
       </div>
     </header>

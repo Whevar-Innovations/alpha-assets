@@ -108,6 +108,11 @@ export const Footer: React.FC = () => {
                     <h3 className="text-base font-semibold text-white">{column.title}</h3>
                     <div className="text-sm text-brand-gray-text font-light prose-a:text-brand-gray-text hover:prose-a:text-white prose-a:transition-colors prose-a:duration-150 prose-a:no-underline">
                       <PortableText value={column.links} />
+                      {column.title === 'Resources' && (
+                        <div className="mt-2.5">
+                          <a href="/studio" className="opacity-40 hover:opacity-100 hover:text-white transition-all duration-150">Studio</a>
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))
@@ -120,6 +125,7 @@ export const Footer: React.FC = () => {
                       <li><span className="opacity-60 cursor-not-allowed" title="Coming Soon">Market research</span></li>
                       <li><span className="opacity-60 cursor-not-allowed" title="Coming Soon">Steps for 2026</span></li>
                       <li><span className="opacity-60 cursor-not-allowed" title="Coming Soon">Risk advisory</span></li>
+                      <li><a href="/studio" className="opacity-40 hover:opacity-100 hover:text-white transition-all duration-150">Studio</a></li>
                     </ul>
                   </div>
                   <div className="space-y-4">
