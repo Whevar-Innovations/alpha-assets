@@ -37,7 +37,7 @@ const components: PortableTextProps['components'] = {
 export const PortableText: React.FC<{ value: unknown }> = ({ value }) => {
   if (!value) return null;
   return (
-    <div className="prose prose-teal max-w-none">
+    <div className="prose prose-teal max-w-none font-sans">
       <PortableTextReact value={value as PortableTextProps['value']} components={components} />
     </div>
   );

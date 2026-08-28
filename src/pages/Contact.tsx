@@ -65,40 +65,43 @@ export const Contact: React.FC = () => {
     <div className="flex flex-col min-h-screen">
       <SEO title={pageData.seo?.metaTitle} description={pageData.seo?.metaDescription} ogImage={pageData.seo?.ogImage} />
       
-      {/* Hero Banner */}
+      {/* Hero Banner — matches About / Invest style */}
       {heroVisible && (
-        <section 
-          className="relative h-48 sm:h-56 flex items-center bg-brand-dark"
-          style={{
-            backgroundImage: `linear-gradient(rgba(0, 46, 46, 0.85), rgba(0, 46, 46, 0.85)), url(${bgImgUrl})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full flex flex-col items-center gap-6">
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-wide">
-              {hero?.heading}
-            </h1>
-            {hero?.ctaButton?.isVisible && hero.ctaButton.label && (
-              <Button
-                variant={hero.ctaButton.variant}
-                onClick={() => {
-                  const cta = hero.ctaButton;
-                  if (cta) {
-                    if (cta.linkType === 'external') {
-                      window.open(cta.url, '_blank');
-                    } else {
-                      void navigate(cta.url);
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 sm:mt-8 w-full">
+          <section
+            className="relative h-52 sm:h-64 md:h-72 flex items-center justify-center overflow-hidden rounded-2xl md:rounded-[28px]"
+            style={{
+              backgroundImage: `linear-gradient(rgba(0, 56, 46, 0.78), rgba(0, 56, 46, 0.78)), url(${bgImgUrl})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          >
+            <div className="flex flex-col items-center gap-6 text-center px-4">
+              <h1 className="text-4xl sm:text-5xl font-light text-white tracking-tight">
+                {hero?.heading}
+              </h1>
+              {hero?.ctaButton?.isVisible && hero.ctaButton.label && (
+                <Button
+                  variant={hero.ctaButton.variant}
+                  onClick={() => {
+                    const cta = hero.ctaButton;
+                    if (cta) {
+                      if (cta.linkType === 'external') {
+                        window.open(cta.url, '_blank');
+                      } else {
+                        void navigate(cta.url);
+                      }
                     }
-                  }
-                }}
-              >
-                {hero.ctaButton.label}
-              </Button>
-            )}
-          </div>
-        </section>
+                  }}
+                >
+                  {hero.ctaButton.label}
+                </Button>
+              )}
+            </div>
+          </section>
+        </div>
       )}
+
 
       {/* Main Two-Column Contact Section */}
       <section className="py-24 bg-white">

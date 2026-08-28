@@ -8,6 +8,7 @@ import { About } from './pages/About';
 import { Invest } from './pages/Invest';
 import { InvestDetail } from './pages/InvestDetail';
 import { News } from './pages/News';
+import { ArticleDetail } from './pages/ArticleDetail';
 import { Contact } from './pages/Contact';
 
 export const App: React.FC = () => {
@@ -23,6 +24,7 @@ export const App: React.FC = () => {
               <Route path="/invest" element={<Invest />} />
               <Route path="/invest/:serviceId" element={<InvestDetail />} />
               <Route path="/news" element={<News />} />
+              <Route path="/news/:slug" element={<ArticleDetail />} />
               <Route path="/contact" element={<Contact />} />
             </Routes>
           </main>
