@@ -6,11 +6,13 @@ import type { ArticleItem } from '../types';
 import bannerBg from '../assets/images/banner_bg.jpg';
 import { Button } from '../components/UI/Button';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
+import { FeaturedBanner } from '../components/UI/FeaturedBanner';
 
 import { useSanityPage } from '../sanity/hooks/useSanityPage';
 import { NEWS_QUERY, ARTICLES_QUERY } from '../sanity/lib/queries';
 import { newsDefaults } from '../sanity/defaults/news';
 import { resolveImage } from '../sanity/lib/image';
+
 
 // Fallback articles if none in Sanity
 const fallbackArticles: ArticleItem[] = [
@@ -56,9 +58,17 @@ export const News: React.FC = () => {
 
   // Extract unique categories from articles
   const categories = ['All', ...Array.from(new Set(articles.map((a: ArticleItem) => a.category).filter(Boolean)))] as string[];
+
+  // Articles scoped to the active filter
   const filteredArticles = filter === 'All'
     ? articles
     : articles.filter((a: ArticleItem) => a.category === filter);
+
+  // Featured subset — respects the active filter
+  const featuredArticles = filteredArticles.filter((a: ArticleItem) => a.isFeatured === true);
+
+  // Non-featured grid — excludes items already shown in the banner
+  const gridArticles = filteredArticles.filter((a: ArticleItem) => !a.isFeatured);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -106,7 +116,7 @@ export const News: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Category Filter Pills */}
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10 sm:mb-14">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10 sm:mb-12">
             {categories.map((cat: string) => (
               <button
                 key={cat}
@@ -122,81 +132,95 @@ export const News: React.FC = () => {
             ))}
           </div>
 
-          {/* Grid Layout of Articles */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
-            {filteredArticles.map((article: ArticleItem) => {
-              const formattedDate = new Date(article.publishedAt ?? '').toLocaleDateString('en-US', {
-                year: 'numeric', month: 'short', day: 'numeric',
-              });
-              const coverUrl = resolveImage(article.coverImage);
+          {/* ── Featured Banner Carousel ────────────────────────────── */}
+          {featuredArticles.length > 0 && (
+            <FeaturedBanner
+              articles={featuredArticles}
+              onNavigate={(slug) => { void navigate(`/news/${slug}`); }}
+            />
+          )}
 
-              return (
-                <article
-                  key={article._id}
-                  className="bg-white border border-gray-150 rounded-xl overflow-hidden shadow-sm flex flex-col hover:shadow-md hover:border-brand-primary transition-all duration-200 group"
-                >
-                  {/* Cover image — always present, with brand-dark fallback */}
-                  <div className="w-full h-48 sm:h-44 lg:h-48 overflow-hidden bg-brand-dark shrink-0">
-                    {coverUrl ? (
-                      <img
-                        src={coverUrl}
-                        alt={article.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-brand-dark to-brand-primary opacity-80" />
-                    )}
-                  </div>
+          {/* ── Article Grid ────────────────────────────────────────── */}
+          {gridArticles.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+              {gridArticles.map((article: ArticleItem) => {
+                const formattedDate = new Date(article.publishedAt ?? '').toLocaleDateString('en-US', {
+                  year: 'numeric', month: 'short', day: 'numeric',
+                });
+                const coverUrl = resolveImage(article.coverImage);
 
-                  {/* Card body */}
-                  <div className="p-5 sm:p-6 flex flex-col flex-grow">
-                    <div className="flex-grow">
-                      {/* Category tag */}
-                      {article.category && (
-                        <span className="text-[10px] font-extrabold uppercase tracking-widest text-brand-primary bg-teal-50 px-2.5 py-1 rounded">
-                          {article.category}
-                        </span>
+                return (
+                  <article
+                    key={article._id}
+                    className="bg-white border border-gray-150 rounded-xl overflow-hidden shadow-sm flex flex-col hover:shadow-md hover:border-brand-primary transition-all duration-200 group"
+                  >
+                    {/* Cover image — always present, with brand-dark fallback */}
+                    <div className="w-full h-48 sm:h-44 lg:h-48 overflow-hidden bg-brand-dark shrink-0">
+                      {coverUrl ? (
+                        <img
+                          src={coverUrl}
+                          alt={article.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-brand-dark to-brand-primary opacity-80" />
                       )}
-
-                      {/* Title */}
-                      <h3 className="text-base sm:text-lg font-extrabold text-brand-dark mt-3 mb-2 leading-snug">
-                        {article.title}
-                      </h3>
-
-                      {/* Excerpt */}
-                      <p className="text-sm text-teal-900 opacity-80 leading-relaxed font-light line-clamp-3">
-                        {article.excerpt}
-                      </p>
                     </div>
 
-                    {/* Footer: meta + link */}
-                    <div className="mt-5 pt-4 border-t border-gray-100">
-                      <div className="flex items-center gap-4 text-xs text-brand-gray font-medium mb-4">
-                        <span className="flex items-center gap-1.5">
-                          <Calendar size={12} />
-                          {formattedDate}
-                        </span>
-                        {article.readTime && (
-                          <span className="flex items-center gap-1.5">
-                            <Clock size={12} />
-                            {String(article.readTime)}
+                    {/* Card body */}
+                    <div className="p-5 sm:p-6 flex flex-col flex-grow">
+                      <div className="flex-grow">
+                        {/* Category tag */}
+                        {article.category && (
+                          <span className="text-[10px] font-extrabold uppercase tracking-widest text-brand-primary bg-teal-50 px-2.5 py-1 rounded">
+                            {article.category}
                           </span>
                         )}
+
+                        {/* Title */}
+                        <h3 className="text-base sm:text-lg font-extrabold text-brand-dark mt-3 mb-2 leading-snug">
+                          {article.title}
+                        </h3>
+
+                        {/* Excerpt */}
+                        <p className="text-sm text-teal-900 opacity-80 leading-relaxed font-light line-clamp-3">
+                          {article.excerpt}
+                        </p>
                       </div>
 
-                      <button
-                        onClick={() => { void navigate(`/news/${article.slug?.current ?? ''}`); }}
-                        className="text-xs font-bold uppercase tracking-wider text-brand-primary hover:text-brand-dark inline-flex items-center gap-2 group/btn"
-                      >
-                        Read Article
-                        <ArrowRight size={13} className="transform translate-x-0 group-hover/btn:translate-x-1 transition-transform duration-150" />
-                      </button>
+                      {/* Footer: meta + link */}
+                      <div className="mt-5 pt-4 border-t border-gray-100">
+                        <div className="flex items-center gap-4 text-xs text-brand-gray font-medium mb-4">
+                          <span className="flex items-center gap-1.5">
+                            <Calendar size={12} />
+                            {formattedDate}
+                          </span>
+                          {article.readTime && (
+                            <span className="flex items-center gap-1.5">
+                              <Clock size={12} />
+                              {String(article.readTime)}
+                            </span>
+                          )}
+                        </div>
+
+                        <button
+                          onClick={() => { void navigate(`/news/${article.slug?.current ?? ''}`); }}
+                          className="text-xs font-bold uppercase tracking-wider text-brand-primary hover:text-brand-dark inline-flex items-center gap-2 group/btn"
+                        >
+                          Read Article
+                          <ArrowRight size={13} className="transform translate-x-0 group-hover/btn:translate-x-1 transition-transform duration-150" />
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
+                  </article>
+                );
+              })}
+            </div>
+          ) : (
+            featuredArticles.length === 0 && (
+              <p className="text-center text-brand-gray py-16 text-sm">No articles found in this category.</p>
+            )
+          )}
 
         </div>
       </section>
@@ -204,6 +228,7 @@ export const News: React.FC = () => {
       <FooterCTA />
     </div>
   );
+
 };
 
 // ─── Skeleton ─────────────────────────────────────────────────────────────────

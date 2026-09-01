@@ -13,6 +13,7 @@ export const article = defineType({
   ],
   fields: [
     { name: 'isActive', type: 'boolean', title: 'Is Active?', description: 'Turn off to hide from the website.', initialValue: true, group: 'settings' },
+    { name: 'isFeatured', type: 'boolean', title: '⭐ Featured Article', description: 'Show this article in the featured banner carousel on the News & Insights page.', initialValue: false, group: 'settings' },
     // Content
     { name: 'title', type: 'string', validation: (Rule) => Rule.required(), group: 'content' },
     { name: 'slug', type: 'slug', options: { source: 'title' }, validation: (Rule) => Rule.required(), group: 'content' },

@@ -58,7 +58,7 @@ export const ALL_SERVICES_QUERY = `*[_type == "service" && isActive == true] | o
 }`;
 
 export const ARTICLES_QUERY = `*[_type == "article" && isActive == true] | order(publishedAt desc){
-  _id, title, slug, excerpt, coverImage, category, publishedAt, readTime,
+  _id, title, slug, excerpt, coverImage, category, publishedAt, readTime, isFeatured,
   author->{ name, photo }
 }`;
 

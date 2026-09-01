@@ -136,3 +136,13 @@ input[type=number] {
 .animate-fade-in {
   animation: fadeIn 0.18s ease-out forwards;
 }
+
+/* ── Featured Banner Carousel ─────────────────────────── */
+@keyframes featuredProgress {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+.animate-featured-progress {
+  animation: featuredProgress linear forwards;
+}

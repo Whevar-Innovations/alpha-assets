@@ -65,6 +65,7 @@ export interface ArticleItem {
   publishedAt?: string;
   coverImage?: SanityImage;
   body?: unknown[];
+  isFeatured?: boolean;
   author?: { name: string; role?: string; photo?: SanityImage; bio?: string };
 }
 
