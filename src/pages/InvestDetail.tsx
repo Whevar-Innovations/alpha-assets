@@ -88,7 +88,7 @@ const InvestDetailContent = ({ currentId, allServices }: { currentId: string; al
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             
             {/* Left Sidebar Navigation */}
-            <aside className="lg:col-span-4 space-y-6">
+            <aside className="lg:col-span-4 space-y-6 order-2 lg:order-1">
               <div className="bg-white border border-brand-primary rounded-[1.5rem] p-6 sm:p-8">
                 <h3 className="text-3xl font-light text-brand-primary mb-6">
                   Our Services
@@ -117,7 +117,7 @@ const InvestDetailContent = ({ currentId, allServices }: { currentId: string; al
             </aside>
 
             {/* Right Detailed Content */}
-            <article className="lg:col-span-8 space-y-10">
+            <article className="lg:col-span-8 space-y-10 order-1 lg:order-2">
               
               <div className="rounded-[1.5rem] overflow-hidden h-[300px] sm:h-[400px] shadow-sm">
                 <img 
@@ -209,7 +209,7 @@ const InvestDetailSkeleton = ({ allServices, currentId }: { allServices: { _id: 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             
             {/* Sidebar Skeleton */}
-            <aside className="lg:col-span-4 space-y-6">
+            <aside className="lg:col-span-4 space-y-6 order-2 lg:order-1">
               <div className="bg-white border border-gray-100 rounded-[1.5rem] p-6 sm:p-8">
                 <div className="h-8 bg-gray-200 rounded w-1/2 mb-6"></div>
                 <nav className="flex flex-col">
@@ -226,7 +226,7 @@ const InvestDetailSkeleton = ({ allServices, currentId }: { allServices: { _id: 
             </aside>
 
             {/* Right Detailed Content Skeleton */}
-            <article className="lg:col-span-8 space-y-10">
+            <article className="lg:col-span-8 space-y-10 order-1 lg:order-2">
               <div className="rounded-[1.5rem] bg-gray-200 h-[300px] sm:h-[400px]"></div>
               
               <div className="space-y-3">
