@@ -5,6 +5,13 @@ export const aboutPage = defineType({
   title: 'About Page',
   type: 'document',
   icon: () => '📄',
+  preview: {
+    prepare() {
+      return {
+        title: 'About Page',
+      };
+    },
+  },
   groups: [
     { name: 'seo', title: 'SEO', default: false },
     { name: 'hero', title: 'Page Header', default: true },

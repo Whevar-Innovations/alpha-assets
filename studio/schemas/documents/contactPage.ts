@@ -5,6 +5,13 @@ export const contactPage = defineType({
   title: 'Contact Page',
   type: 'document',
   icon: () => '📞',
+  preview: {
+    prepare() {
+      return {
+        title: 'Contact Page',
+      };
+    },
+  },
   groups: [
     { name: 'seo', title: 'SEO', default: false },
     { name: 'hero', title: 'Page Header', default: true },

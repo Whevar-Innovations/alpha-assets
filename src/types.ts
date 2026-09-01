@@ -159,6 +159,18 @@ export interface ContactPageData {
   formSuccessMessage?: string;
 }
 
+export interface FooterLink {
+  label: string;
+  linkType: 'internal' | 'external' | 'custom';
+  externalUrl?: string;
+  customPath?: string;
+  internalLink?: {
+    _type: string;
+    slug?: string;
+    policyType?: string;
+  };
+}
+
 export interface SiteSettingsData {
   navItems?: { label: string; path: string; isDisabled: boolean; order?: number; isVisible?: boolean }[];
   primaryLogo?: SanityImage;
@@ -167,12 +179,13 @@ export interface SiteSettingsData {
   contactInfo?: { address?: string; phone?: string; email?: string; officeHours?: string };
   regulatoryText?: string;
   copyrightText?: string;
-  footerContent?: { title: string; links?: unknown[] }[];
+  footerContent?: { title: string; links?: FooterLink[] }[];
 }
 
 export interface PolicyPageData {
-  title?: string;
-  slug?: { current: string };
+  pageVisible?: boolean;
+  policyType?: string;
   lastUpdated?: string;
+  pdfDocument?: { asset?: { url?: string } };
   content?: unknown[];
 }

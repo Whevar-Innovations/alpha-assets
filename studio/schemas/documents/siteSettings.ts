@@ -5,6 +5,13 @@ export const siteSettings = defineType({
   title: 'Site Settings',
   type: 'document',
   icon: () => '⚙️',
+  preview: {
+    prepare() {
+      return {
+        title: 'Site Settings',
+      };
+    },
+  },
   groups: [
     { name: 'navigation', title: 'Navigation' },
     { name: 'footer', title: 'Footer' },
@@ -29,8 +36,18 @@ export const siteSettings = defineType({
           type: 'object',
           name: 'footerColumn',
           fields: [
-            { name: 'title', type: 'string', title: 'Column Title' },
-            { name: 'links', type: 'richText', title: 'Column Links (Rich Text)' }
+            { 
+              name: 'title', 
+              type: 'string', 
+              title: 'Column Title',
+              options: { list: ['Helpful Links', 'Resources', 'Company'] }
+            },
+            { 
+              name: 'links', 
+              type: 'array', 
+              title: 'Column Links',
+              of: [{ type: 'footerLink' }]
+            }
           ]
         }
       ]

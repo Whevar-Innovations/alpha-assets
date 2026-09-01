@@ -6,7 +6,7 @@ import { useSanityPage } from '../../sanity/hooks/useSanityPage';
 import { SITE_SETTINGS_QUERY } from '../../sanity/lib/queries';
 import { siteSettingsDefaults } from '../../sanity/defaults/siteSettings';
 import { resolveImage } from '../../sanity/lib/image';
-import { PortableText } from '../UI/PortableText';
+import type { FooterLink } from '../../types';
 
 export const Footer: React.FC = () => {
   const { data } = useSanityPage(SITE_SETTINGS_QUERY, siteSettingsDefaults);
@@ -21,7 +21,7 @@ export const Footer: React.FC = () => {
   const contactInfo = data.contactInfo ?? siteSettingsDefaults.contactInfo;
 
   return (
-    <footer className="bg-gradient-to-br from-[#002e2e] to-[#005b5c] text-white pt-16 pb-12">
+    <footer className="bg-gradient-to-br from-[#002e2e] to-[#005b5c] text-white pt-16 pb-12 print:hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24">
@@ -95,26 +95,64 @@ export const Footer: React.FC = () => {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-16">
               
-              <div className="text-brand-gray-text text-sm font-light leading-loose">
-                <p className="whitespace-pre-line">
-                  {contactInfo?.address}<br /><br />
-                  {contactInfo?.phone && <a href={`tel:${contactInfo.phone.replace(/[^0-9+]/g, '')}`} className="hover:text-white transition-colors block">{contactInfo.phone}</a>}
-                  {contactInfo?.email && <a href={`mailto:${contactInfo.email}`} className="hover:text-white transition-colors block">{contactInfo.email}</a>}
-                </p>
-              </div>
-
               {data.footerContent && data.footerContent.length > 0 ? (
-                data.footerContent.map((column: { title: string; links?: unknown[] }, idx: number) => (
+                data.footerContent.map((column: { title: string; links?: FooterLink[] }, idx: number) => (
                   <div key={idx} className="space-y-4">
                     <h3 className="text-base font-semibold text-white">{column.title}</h3>
-                    <div className="text-sm text-brand-gray-text font-light prose-a:text-brand-gray-text hover:prose-a:text-white prose-a:transition-colors prose-a:duration-150 prose-a:no-underline">
-                      <PortableText value={column.links} />
+                    <ul className="space-y-2.5 text-sm text-brand-gray-text font-light">
+                      {column.links?.map((link, linkIdx) => {
+                        let href = '#';
+                        if (link.linkType === 'custom' && link.customPath) href = link.customPath;
+                        else if (link.linkType === 'external' && link.externalUrl) href = link.externalUrl;
+                        else if (link.linkType === 'internal' && link.internalLink) {
+                          const internal = link.internalLink;
+                          if (internal.slug) href = `/${internal.slug}`;
+                          else if (internal.policyType) href = `/legal/${internal.policyType}`;
+                          else if (internal._type === 'homePage') href = '/';
+                          else if (internal._type === 'aboutPage') href = '/about';
+                          else if (internal._type === 'investPage') href = '/invest';
+                          else if (internal._type === 'newsPage') href = '/news';
+                          else if (internal._type === 'contactPage') href = '/contact';
+                        }
+                        
+                        const isExternal = link.linkType === 'external';
+                        const isDisabled = link.linkType === 'none';
+                        
+                        return (
+                          <li key={linkIdx}>
+                            {isDisabled ? (
+                              <span 
+                                className="opacity-60 cursor-not-allowed block" 
+                                title="Coming Soon"
+                              >
+                                {link.label}
+                              </span>
+                            ) : isExternal ? (
+                              <a 
+                                href={href} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="hover:text-white transition-colors duration-150 block"
+                              >
+                                {link.label}
+                              </a>
+                            ) : (
+                              <Link 
+                                to={href} 
+                                className="hover:text-white transition-colors duration-150 block"
+                              >
+                                {link.label}
+                              </Link>
+                            )}
+                          </li>
+                        );
+                      })}
                       {column.title === 'Resources' && (
-                        <div className="mt-2.5">
-                          <a href="/studio" className="opacity-40 hover:opacity-100 hover:text-white transition-all duration-150">Studio</a>
-                        </div>
+                        <li className="mt-2.5">
+                          <a href="/studio" className="opacity-40 hover:opacity-100 hover:text-white transition-all duration-150 block">Studio</a>
+                        </li>
                       )}
-                    </div>
+                    </ul>
                   </div>
                 ))
               ) : (
@@ -148,6 +186,14 @@ export const Footer: React.FC = () => {
                   </div>
                 </>
               )}
+
+              <div className="text-brand-gray-text text-sm font-light leading-loose">
+                <p className="whitespace-pre-line">
+                  {contactInfo?.address}<br /><br />
+                  {contactInfo?.phone && <a href={`tel:${contactInfo.phone.replace(/[^0-9+]/g, '')}`} className="hover:text-white transition-colors block">{contactInfo.phone}</a>}
+                  {contactInfo?.email && <a href={`mailto:${contactInfo.email}`} className="hover:text-white transition-colors block">{contactInfo.email}</a>}
+                </p>
+              </div>
             </div>
 
             <div className="pt-4 text-sm text-teal-200 text-left md:hidden font-normal">

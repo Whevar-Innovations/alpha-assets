@@ -24,6 +24,7 @@ import { socialLink } from './objects/socialLink'
 import { navItem } from './objects/navItem'
 import { contactInfo } from './objects/contactInfo'
 import { richText } from './objects/richText'
+import { footerLink } from './objects/footerLink'
 
 export const schemaTypes = [
   // Objects
@@ -41,6 +42,7 @@ export const schemaTypes = [
   navItem,
   contactInfo,
   richText,
+  footerLink,
 
   // Documents
   homePage,

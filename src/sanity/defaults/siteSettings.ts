@@ -1,10 +1,9 @@
-import type { SiteSettingsData } from '../../types';
+import type { SiteSettingsData, FooterLink } from '../../types';
 
-const createLinkBlock = (text: string, href: string, key: string) => ({
-  _type: 'block',
-  style: 'normal',
-  children: [{ _type: 'span', text, marks: [key] }],
-  markDefs: [{ _key: key, _type: 'link', href, blank: false }],
+const createCustomLink = (label: string, customPath: string): FooterLink => ({
+  label,
+  linkType: 'custom',
+  customPath
 });
 
 export const siteSettingsDefaults: SiteSettingsData = {
@@ -32,29 +31,29 @@ export const siteSettingsDefaults: SiteSettingsData = {
     {
       title: 'Helpful Links',
       links: [
-        createLinkBlock('Privacy Policy', '/legal/privacy-policy', 'link1'),
-        createLinkBlock('Terms of Use', '/legal/terms-of-use', 'link2'),
-        createLinkBlock('Cookie Policy', '/legal/cookie-policy', 'link3'),
-        createLinkBlock('Risk Disclosures', '/legal/risk-disclosures', 'link4'),
-        createLinkBlock('Complaints Procedure', '/legal/complaints-procedure', 'link5'),
+        createCustomLink('Privacy Policy', '/legal/privacy-policy'),
+        createCustomLink('Terms of Use', '/legal/terms-of-use'),
+        createCustomLink('Cookie Policy', '/legal/cookie-policy'),
+        createCustomLink('Risk Disclosures', '/legal/risk-disclosures'),
+        createCustomLink('Complaints Procedure', '/legal/complaints-procedure'),
       ]
     },
     {
       title: 'Resources',
       links: [
-        createLinkBlock('Finance knowledge', '#', 'link6'),
-        createLinkBlock('Market research', '#', 'link7'),
-        createLinkBlock('Steps for 2026', '#', 'link8'),
-        createLinkBlock('Risk advisory', '#', 'link9'),
+        createCustomLink('Finance knowledge', '#'),
+        createCustomLink('Market research', '#'),
+        createCustomLink('Steps for 2026', '#'),
+        createCustomLink('Risk advisory', '#'),
       ]
     },
     {
       title: 'Company',
       links: [
-        createLinkBlock('Investment Philosophy', '/about', 'link10'),
-        createLinkBlock('Our People', '/about', 'link11'),
-        createLinkBlock('Corporate Governance', '/about', 'link12'),
-        createLinkBlock('Macro Insights', '/about', 'link13'),
+        createCustomLink('Investment Philosophy', '/about'),
+        createCustomLink('Our People', '/about'),
+        createCustomLink('Corporate Governance', '/about'),
+        createCustomLink('Macro Insights', '/about'),
       ]
     }
   ]

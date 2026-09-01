@@ -31,7 +31,15 @@ export const richText = defineType({
             type: 'object',
             title: 'Link',
             fields: [
-              { name: 'href', type: 'url', title: 'URL' },
+              { 
+                name: 'href', 
+                type: 'url', 
+                title: 'URL',
+                validation: Rule => Rule.uri({
+                  scheme: ['http', 'https', 'mailto', 'tel'],
+                  allowRelative: true
+                })
+              },
               { name: 'blank', type: 'boolean', title: 'Open in new tab', initialValue: true },
             ],
           },

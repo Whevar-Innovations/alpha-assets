@@ -43,7 +43,20 @@ export const CONTACT_QUERY = `*[_type == "contactPage" && _id == "contactPage"][
 
 export const SITE_SETTINGS_QUERY = `*[_type == "siteSettings" && _id == "siteSettings"][0]{
   navItems[] | order(order asc),
-  footerContent, contactInfo, socialLinks[],
+  footerContent[]{
+    title,
+    links[]{
+      label,
+      linkType,
+      externalUrl,
+      customPath,
+      internalLink->{
+        _type,
+        "slug": slug.current,
+        policyType
+      }
+    }
+  }, contactInfo, socialLinks[],
   primaryLogo{ image{ asset->{url} }, alt },
   whiteLogo{ image{ asset->{url} }, alt },
   regulatoryText, copyrightText
@@ -72,6 +85,6 @@ export const TEAM_QUERY = `*[_type == "teamMember" && isActive == true] | order(
   _id, name, role, category, photo, bio, order
 }`;
 
-export const POLICY_PAGE_QUERY = `*[_type == "policyPage" && slug.current == $slug][0]{
-  title, slug, lastUpdated, content
+export const POLICY_PAGE_QUERY = `*[_type == "policyPage" && policyType == $slug][0]{
+  pageVisible, policyType, lastUpdated, pdfDocument{ asset->{url} }, content
 }`;
