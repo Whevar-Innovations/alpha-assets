@@ -1,5 +1,12 @@
 import type { SiteSettingsData } from '../../types';
 
+const createLinkBlock = (text: string, href: string, key: string) => ({
+  _type: 'block',
+  style: 'normal',
+  children: [{ _type: 'span', text, marks: [key] }],
+  markDefs: [{ _key: key, _type: 'link', href, blank: false }],
+});
+
 export const siteSettingsDefaults: SiteSettingsData = {
   navItems: [
     { label: 'Home', path: '/', isDisabled: false, order: 1, isVisible: true },
@@ -10,7 +17,7 @@ export const siteSettingsDefaults: SiteSettingsData = {
   ],
   contactInfo: {
     address: 'Regency Plaza, 30 Lugogo Bypass\nKampala, Uganda',
-    phone: '+256 200 911875',
+    phone: '+256 393 003 397',
     email: 'invest@alphaeastafrica.com',
     officeHours: 'Monday - Friday: 8:00 AM - 5:00 PM\nClosed on Weekends & Public Holidays',
   },
@@ -21,4 +28,34 @@ export const siteSettingsDefaults: SiteSettingsData = {
   ],
   regulatoryText: 'Licensed & Regulated by the Capital Markets Authority',
   copyrightText: '© 2026 Alpha Asset Managers, All Rights Reserved',
+  footerContent: [
+    {
+      title: 'Helpful Links',
+      links: [
+        createLinkBlock('Privacy Policy', '/legal/privacy-policy', 'link1'),
+        createLinkBlock('Terms of Use', '/legal/terms-of-use', 'link2'),
+        createLinkBlock('Cookie Policy', '/legal/cookie-policy', 'link3'),
+        createLinkBlock('Risk Disclosures', '/legal/risk-disclosures', 'link4'),
+        createLinkBlock('Complaints Procedure', '/legal/complaints-procedure', 'link5'),
+      ]
+    },
+    {
+      title: 'Resources',
+      links: [
+        createLinkBlock('Finance knowledge', '#', 'link6'),
+        createLinkBlock('Market research', '#', 'link7'),
+        createLinkBlock('Steps for 2026', '#', 'link8'),
+        createLinkBlock('Risk advisory', '#', 'link9'),
+      ]
+    },
+    {
+      title: 'Company',
+      links: [
+        createLinkBlock('Investment Philosophy', '/about', 'link10'),
+        createLinkBlock('Our People', '/about', 'link11'),
+        createLinkBlock('Corporate Governance', '/about', 'link12'),
+        createLinkBlock('Macro Insights', '/about', 'link13'),
+      ]
+    }
+  ]
 };

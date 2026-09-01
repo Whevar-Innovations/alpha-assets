@@ -11,6 +11,7 @@ export const aboutPage = defineType({
     { name: 'intro', title: 'Intro Section' },
     { name: 'quote', title: 'Quote Section' },
     { name: 'coreValues', title: 'Core Values' },
+    { name: 'committee', title: 'Investment Committee' },
     { name: 'team', title: 'Team Section' },
   ],
   fields: [
@@ -39,6 +40,11 @@ export const aboutPage = defineType({
     { name: 'coreValuesSubtitle', type: 'string', title: 'Subtitle', group: 'coreValues' },
     { name: 'coreValuesHeading', type: 'text', title: 'Heading', rows: 2, group: 'coreValues' },
     { name: 'coreValues', type: 'array', of: [{ type: 'coreValueItem' }], title: 'Values', group: 'coreValues' },
+
+    // Investment Committee
+    { name: 'committeeVisible', type: 'boolean', title: 'Show Investment Committee Section', initialValue: true, group: 'committee' },
+    { name: 'committeeHeading', type: 'string', title: 'Heading', group: 'committee' },
+    { name: 'committeeText', type: 'array', of: [{ type: 'block' }], title: 'Text', group: 'committee' },
 
     // Team
     { name: 'teamVisible', type: 'boolean', title: 'Show Team Section', initialValue: true, group: 'team' },

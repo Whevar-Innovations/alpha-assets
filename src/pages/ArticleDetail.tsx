@@ -194,7 +194,7 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({ slug, allAr
               {/* Rich text body */}
               {hasBody && (
                 <div className="text-gray-500 text-sm sm:text-base leading-relaxed space-y-6 font-light">
-                  <PortableText value={article.body as Parameters<typeof PortableText>[0]['value']} />
+                  <PortableText value={article.body} />
                 </div>
               )}
 

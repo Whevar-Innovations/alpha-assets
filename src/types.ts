@@ -118,6 +118,9 @@ export interface AboutPageData {
   coreValuesSubtitle?: string;
   coreValuesHeading?: string;
   coreValues?: { title: string; description: string; icon?: { name?: string }; isVisible?: boolean }[];
+  committeeVisible?: boolean;
+  committeeHeading?: string;
+  committeeText?: unknown[];
   teamVisible?: boolean;
   teamSubtitle?: string;
   teamHeading?: string;
@@ -165,4 +168,11 @@ export interface SiteSettingsData {
   regulatoryText?: string;
   copyrightText?: string;
   footerContent?: { title: string; links?: unknown[] }[];
+}
+
+export interface PolicyPageData {
+  title?: string;
+  slug?: { current: string };
+  lastUpdated?: string;
+  content?: unknown[];
 }

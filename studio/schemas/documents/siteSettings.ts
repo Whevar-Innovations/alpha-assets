@@ -19,6 +19,22 @@ export const siteSettings = defineType({
     { name: 'socialLinks', type: 'array', of: [{ type: 'socialLink' }], title: 'Social Media Links', group: 'footer' },
     { name: 'regulatoryText', type: 'string', title: 'Regulatory Disclaimer', group: 'footer' },
     { name: 'copyrightText', type: 'string', title: 'Copyright Text', group: 'footer' },
+    { 
+      name: 'footerContent', 
+      type: 'array', 
+      title: 'Footer Link Columns', 
+      group: 'footer',
+      of: [
+        {
+          type: 'object',
+          name: 'footerColumn',
+          fields: [
+            { name: 'title', type: 'string', title: 'Column Title' },
+            { name: 'links', type: 'richText', title: 'Column Links (Rich Text)' }
+          ]
+        }
+      ]
+    },
     
     // Branding
     { name: 'primaryLogo', type: 'imageWithAlt', title: 'Primary Logo (Dark)', group: 'branding' },

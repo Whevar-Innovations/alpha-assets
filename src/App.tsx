@@ -10,6 +10,7 @@ import { InvestDetail } from './pages/InvestDetail';
 import { News } from './pages/News';
 import { ArticleDetail } from './pages/ArticleDetail';
 import { Contact } from './pages/Contact';
+import { PolicyPage } from './pages/PolicyPage';
 
 export const App: React.FC = () => {
   return (
@@ -26,6 +27,7 @@ export const App: React.FC = () => {
               <Route path="/news" element={<News />} />
               <Route path="/news/:slug" element={<ArticleDetail />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/legal/:slug" element={<PolicyPage />} />
             </Routes>
           </main>
           <Footer />

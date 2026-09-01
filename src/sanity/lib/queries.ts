@@ -20,6 +20,7 @@ export const ABOUT_QUERY = `*[_type == "aboutPage" && _id == "aboutPage"][0]{
   quoteText, quoteAuthor, quoteAuthorTitle,
   quoteRightImage{ image{ asset->{url, metadata} }, alt },
   coreValuesVisible, coreValuesSubtitle, coreValuesHeading, coreValues[],
+  committeeVisible, committeeHeading, committeeText,
   teamVisible, teamSubtitle, teamHeading,
   teamMembers[@->isActive == true]->{_id, name, role, category, photo{ image{ asset->{url, metadata} }, alt }, bio, order} | order(order asc)
 }`;
@@ -69,4 +70,8 @@ export const ARTICLE_DETAIL_QUERY = `*[_type == "article" && slug.current == $sl
 
 export const TEAM_QUERY = `*[_type == "teamMember" && isActive == true] | order(order asc){
   _id, name, role, category, photo, bio, order
+}`;
+
+export const POLICY_PAGE_QUERY = `*[_type == "policyPage" && slug.current == $slug][0]{
+  title, slug, lastUpdated, content
 }`;

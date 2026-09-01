@@ -93,15 +93,16 @@ export const Footer: React.FC = () => {
 
           <div className="flex flex-col justify-between space-y-12 lg:space-y-16">
             
-            <div className="text-brand-gray-text text-sm font-light leading-loose">
-              <p className="whitespace-pre-line">
-                {contactInfo?.address}<br /><br />
-                {contactInfo?.phone && <a href={`tel:${contactInfo.phone.replace(/[^0-9+]/g, '')}`} className="hover:text-white transition-colors block">{contactInfo.phone}</a>}
-                {contactInfo?.email && <a href={`mailto:${contactInfo.email}`} className="hover:text-white transition-colors block">{contactInfo.email}</a>}
-              </p>
-            </div>
-
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-16">
+              
+              <div className="text-brand-gray-text text-sm font-light leading-loose">
+                <p className="whitespace-pre-line">
+                  {contactInfo?.address}<br /><br />
+                  {contactInfo?.phone && <a href={`tel:${contactInfo.phone.replace(/[^0-9+]/g, '')}`} className="hover:text-white transition-colors block">{contactInfo.phone}</a>}
+                  {contactInfo?.email && <a href={`mailto:${contactInfo.email}`} className="hover:text-white transition-colors block">{contactInfo.email}</a>}
+                </p>
+              </div>
+
               {data.footerContent && data.footerContent.length > 0 ? (
                 data.footerContent.map((column: { title: string; links?: unknown[] }, idx: number) => (
                   <div key={idx} className="space-y-4">
@@ -118,6 +119,14 @@ export const Footer: React.FC = () => {
                 ))
               ) : (
                 <>
+                  <div className="space-y-4">
+                    <h3 className="text-base font-semibold text-white">Helpful Links</h3>
+                    <ul className="space-y-2.5 text-sm text-brand-gray-text font-light">
+                      <li><Link to="/legal/privacy-policy" className="hover:text-white transition-colors duration-150">Privacy Policy</Link></li>
+                      <li><Link to="/legal/terms-of-use" className="hover:text-white transition-colors duration-150">Terms of Use</Link></li>
+                      <li><Link to="/legal/cookie-policy" className="hover:text-white transition-colors duration-150">Cookie Policy</Link></li>
+                    </ul>
+                  </div>
                   <div className="space-y-4">
                     <h3 className="text-base font-semibold text-white">Resources</h3>
                     <ul className="space-y-2.5 text-sm text-brand-gray-text font-light">
