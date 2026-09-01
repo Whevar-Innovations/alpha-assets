@@ -5,6 +5,13 @@ export const homePage = defineType({
   title: 'Home Page',
   type: 'document',
   icon: () => '🏠',
+  preview: {
+    prepare() {
+      return {
+        title: 'Home Page',
+      };
+    },
+  },
   groups: [
     { name: 'seo', title: 'SEO', default: false },
     { name: 'hero', title: 'Hero Banner', default: true },

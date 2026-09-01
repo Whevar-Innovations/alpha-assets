@@ -25,6 +25,7 @@ export default defineConfig({
             S.listItem().title('📝 Articles').child(S.documentTypeList('article').title('News Articles')),
             S.listItem().title('✍️ Authors').child(S.documentTypeList('author').title('Authors')),
             S.listItem().title('👥 Team Members').child(S.documentTypeList('teamMember').title('Team Members')),
+            S.listItem().title('📜 Policy Pages').child(S.documentTypeList('policyPage').title('Policy Pages')),
             S.divider(),
             S.listItem().title('⚙️ Site Settings').child(S.document().schemaType('siteSettings').documentId('siteSettings')),
           ]),

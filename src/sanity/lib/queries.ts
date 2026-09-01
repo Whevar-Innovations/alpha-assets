@@ -26,6 +26,7 @@ export const ABOUT_QUERY = `*[_type == "aboutPage" && _id == "aboutPage"][0]{
   quoteText, quoteAuthor, quoteAuthorTitle,
   quoteRightImage{ image{ asset->{url, metadata} }, alt },
   coreValuesVisible, coreValuesSubtitle, coreValuesHeading, coreValues[],
+  committeeVisible, committeeHeading, committeeText,
   teamVisible, teamSubtitle, teamHeading,
   teamMembers[@->isActive == true]->{_id, name, role, category, photo{ image{ asset->{url, metadata} }, alt }, bio, order} | order(order asc)
 }`;
@@ -48,7 +49,20 @@ export const CONTACT_QUERY = `*[_type == "contactPage" && _id == "contactPage"][
 
 export const SITE_SETTINGS_QUERY = `*[_type == "siteSettings" && _id == "siteSettings"][0]{
   navItems[] | order(order asc),
-  footerContent, contactInfo, socialLinks[],
+  footerContent[]{
+    title,
+    links[]{
+      label,
+      linkType,
+      externalUrl,
+      customPath,
+      internalLink->{
+        _type,
+        "slug": slug.current,
+        policyType
+      }
+    }
+  }, contactInfo, socialLinks[],
   primaryLogo{ image{ asset->{url} }, alt },
   whiteLogo{ image{ asset->{url} }, alt },
   regulatoryText, copyrightText
@@ -75,4 +89,8 @@ export const ARTICLE_DETAIL_QUERY = `*[_type == "article" && slug.current == $sl
 
 export const TEAM_QUERY = `*[_type == "teamMember" && isActive == true] | order(order asc){
   _id, name, role, category, photo, bio, order
+}`;
+
+export const POLICY_PAGE_QUERY = `*[_type == "policyPage" && policyType == $slug][0]{
+  pageVisible, policyType, lastUpdated, pdfDocument{ asset->{url} }, content
 }`;

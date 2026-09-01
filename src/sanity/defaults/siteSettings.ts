@@ -1,4 +1,10 @@
-import type { SiteSettingsData } from '../../types';
+import type { SiteSettingsData, FooterLink } from '../../types';
+
+const createCustomLink = (label: string, customPath: string): FooterLink => ({
+  label,
+  linkType: 'custom',
+  customPath
+});
 
 export const siteSettingsDefaults: SiteSettingsData = {
   navItems: [
@@ -10,7 +16,7 @@ export const siteSettingsDefaults: SiteSettingsData = {
   ],
   contactInfo: {
     address: 'Regency Plaza, 30 Lugogo Bypass\nKampala, Uganda',
-    phone: '+256 200 911875',
+    phone: '+256 393 003 397',
     email: 'invest@alphaeastafrica.com',
     officeHours: 'Monday - Friday: 8:00 AM - 5:00 PM\nClosed on Weekends & Public Holidays',
   },
@@ -21,4 +27,34 @@ export const siteSettingsDefaults: SiteSettingsData = {
   ],
   regulatoryText: 'Licensed & Regulated by the Capital Markets Authority',
   copyrightText: '© 2026 Alpha Asset Managers, All Rights Reserved',
+  footerContent: [
+    {
+      title: 'Helpful Links',
+      links: [
+        createCustomLink('Privacy Policy', '/legal/privacy-policy'),
+        createCustomLink('Terms of Use', '/legal/terms-of-use'),
+        createCustomLink('Cookie Policy', '/legal/cookie-policy'),
+        createCustomLink('Risk Disclosures', '/legal/risk-disclosures'),
+        createCustomLink('Complaints Procedure', '/legal/complaints-procedure'),
+      ]
+    },
+    {
+      title: 'Resources',
+      links: [
+        createCustomLink('Finance knowledge', '#'),
+        createCustomLink('Market research', '#'),
+        createCustomLink('Steps for 2026', '#'),
+        createCustomLink('Risk advisory', '#'),
+      ]
+    },
+    {
+      title: 'Company',
+      links: [
+        createCustomLink('Investment Philosophy', '/about'),
+        createCustomLink('Our People', '/about'),
+        createCustomLink('Corporate Governance', '/about'),
+        createCustomLink('Macro Insights', '/about'),
+      ]
+    }
+  ]
 };

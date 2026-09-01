@@ -8,6 +8,7 @@ import { service } from './documents/service'
 import { teamMember } from './documents/teamMember'
 import { article } from './documents/article'
 import { author } from './documents/author'
+import { policyPage } from './documents/policyPage'
 
 import { iconPicker } from './objects/iconPicker'
 import { seo } from './objects/seo'
@@ -24,6 +25,7 @@ import { socialLink } from './objects/socialLink'
 import { navItem } from './objects/navItem'
 import { contactInfo } from './objects/contactInfo'
 import { richText } from './objects/richText'
+import { footerLink } from './objects/footerLink'
 
 export const schemaTypes = [
   // Objects
@@ -42,6 +44,7 @@ export const schemaTypes = [
   navItem,
   contactInfo,
   richText,
+  footerLink,
 
   // Documents
   homePage,
@@ -54,4 +57,5 @@ export const schemaTypes = [
   teamMember,
   article,
   author,
+  policyPage,
 ]

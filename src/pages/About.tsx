@@ -72,6 +72,10 @@ export const About: React.FC = () => {
   const coreValuesHeading = data.coreValuesHeading ?? aboutDefaults.coreValuesHeading;
   const coreValues = data.coreValues?.length ? data.coreValues : aboutDefaults.coreValues;
   
+  const committeeVisible = data.committeeVisible ?? true;
+  const committeeHeading = data.committeeHeading ?? aboutDefaults.committeeHeading;
+  const committeeText = data.committeeText ?? aboutDefaults.committeeText;
+  
   const teamVisible = data.teamVisible ?? true;
   const teamSubtitle = data.teamSubtitle ?? aboutDefaults.teamSubtitle;
   const teamHeading = data.teamHeading ?? aboutDefaults.teamHeading;
@@ -225,6 +229,20 @@ export const About: React.FC = () => {
             </div>
           </section>
         </div>
+      )}
+
+      {/* Investment Committee Section */}
+      {committeeVisible && (
+        <section className="py-20 bg-white">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center space-y-6">
+            <h2 className="text-4xl sm:text-5xl font-light text-brand-primary leading-tight">
+              {committeeHeading}
+            </h2>
+            <div className="space-y-4 text-[15px] sm:text-base leading-relaxed text-[#4a7060] font-light">
+              <PortableText value={committeeText} />
+            </div>
+          </div>
+        </section>
       )}
 
       {/* Our Team Section */}
@@ -438,6 +456,18 @@ const AboutSkeleton: React.FC = () => (
               </div>
             </div>
           ))}
+        </div>
+      </div>
+    </div>
+
+    {/* Investment Committee Section */}
+    <div className="py-20 bg-white">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center space-y-6 flex flex-col items-center">
+        <div className="h-12 bg-gray-200 rounded w-3/4"></div>
+        <div className="space-y-4 w-full flex flex-col items-center">
+          <div className="h-4 bg-gray-100 rounded w-full"></div>
+          <div className="h-4 bg-gray-100 rounded w-5/6"></div>
+          <div className="h-4 bg-gray-100 rounded w-4/6"></div>
         </div>
       </div>
     </div>

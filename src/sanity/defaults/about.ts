@@ -65,6 +65,28 @@ export const aboutDefaults: AboutPageData = {
     { title: 'Partnership & Collaboration', description: 'Promote a culture of openness, shared metrics, teamwork, and client accountability.', icon: { name: 'CheckCircle' }, isVisible: true },
     { title: 'Investment in People', description: 'Attract the most talented people and inspire them to reach their highest potential.', icon: { name: 'Lightbulb' }, isVisible: true },
   ],
+  committeeVisible: true,
+  committeeHeading: 'Investment Committee',
+  committeeText: [
+    {
+      _key: 'committee-1',
+      _type: 'block',
+      style: 'normal',
+      children: [{ _type: 'span', text: 'Alpha Asset Managers’ Investment Committee provides Board-level oversight of the firm’s investment activities. It ensures that each fund, collective investment scheme and segregated mandate is managed within its approved investment policy, risk limits and applicable regulatory requirements, and in the best interests of investors. The Committee reviews investment objectives, benchmarks, asset-allocation frameworks, concentration limits and product suitability before recommending them to the Board.' }],
+    },
+    {
+      _key: 'committee-2',
+      _type: 'block',
+      style: 'normal',
+      children: [{ _type: 'span', text: 'The Committee approves investments and disposals above management’s delegated authority and oversees the firm’s credit, collateral and borrower due-diligence frameworks. It monitors portfolio performance, valuation, liquidity, gearing, concentration, deployment and diversification, and reviews material restructurings, impairments and non-performing exposures. It also oversees mandate compliance and the management of conflicts of interest in investment allocation.' }],
+    },
+    {
+      _key: 'committee-3',
+      _type: 'block',
+      style: 'normal',
+      children: [{ _type: 'span', text: 'Joshua Karamagi, CFA, Non-Executive Director, chairs the Committee. Its other members are Robert Katuntu, CFA, Chief Investment Officer, and Joseph Bagabo, Chief Operating Officer. Portfolio, credit, compliance and risk specialists attend when their expertise is required. The Committee meets monthly during active fund-deployment periods and otherwise as necessary.' }],
+    }
+  ],
   teamVisible: true,
   teamSubtitle: 'Our Team',
   teamHeading: 'Meet the Experts Behind \nOur Investment Success',
