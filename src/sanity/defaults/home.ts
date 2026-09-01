@@ -142,7 +142,7 @@ export const homeDefaults: HomePageData = {
   footerCtaText: 'Ready to optimize your portfolio?',
   footerCtaBoldText: 'Start investing today',
   footerCtaButton: {
-    label: 'Open an Account',
+    label: 'Speak to an Advisor',
     linkType: 'internal',
     url: '/invest',
     variant: 'white',
