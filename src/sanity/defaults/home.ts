@@ -4,6 +4,22 @@ export const homeDefaults: HomePageData = {
   seo: { metaTitle: '', metaDescription: '', ogImage: undefined },
   pageVisible: true,
   heroVisible: true,
+  heroSlides: [
+    {
+      heading: 'Institutional investment management,',
+      highlightText: 'built for East Africa',
+      subtext: 'We design transparent, risk-controlled portfolios for\ninstitutions, family offices and private clients.',
+      ctaButtons: [
+        {
+          label: 'Explore Our Strategies',
+          linkType: 'internal',
+          url: '/invest',
+          variant: 'white',
+          isVisible: true,
+        },
+      ],
+    },
+  ],
   hero: {
     heading: 'Grow your capital with',
     highlightText: 'smarter investments',

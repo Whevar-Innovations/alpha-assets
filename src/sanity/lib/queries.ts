@@ -1,5 +1,11 @@
 export const HOME_QUERY = `*[_type == "homePage" && _id == "homePage"][0]{
-  pageVisible, seo, heroVisible, hero{ heading, highlightText, subtext,
+  pageVisible, seo, heroVisible,
+  heroSlides[]{
+    heading, highlightText, subtext,
+    backgroundImage{ image{ asset->{url, metadata} }, alt },
+    ctaButtons[]{ label, linkType, url, variant, isVisible }
+  },
+  hero{ heading, highlightText, subtext,
     backgroundImage{ image{ asset->{url, metadata} }, alt },
     ctaButtons[]{ label, linkType, url, variant, isVisible }
   },
@@ -58,7 +64,7 @@ export const ALL_SERVICES_QUERY = `*[_type == "service" && isActive == true] | o
 }`;
 
 export const ARTICLES_QUERY = `*[_type == "article" && isActive == true] | order(publishedAt desc){
-  _id, title, slug, excerpt, coverImage, category, publishedAt, readTime,
+  _id, title, slug, excerpt, coverImage, category, publishedAt, readTime, isFeatured,
   author->{ name, photo }
 }`;
 
