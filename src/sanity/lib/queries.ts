@@ -1,5 +1,11 @@
 export const HOME_QUERY = `*[_type == "homePage" && _id == "homePage"][0]{
-  pageVisible, seo, heroVisible, hero{ heading, highlightText, subtext,
+  pageVisible, seo, heroVisible,
+  heroSlides[]{
+    heading, highlightText, subtext,
+    backgroundImage{ image{ asset->{url, metadata} }, alt },
+    ctaButtons[]{ label, linkType, url, variant, isVisible }
+  },
+  hero{ heading, highlightText, subtext,
     backgroundImage{ image{ asset->{url, metadata} }, alt },
     ctaButtons[]{ label, linkType, url, variant, isVisible }
   },

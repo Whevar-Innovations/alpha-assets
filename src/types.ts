@@ -27,6 +27,9 @@ export interface HeroData {
   ctaButtons?: CTAButton[];
 }
 
+// A single slide in the hero carousel — same shape as HeroData
+export type HeroSlide = HeroData;
+
 export interface ServiceItem {
   _id: string;
   title: string;
@@ -73,6 +76,7 @@ export interface HomePageData {
   seo?: SEOData;
   pageVisible?: boolean;
   heroVisible?: boolean;
+  heroSlides?: HeroSlide[];
   hero?: HeroData;
   servicesVisible?: boolean;
   servicesHeading?: string;

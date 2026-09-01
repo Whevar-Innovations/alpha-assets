@@ -3,19 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import { ServiceCard } from '../components/UI/ServiceCard';
 import { Accordion } from '../components/UI/Accordion';
 import { FooterCTA } from '../components/UI/FooterCTA';
-import { Button } from '../components/UI/Button';
 import { SectionHeader } from '../components/UI/SectionHeader';
 import { FeatureCard } from '../components/UI/FeatureCard';
-import type { HomePageData, ServiceItem, CTAButton } from '../types';
+import type { HomePageData, ServiceItem, CTAButton, HeroSlide } from '../types';
 import { DynamicIcon } from '../components/UI/DynamicIcon';
 import { SEO } from '../components/SEO';
-import heroMan from '../assets/images/hero_man.jpg';
+import { HeroCarousel } from '../components/UI/HeroCarousel';
 
 import { useSanityPage } from '../sanity/hooks/useSanityPage';
 import { HOME_QUERY } from '../sanity/lib/queries';
 import { homeDefaults } from '../sanity/defaults/home';
 import { resolveImage } from '../sanity/lib/image';
 import { formatCMSLines } from '../utils/formatText';
+
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -31,9 +31,18 @@ export const Home: React.FC = () => {
   }
 
   // Fallbacks
-  const hero = data.hero ?? homeDefaults.hero;
+  // Prefer heroSlides from CMS; fall back to wrapping the legacy hero; last resort: seeded defaults
+  const rawSlides = data.heroSlides?.length
+    ? data.heroSlides
+    : data.hero
+      ? [data.hero as HeroSlide]
+      : (homeDefaults.heroSlides ?? []);
+
+  // Enforce hard max of 3 at runtime (mirrors Sanity validation)
+  const heroSlides = rawSlides.slice(0, 3);
+
   const heroVisible = data.heroVisible ?? true;
-  
+
   const servicesVisible = data.servicesVisible ?? true;
   const servicesHeading = data.servicesHeading ?? homeDefaults.servicesHeading;
   const servicesSubtext = data.servicesSubtext ?? homeDefaults.servicesSubtext;
@@ -53,56 +62,20 @@ export const Home: React.FC = () => {
   const faqSubtext = data.faqSubtext ?? homeDefaults.faqSubtext;
   const faqs = data.faqItems?.length ? data.faqItems : homeDefaults.faqItems;
 
-  const bgImgUrl = resolveImage(hero?.backgroundImage, heroMan);
 
   return (
     <div className="flex flex-col min-h-screen">
       <SEO title={data.seo?.metaTitle} description={data.seo?.metaDescription} ogImage={data.seo?.ogImage} />
 
-      {/* Hero Section */}
-      {heroVisible && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 sm:mt-8 w-full">
-          <section 
-            className="relative min-h-[500px] md:min-h-[640px] flex items-center bg-brand-dark overflow-hidden rounded-2xl md:rounded-[32px] shadow-sm"
-            style={{
-              backgroundImage: `linear-gradient(to right, rgba(0, 46, 46, 0.95) 0%, rgba(0, 46, 46, 0.85) 45%, rgba(0, 46, 46, 0.3) 100%), url(${bgImgUrl})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'right center'
-            }}
-          >
-            <div className="px-6 sm:px-12 lg:px-16 py-20 relative z-10 w-full">
-              <div className="max-w-2xl text-white space-y-8">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light leading-tight sm:leading-none">
-                  {hero?.heading} <br />
-                  <span className="font-extrabold text-brand-green">{hero?.highlightText}</span>
-                </h1>
-                <p className="text-base sm:text-lg text-teal-50 leading-relaxed font-light whitespace-pre-line">
-                  {formatCMSLines(hero?.subtext)}
-                </p>
-                
-                {hero?.ctaButtons && hero.ctaButtons.length > 0 && (
-                  <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                    {hero.ctaButtons.filter((btn: CTAButton) => btn.isVisible).map((btn: CTAButton, idx: number) => (
-                      <Button
-                        key={idx}
-                        variant={btn.variant}
-                        size="lg"
-                        onClick={() => {
-                          if (btn.linkType === 'external') window.open(btn.url, '_blank');
-                          else void navigate(btn.url);
-                        }}
-                      >
-                        {btn.label}
-                      </Button>
-                    ))}
-                  </div>
-                )}
-                
-                {/* Fallback CTA if none in CMS but we want a default. The static had one button but it was removed in previous step, so we leave it empty if CMS has no buttons. */}
-              </div>
-            </div>
-          </section>
-        </div>
+      {/* Hero Carousel */}
+      {heroVisible && heroSlides.length > 0 && (
+        <HeroCarousel
+          slides={heroSlides}
+          onNavigate={(url, linkType) => {
+            if (linkType === 'external') window.open(url, '_blank');
+            else void navigate(url);
+          }}
+        />
       )}
 
       {/* Services Section */}
