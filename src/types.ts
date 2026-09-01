@@ -161,7 +161,7 @@ export interface ContactPageData {
 
 export interface FooterLink {
   label: string;
-  linkType: 'internal' | 'external' | 'custom';
+  linkType: 'internal' | 'external' | 'custom' | 'none';
   externalUrl?: string;
   customPath?: string;
   internalLink?: {

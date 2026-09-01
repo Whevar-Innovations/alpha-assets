@@ -2,6 +2,7 @@ import React from 'react';
 import { PortableText as PortableTextReact, type PortableTextProps } from '@portabletext/react';
 import { urlForImage } from '../../sanity/lib/image';
 
+/* eslint-disable-next-line react-refresh/only-export-components */
 export const defaultPortableTextComponents: PortableTextProps['components'] = {
   types: {
     image: ({ value }: { value: unknown }) => {

@@ -145,7 +145,7 @@ export const PolicyPage: React.FC = () => {
                 ...defaultPortableTextComponents, 
                 block: {
                   h2: ({ children, value }: import('@portabletext/react').PortableTextComponentProps<import('@portabletext/types').PortableTextBlock>) => {
-                    const text = value?.children?.map((c) => (c as import('@portabletext/types').PortableTextSpan).text || '').join('') ?? '';
+                    const text = value.children.map((c) => (c as import('@portabletext/types').PortableTextSpan).text || '').join('');
                     return <h2 id={slugify(text)} className="text-xl font-bold text-brand-dark mt-8 mb-4 scroll-mt-32 print:scroll-mt-0">{children}</h2>;
                   }
                 } 
