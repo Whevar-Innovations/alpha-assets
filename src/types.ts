@@ -30,6 +30,17 @@ export interface HeroData {
 // A single slide in the hero carousel — same shape as HeroData
 export type HeroSlide = HeroData;
 
+export interface VideoFeatureItem {
+  _key?: string;
+  youtubeUrl: string;
+  thumbnail?: SanityImage;
+  watchLabel?: string;
+  quoteText?: string;
+  speakerPhoto?: SanityImage;
+  speakerName?: string;
+  speakerTitle?: string;
+}
+
 export interface ServiceItem {
   _id: string;
   title: string;
@@ -78,6 +89,8 @@ export interface HomePageData {
   heroVisible?: boolean;
   heroSlides?: HeroSlide[];
   hero?: HeroData;
+  videoFeaturesVisible?: boolean;
+  videoFeatures?: VideoFeatureItem[];
   servicesVisible?: boolean;
   servicesHeading?: string;
   servicesSubtext?: string;
@@ -113,6 +126,8 @@ export interface AboutPageData {
   introVisible?: boolean;
   introHeading?: string;
   introParagraphs?: unknown[];
+  videoFeaturesVisible?: boolean;
+  videoFeatures?: VideoFeatureItem[];
   quoteVisible?: boolean;
   quoteLeftImage?: SanityImage;
   quoteText?: string;
@@ -129,11 +144,21 @@ export interface AboutPageData {
   teamMembers?: TeamMember[];
 }
 
+export interface StrategyItem {
+  _key?: string;
+  title: string;
+  description: string;
+}
+
 export interface InvestPageData {
   seo?: SEOData;
   pageVisible?: boolean;
   heroVisible?: boolean;
   hero?: PageHeaderData;
+  strategiesVisible?: boolean;
+  strategiesHeading?: string;
+  strategiesDescription?: string;
+  strategiesList?: StrategyItem[];
   servicesVisible?: boolean;
   servicesSubtitle?: string;
   servicesHeading?: string;

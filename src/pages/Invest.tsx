@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ServiceCard } from '../components/UI/ServiceCard';
 import { FooterCTA } from '../components/UI/FooterCTA';
 import { SEO } from '../components/SEO';
-import type { ServiceItem } from '../types';
+import type { ServiceItem, InvestPageData, StrategyItem } from '../types';
 import heroBg from '../assets/images/hero_person_laptop.jpg';
 import { Button } from '../components/UI/Button';
 
@@ -14,7 +14,7 @@ import { resolveImage } from '../sanity/lib/image';
 
 export const Invest: React.FC = () => {
   const navigate = useNavigate();
-  const { data, isLoading } = useSanityPage(INVEST_QUERY, investDefaults);
+  const { data, isLoading } = useSanityPage<InvestPageData>(INVEST_QUERY, investDefaults);
 
   if (isLoading) {
     return <InvestSkeleton />;
@@ -27,6 +27,11 @@ export const Invest: React.FC = () => {
 
   const hero = data.hero ?? investDefaults.hero;
   const heroVisible = data.heroVisible ?? true;
+
+  const strategiesVisible = data.strategiesVisible ?? true;
+  const strategiesHeading = data.strategiesHeading ?? investDefaults.strategiesHeading;
+  const strategiesDescription = data.strategiesDescription ?? investDefaults.strategiesDescription;
+  const strategiesList = data.strategiesList?.length ? data.strategiesList : investDefaults.strategiesList;
   
   const servicesVisible = data.servicesVisible ?? true;
   const servicesSubtitle = data.servicesSubtitle ?? investDefaults.servicesSubtitle;
@@ -73,6 +78,49 @@ export const Invest: React.FC = () => {
                   {hero.ctaButton.label}
                 </Button>
               )}
+            </div>
+          </section>
+        </div>
+      )}
+
+      {/* Our Investment Strategies Section */}
+      {strategiesVisible && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 sm:mt-12 w-full">
+          <section className="bg-brand-dark rounded-2xl md:rounded-[32px] px-6 sm:px-12 lg:px-16 py-16 sm:py-20 shadow-sm text-white">
+            {/* Header */}
+            <div className="text-center max-w-4xl mx-auto mb-12 sm:mb-16 space-y-4 sm:space-y-6">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-[#b2d8d8]">
+                {strategiesHeading}
+              </h2>
+              {strategiesDescription && (
+                <p className="text-xs sm:text-sm md:text-base font-light leading-relaxed text-teal-100/80 max-w-3xl mx-auto whitespace-pre-line">
+                  {strategiesDescription}
+                </p>
+              )}
+            </div>
+
+            {/* Strategies Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
+              {strategiesList?.map((strategy: StrategyItem, idx: number) => (
+                <article
+                  key={strategy._key ?? idx}
+                  className="bg-brand-cardBg rounded-2xl p-6 sm:p-8 flex items-start gap-4 sm:gap-5 shadow-sm text-brand-dark transition-transform duration-200 hover:-translate-y-0.5"
+                >
+                  {/* Teal circle indicator matching design */}
+                  <span
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-brand-dark shrink-0 mt-0.5"
+                    aria-hidden="true"
+                  />
+                  <div className="space-y-2 sm:space-y-3">
+                    <h3 className="text-lg sm:text-xl font-bold tracking-tight text-brand-dark">
+                      {strategy.title}
+                    </h3>
+                    <p className="text-xs sm:text-[13px] md:text-sm text-gray-700 leading-relaxed font-light">
+                      {strategy.description}
+                    </p>
+                  </div>
+                </article>
+              ))}
             </div>
           </section>
         </div>

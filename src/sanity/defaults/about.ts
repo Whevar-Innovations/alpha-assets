@@ -43,9 +43,19 @@ export const aboutDefaults: AboutPageData = {
       style: 'normal',
       children: [
         { _type: 'span', text: "Alpha Asset Managers is a fully licensed fund manager, regulated by Uganda's " },
-        { _type: 'span', text: 'Capital Markets Authority (CMA)', marks: ['strong'] },
-        { _type: 'span', text: ' ensuring your investments are managed under the highest standards of governance, transparency, and investor protection.' },
+        { _type: 'span', text: 'Capital Markets Authority (CMA). We adhere to stringent regulatory, fiduciary, and governance standards to protect investor interests and maintain complete operational integrity.' },
       ],
+    },
+  ],
+  videoFeaturesVisible: true,
+  videoFeatures: [
+    {
+      youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      watchLabel: 'WATCH VIDEO',
+      quoteText:
+        'Our investment philosophy focuses on long-term value creation, guided by rigorous research, risk awareness, and strategic asset allocation.',
+      speakerName: 'ROBERT KATUNTU',
+      speakerTitle: 'CEO & CHIEF INVESTMENT OFFICER',
     },
   ],
   quoteVisible: true,

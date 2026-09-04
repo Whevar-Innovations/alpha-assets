@@ -8,6 +8,7 @@ export const investPage = defineType({
   groups: [
     { name: 'seo', title: 'SEO', default: false },
     { name: 'hero', title: 'Page Header', default: true },
+    { name: 'strategies', title: 'Investment Strategies' },
     { name: 'services', title: 'Services Grid' },
   ],
   fields: [
@@ -15,6 +16,18 @@ export const investPage = defineType({
     { name: 'seo', type: 'seo', group: 'seo' },
     { name: 'heroVisible', type: 'boolean', title: 'Show Page Header', initialValue: true, group: 'hero' },
     { name: 'hero', type: 'pageHeader', title: 'Page Header', group: 'hero' },
+
+    // Investment Strategies
+    { name: 'strategiesVisible', type: 'boolean', title: 'Show Strategies Section', initialValue: true, group: 'strategies' },
+    { name: 'strategiesHeading', type: 'string', title: 'Section Heading', initialValue: 'Our Investment Strategies', group: 'strategies' },
+    { name: 'strategiesDescription', type: 'text', title: 'Section Description', rows: 3, group: 'strategies' },
+    {
+      name: 'strategiesList',
+      type: 'array',
+      title: 'Strategies List',
+      of: [{ type: 'strategyItem' }],
+      group: 'strategies',
+    },
     
     // Services
     { name: 'servicesVisible', type: 'boolean', title: 'Show Services Section', initialValue: true, group: 'services' },

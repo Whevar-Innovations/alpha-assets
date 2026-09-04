@@ -9,6 +9,7 @@ export const aboutPage = defineType({
     { name: 'seo', title: 'SEO', default: false },
     { name: 'hero', title: 'Page Header', default: true },
     { name: 'intro', title: 'Intro Section' },
+    { name: 'videoFeatures', title: 'Video Features' },
     { name: 'quote', title: 'Quote Section' },
     { name: 'coreValues', title: 'Core Values' },
     { name: 'team', title: 'Team Section' },
@@ -25,6 +26,17 @@ export const aboutPage = defineType({
     { name: 'introVisible', type: 'boolean', title: 'Show Intro Section', initialValue: true, group: 'intro' },
     { name: 'introHeading', type: 'text', title: 'Intro Heading', rows: 2, group: 'intro' },
     { name: 'introParagraphs', type: 'array', of: [{ type: 'block' }], title: 'Intro Paragraphs', group: 'intro' },
+
+    // Video Features (After Who We Are)
+    { name: 'videoFeaturesVisible', type: 'boolean', title: 'Show Video Section', initialValue: true, group: 'videoFeatures' },
+    {
+      name: 'videoFeatures',
+      type: 'array',
+      title: 'Video Items',
+      description: 'Add one or more videos for the About Us page. A single video renders as a featured panel; multiple entries become a carousel.',
+      of: [{ type: 'videoFeature' }],
+      group: 'videoFeatures',
+    },
 
     // Quote
     { name: 'quoteVisible', type: 'boolean', title: 'Show Quote Section', initialValue: true, group: 'quote' },

@@ -24,6 +24,8 @@ import { socialLink } from './objects/socialLink'
 import { navItem } from './objects/navItem'
 import { contactInfo } from './objects/contactInfo'
 import { richText } from './objects/richText'
+import { videoFeature } from './objects/videoFeature'
+import { strategyItem } from './objects/strategyItem'
 
 export const schemaTypes = [
   // Objects
@@ -42,6 +44,8 @@ export const schemaTypes = [
   navItem,
   contactInfo,
   richText,
+  videoFeature,
+  strategyItem,
 
   // Documents
   homePage,

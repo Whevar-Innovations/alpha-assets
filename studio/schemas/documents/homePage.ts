@@ -8,6 +8,7 @@ export const homePage = defineType({
   groups: [
     { name: 'seo', title: 'SEO', default: false },
     { name: 'hero', title: 'Hero Banner', default: true },
+    { name: 'videoFeatures', title: 'Video Features' },
     { name: 'services', title: 'Services' },
     { name: 'howWeWork', title: 'How We Work' },
     { name: 'partners', title: 'Trust & Partners' },
@@ -28,6 +29,16 @@ export const homePage = defineType({
       group: 'hero',
     },
     { name: 'hero', type: 'heroBanner', title: 'Hero Banner (Legacy — use Hero Slides above)', group: 'hero' },
+    // ── Video Features ──────────────────────────────────────────────────────
+    { name: 'videoFeaturesVisible', type: 'boolean', title: 'Show Video Section', initialValue: true, group: 'videoFeatures' },
+    {
+      name: 'videoFeatures',
+      type: 'array',
+      title: 'Video Items',
+      description: 'Add one or more videos. A single video renders as a full panel; multiple videos become a carousel.',
+      of: [{ type: 'videoFeature' }],
+      group: 'videoFeatures',
+    },
     { name: 'servicesVisible', type: 'boolean', title: 'Show Services Section', initialValue: true, group: 'services' },
     { name: 'servicesHeading', type: 'text', title: 'Section Heading', rows: 2, group: 'services' },
     { name: 'servicesSubtext', type: 'text', title: 'Section Subtext', rows: 2, group: 'services' },

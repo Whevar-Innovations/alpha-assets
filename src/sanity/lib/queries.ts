@@ -9,6 +9,12 @@ export const HOME_QUERY = `*[_type == "homePage" && _id == "homePage"][0]{
     backgroundImage{ image{ asset->{url, metadata} }, alt },
     ctaButtons[]{ label, linkType, url, variant, isVisible }
   },
+  videoFeaturesVisible,
+  videoFeatures[]{
+    _key, youtubeUrl, watchLabel, quoteText, speakerName, speakerTitle,
+    thumbnail{ image{ asset->{url, metadata} }, alt },
+    speakerPhoto{ image{ asset->{url, metadata} }, alt }
+  },
   servicesVisible, servicesHeading, servicesSubtext,
   servicesList[@->isActive == true]->{ _id, title, slug, shortDescription, icon, order },
   howWeWorkVisible, howWeWorkSubtitle, howWeWorkHeading, howWeWorkItems[],
@@ -21,6 +27,12 @@ export const ABOUT_QUERY = `*[_type == "aboutPage" && _id == "aboutPage"][0]{
   pageVisible, seo,
   heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt }, ctaButton{ label, linkType, url, variant, isVisible } },
   introVisible, introHeading, introParagraphs,
+  videoFeaturesVisible,
+  videoFeatures[]{
+    _key, youtubeUrl, watchLabel, quoteText, speakerName, speakerTitle,
+    thumbnail{ image{ asset->{url, metadata} }, alt },
+    speakerPhoto{ image{ asset->{url, metadata} }, alt }
+  },
   quoteVisible,
   quoteLeftImage{ image{ asset->{url, metadata} }, alt },
   quoteText, quoteAuthor, quoteAuthorTitle,
@@ -32,6 +44,7 @@ export const ABOUT_QUERY = `*[_type == "aboutPage" && _id == "aboutPage"][0]{
 
 export const INVEST_QUERY = `*[_type == "investPage" && _id == "investPage"][0]{
   pageVisible, seo, heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt }, ctaButton{ label, linkType, url, variant, isVisible } },
+  strategiesVisible, strategiesHeading, strategiesDescription, strategiesList[]{ _key, title, description },
   servicesVisible, servicesSubtitle, servicesHeading,
   servicesList[@->isActive == true]->{ _id, title, slug, shortDescription, icon, order }
 }`;
