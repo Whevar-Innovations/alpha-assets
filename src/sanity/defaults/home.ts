@@ -20,6 +20,17 @@ export const homeDefaults: HomePageData = {
       ],
     },
   ],
+  videoFeaturesVisible: true,
+  videoFeatures: [
+    {
+      youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      watchLabel: 'WATCH VIDEO',
+      quoteText:
+        'We take a structured approach to investment management from understanding our clients’ objectives, developing tailored strategies to diversification across asset classes.',
+      speakerName: 'ROBERT KATUNTU',
+      speakerTitle: 'CEO & CHIEF INVESTMENT OFFICER',
+    },
+  ],
   hero: {
     heading: 'Grow your capital with',
     highlightText: 'smarter investments',

@@ -9,6 +9,7 @@ import type { HomePageData, ServiceItem, CTAButton, HeroSlide } from '../types';
 import { DynamicIcon } from '../components/UI/DynamicIcon';
 import { SEO } from '../components/SEO';
 import { HeroCarousel } from '../components/UI/HeroCarousel';
+import { VideoFeatureSection } from '../components/UI/VideoFeatureSection';
 
 import { useSanityPage } from '../sanity/hooks/useSanityPage';
 import { HOME_QUERY } from '../sanity/lib/queries';
@@ -42,6 +43,8 @@ export const Home: React.FC = () => {
   const heroSlides = rawSlides.slice(0, 3);
 
   const heroVisible = data.heroVisible ?? true;
+  const videoFeaturesVisible = data.videoFeaturesVisible ?? true;
+  const videoFeatures = data.videoFeatures?.length ? data.videoFeatures : (homeDefaults.videoFeatures ?? []);
 
   const servicesVisible = data.servicesVisible ?? true;
   const servicesHeading = data.servicesHeading ?? homeDefaults.servicesHeading;
@@ -76,6 +79,15 @@ export const Home: React.FC = () => {
             else void navigate(url);
           }}
         />
+      )}
+
+      {/* Video Feature Section */}
+      {videoFeaturesVisible && videoFeatures.length > 0 && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 sm:mt-14 w-full">
+          <section className="overflow-hidden rounded-2xl md:rounded-[32px] shadow-sm">
+            <VideoFeatureSection items={videoFeatures} />
+          </section>
+        </div>
       )}
 
       {/* Services Section */}

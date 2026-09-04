@@ -25,6 +25,8 @@ import { socialLink } from './objects/socialLink'
 import { navItem } from './objects/navItem'
 import { contactInfo } from './objects/contactInfo'
 import { richText } from './objects/richText'
+import { videoFeature } from './objects/videoFeature'
+import { strategyItem } from './objects/strategyItem'
 import { footerLink } from './objects/footerLink'
 
 export const schemaTypes = [
@@ -44,6 +46,8 @@ export const schemaTypes = [
   navItem,
   contactInfo,
   richText,
+  videoFeature,
+  strategyItem,
   footerLink,
 
   // Documents
