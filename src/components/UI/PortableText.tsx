@@ -2,7 +2,8 @@ import React from 'react';
 import { PortableText as PortableTextReact, type PortableTextProps } from '@portabletext/react';
 import { urlForImage } from '../../sanity/lib/image';
 
-const components: PortableTextProps['components'] = {
+/* eslint-disable-next-line react-refresh/only-export-components */
+export const defaultPortableTextComponents: PortableTextProps['components'] = {
   types: {
     image: ({ value }: { value: unknown }) => {
       const imgVal = value as { asset?: { _ref?: string }; alt?: string };
@@ -38,7 +39,7 @@ export const PortableText: React.FC<{ value: unknown }> = ({ value }) => {
   if (!value) return null;
   return (
     <div className="prose prose-teal max-w-none font-sans">
-      <PortableTextReact value={value as PortableTextProps['value']} components={components} />
+      <PortableTextReact value={value as PortableTextProps['value']} components={defaultPortableTextComponents} />
     </div>
   );
 };

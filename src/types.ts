@@ -138,6 +138,9 @@ export interface AboutPageData {
   coreValuesSubtitle?: string;
   coreValuesHeading?: string;
   coreValues?: { title: string; description: string; icon?: { name?: string }; isVisible?: boolean }[];
+  committeeVisible?: boolean;
+  committeeHeading?: string;
+  committeeText?: unknown[];
   teamVisible?: boolean;
   teamSubtitle?: string;
   teamHeading?: string;
@@ -186,6 +189,18 @@ export interface ContactPageData {
   formSuccessMessage?: string;
 }
 
+export interface FooterLink {
+  label: string;
+  linkType: 'internal' | 'external' | 'custom' | 'none';
+  externalUrl?: string;
+  customPath?: string;
+  internalLink?: {
+    _type: string;
+    slug?: string;
+    policyType?: string;
+  };
+}
+
 export interface SiteSettingsData {
   navItems?: { label: string; path: string; isDisabled: boolean; order?: number; isVisible?: boolean }[];
   primaryLogo?: SanityImage;
@@ -194,5 +209,13 @@ export interface SiteSettingsData {
   contactInfo?: { address?: string; phone?: string; email?: string; officeHours?: string };
   regulatoryText?: string;
   copyrightText?: string;
-  footerContent?: { title: string; links?: unknown[] }[];
+  footerContent?: { title: string; links?: FooterLink[] }[];
+}
+
+export interface PolicyPageData {
+  pageVisible?: boolean;
+  policyType?: string;
+  lastUpdated?: string;
+  pdfDocument?: { asset?: { url?: string } };
+  content?: unknown[];
 }

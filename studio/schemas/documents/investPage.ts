@@ -5,6 +5,13 @@ export const investPage = defineType({
   title: 'Invest Page',
   type: 'document',
   icon: () => '💼',
+  preview: {
+    prepare() {
+      return {
+        title: 'Invest Page',
+      };
+    },
+  },
   groups: [
     { name: 'seo', title: 'SEO', default: false },
     { name: 'hero', title: 'Page Header', default: true },

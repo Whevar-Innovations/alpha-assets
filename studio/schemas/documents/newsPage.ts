@@ -5,6 +5,13 @@ export const newsPage = defineType({
   title: 'News Page',
   type: 'document',
   icon: () => '📰',
+  preview: {
+    prepare() {
+      return {
+        title: 'News & Insights',
+      };
+    },
+  },
   groups: [
     { name: 'seo', title: 'SEO', default: false },
     { name: 'hero', title: 'Page Header', default: true },

@@ -31,7 +31,7 @@ export const FooterCTA: React.FC<FooterCTAProps> = ({
   };
 
   const showButton = buttonConfig ? buttonConfig.isVisible : true;
-  const buttonLabel = buttonConfig ? buttonConfig.label : 'Open an Account';
+  const buttonLabel = buttonConfig ? buttonConfig.label : 'Speak to an Advisor';
   const buttonVariant = buttonConfig ? (buttonConfig.variant as 'primary' | 'secondary' | 'white' | 'outline') : 'primary';
 
   return (

@@ -194,7 +194,7 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({ slug, allAr
               {/* Rich text body */}
               {hasBody && (
                 <div className="text-gray-500 text-sm sm:text-base leading-relaxed space-y-6 font-light">
-                  <PortableText value={article.body as Parameters<typeof PortableText>[0]['value']} />
+                  <PortableText value={article.body} />
                 </div>
               )}
 
@@ -257,7 +257,7 @@ const ArticleDetailSkeleton: React.FC<ArticleDetailSkeletonProps> = ({ allArticl
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
 
           {/* Sidebar skeleton */}
-          <aside className="lg:col-span-4 space-y-6">
+          <aside className="lg:col-span-4 space-y-6 order-2 lg:order-1">
             <div className="bg-white border border-gray-100 rounded-[1.5rem] p-6 sm:p-8">
               <div className="h-8 bg-gray-200 rounded w-1/2 mb-6" />
               <nav className="flex flex-col">
@@ -271,7 +271,7 @@ const ArticleDetailSkeleton: React.FC<ArticleDetailSkeletonProps> = ({ allArticl
           </aside>
 
           {/* Article skeleton */}
-          <article className="lg:col-span-8 space-y-10">
+          <article className="lg:col-span-8 space-y-10 order-1 lg:order-2">
             <div className="rounded-[1.5rem] bg-gray-200 h-[300px] sm:h-[400px]" />
             <div className="flex gap-5 border-b border-gray-100 pb-6">
               <div className="h-4 bg-gray-200 rounded w-28" />

@@ -82,14 +82,14 @@ export const About: React.FC = () => {
   const quoteRightImage = resolveImage(data.quoteRightImage, aboutChart);
 
   const coreValuesVisible = data.coreValuesVisible ?? true;
-  const coreValuesSubtitle =
-    data.coreValuesSubtitle ?? aboutDefaults.coreValuesSubtitle;
-  const coreValuesHeading =
-    data.coreValuesHeading ?? aboutDefaults.coreValuesHeading;
-  const coreValues = data.coreValues?.length
-    ? data.coreValues
-    : aboutDefaults.coreValues;
-
+  const coreValuesSubtitle = data.coreValuesSubtitle ?? aboutDefaults.coreValuesSubtitle;
+  const coreValuesHeading = data.coreValuesHeading ?? aboutDefaults.coreValuesHeading;
+  const coreValues = data.coreValues?.length ? data.coreValues : aboutDefaults.coreValues;
+  
+  const committeeVisible = data.committeeVisible ?? true;
+  const committeeHeading = data.committeeHeading ?? aboutDefaults.committeeHeading;
+  const committeeText = data.committeeText ?? aboutDefaults.committeeText;
+  
   const teamVisible = data.teamVisible ?? true;
   const teamSubtitle = data.teamSubtitle ?? aboutDefaults.teamSubtitle;
   const teamHeading = data.teamHeading ?? aboutDefaults.teamHeading;
@@ -244,46 +244,39 @@ export const About: React.FC = () => {
                 </h2>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
-                {coreValues
-                  ?.filter((v) => v.isVisible !== false)
-                  .map(
-                    (
-                      value: {
-                        icon?: { name?: string };
-                        title: string;
-                        description: string;
-                        isVisible?: boolean;
-                      },
-                      index: number,
-                    ) => (
-                      <div
-                        key={index}
-                        className="bg-brand-cardBg rounded-2xl p-6 sm:p-8 flex gap-5 items-start"
-                      >
-                        <div
-                          className="w-12 h-12 rounded-full bg-brand-primary shrink-0 flex items-center justify-center text-white"
-                          aria-hidden="true"
-                        >
-                          {value.icon?.name && (
-                            <DynamicIcon name={value.icon.name} size={20} />
-                          )}
-                        </div>
-                        <div className="space-y-1.5">
-                          <h3 className="text-base font-bold text-brand-dark">
-                            {value.title}
-                          </h3>
-                          <p className="text-sm leading-relaxed text-[#4a7060]">
-                            {value.description}
-                          </p>
-                        </div>
-                      </div>
-                    ),
-                  )}
-              </div>
-            </section>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
+              {coreValues?.filter(v => v.isVisible !== false).map((value: { icon?: { name?: string }; title: string; description: string; isVisible?: boolean }, index: number) => (
+                <div
+                  key={index}
+                  className="bg-brand-cardBg rounded-2xl p-6 sm:p-8 flex gap-5 items-start"
+                >
+                  <div className="w-12 h-12 rounded-full bg-brand-primary shrink-0 flex items-center justify-center text-white" aria-hidden="true">
+                    {value.icon?.name && <DynamicIcon name={value.icon.name} size={20} />}
+                  </div>
+                  <div className="space-y-1.5">
+                    <h3 className="text-base font-bold text-brand-dark">{value.title}</h3>
+                    <p className="text-sm leading-relaxed text-[#4a7060]">{value.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+      )}
+
+      {/* Investment Committee Section */}
+      {committeeVisible && (
+        <section className="py-20 bg-white">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center space-y-6">
+            <h2 className="text-4xl sm:text-5xl font-light text-brand-primary leading-tight">
+              {committeeHeading}
+            </h2>
+            <div className="space-y-4 text-[15px] sm:text-base leading-relaxed text-[#4a7060] font-light">
+              <PortableText value={committeeText} />
+            </div>
           </div>
-        )}
+        </section>
+      )}
 
         {/* Our Team Section */}
         {teamVisible && (
@@ -542,6 +535,18 @@ const AboutSkeleton: React.FC = () => (
               </div>
             </div>
           ))}
+        </div>
+      </div>
+    </div>
+
+    {/* Investment Committee Section */}
+    <div className="py-20 bg-white">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center space-y-6 flex flex-col items-center">
+        <div className="h-12 bg-gray-200 rounded w-3/4"></div>
+        <div className="space-y-4 w-full flex flex-col items-center">
+          <div className="h-4 bg-gray-100 rounded w-full"></div>
+          <div className="h-4 bg-gray-100 rounded w-5/6"></div>
+          <div className="h-4 bg-gray-100 rounded w-4/6"></div>
         </div>
       </div>
     </div>
