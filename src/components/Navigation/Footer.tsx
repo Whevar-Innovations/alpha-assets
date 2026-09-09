@@ -102,9 +102,11 @@ export const Footer: React.FC = () => {
                     <ul className="space-y-2.5 text-sm text-brand-gray-text font-light">
                       {column.links?.map((link, linkIdx) => {
                         let href = '#';
-                        if (link.linkType === 'custom' && link.customPath) href = link.customPath;
-                        else if (link.linkType === 'external' && link.externalUrl) href = link.externalUrl;
-                        else if (link.linkType === 'internal' && link.internalLink) {
+                        if (link.linkType === 'custom' && link.customPath) {
+                          href = link.customPath.startsWith('/') ? link.customPath : `/${link.customPath}`;
+                        } else if (link.linkType === 'external' && link.externalUrl) {
+                          href = link.externalUrl;
+                        } else if (link.linkType === 'internal' && link.internalLink) {
                           const internal = link.internalLink;
                           if (internal.slug) href = `/${internal.slug}`;
                           else if (internal.policyType) href = `/legal/${internal.policyType}`;
@@ -113,6 +115,9 @@ export const Footer: React.FC = () => {
                           else if (internal._type === 'investPage') href = '/invest';
                           else if (internal._type === 'newsPage') href = '/news';
                           else if (internal._type === 'contactPage') href = '/contact';
+                          else if (internal._type === 'careersPage') href = '/careers';
+                        } else if (link.label.toLowerCase() === 'careers') {
+                          href = '/careers';
                         }
                         
                         const isExternal = link.linkType === 'external';
@@ -163,6 +168,7 @@ export const Footer: React.FC = () => {
                       <li><Link to="/legal/privacy-policy" className="hover:text-white transition-colors duration-150">Privacy Policy</Link></li>
                       <li><Link to="/legal/terms-of-use" className="hover:text-white transition-colors duration-150">Terms of Use</Link></li>
                       <li><Link to="/legal/cookie-policy" className="hover:text-white transition-colors duration-150">Cookie Policy</Link></li>
+                      <li><Link to="/careers" className="hover:text-white transition-colors duration-150">Careers</Link></li>
                     </ul>
                   </div>
                   <div className="space-y-4">

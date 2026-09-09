@@ -219,3 +219,33 @@ export interface PolicyPageData {
   pdfDocument?: { asset?: { url?: string } };
   content?: unknown[];
 }
+
+export interface JobVacancyItem {
+  _id: string;
+  title: string;
+  slug?: { current: string };
+  department?: string;
+  location?: string;
+  employmentType?: string;
+  datePosted?: string;
+  deadline?: string;
+  summary?: string;
+  description?: unknown[];
+  applicationType?: 'Email' | 'External Link';
+  applicationEmail?: string;
+  applicationUrl?: string;
+  status?: 'Open' | 'Closed' | 'Draft';
+  order?: number;
+  seo?: SEOData;
+}
+
+export interface CareersPageData {
+  seo?: SEOData;
+  pageVisible?: boolean;
+  heroVisible?: boolean;
+  hero?: PageHeaderData;
+  introHeading?: string;
+  introDescription?: string;
+  noVacanciesTitle?: string;
+  noVacanciesMessage?: string;
+}

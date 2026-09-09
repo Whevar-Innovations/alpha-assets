@@ -9,6 +9,8 @@ import { teamMember } from './documents/teamMember'
 import { article } from './documents/article'
 import { author } from './documents/author'
 import { policyPage } from './documents/policyPage'
+import { jobVacancy } from './documents/jobVacancy'
+import { careersPage } from './documents/careersPage'
 
 import { iconPicker } from './objects/iconPicker'
 import { seo } from './objects/seo'
@@ -62,4 +64,6 @@ export const schemaTypes = [
   article,
   author,
   policyPage,
+  jobVacancy,
+  careersPage,
 ]

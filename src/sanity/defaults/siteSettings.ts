@@ -34,6 +34,7 @@ export const siteSettingsDefaults: SiteSettingsData = {
         createCustomLink('Privacy Policy', '/legal/privacy-policy'),
         createCustomLink('Terms of Use', '/legal/terms-of-use'),
         createCustomLink('Cookie Policy', '/legal/cookie-policy'),
+        createCustomLink('Careers', '/careers'),
         createCustomLink('Risk Disclosures', '/legal/risk-disclosures'),
         createCustomLink('Complaints Procedure', '/legal/complaints-procedure'),
       ]

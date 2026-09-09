@@ -107,3 +107,19 @@ export const TEAM_QUERY = `*[_type == "teamMember" && isActive == true] | order(
 export const POLICY_PAGE_QUERY = `*[_type == "policyPage" && policyType == $slug][0]{
   pageVisible, policyType, lastUpdated, pdfDocument{ asset->{url} }, content
 }`;
+
+export const CAREERS_PAGE_QUERY = `*[_type == "careersPage" && _id == "careersPage"][0]{
+  pageVisible, seo,
+  heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt }, ctaButton{ label, linkType, url, variant, isVisible } },
+  introHeading, introDescription, noVacanciesTitle, noVacanciesMessage
+}`;
+
+export const JOB_VACANCIES_QUERY = `*[_type == "jobVacancy" && status == "Open"] | order(datePosted desc, order asc){
+  _id, title, slug, department, location, employmentType, datePosted, deadline, summary,
+  applicationType, applicationEmail, applicationUrl, status, order
+}`;
+
+export const JOB_VACANCY_DETAIL_QUERY = `*[_type == "jobVacancy" && slug.current == $slug && status == "Open"][0]{
+  _id, title, slug, department, location, employmentType, datePosted, deadline, summary, description,
+  applicationType, applicationEmail, applicationUrl, status, seo
+}`;
