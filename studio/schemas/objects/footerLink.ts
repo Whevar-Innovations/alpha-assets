@@ -34,6 +34,7 @@ export const footerLink = defineType({
         { type: 'service' },
         { type: 'article' },
         { type: 'policyPage' },
+        { type: 'careersPage' },
       ],
       hidden: ({ parent }) => parent?.linkType !== 'internal',
     },
