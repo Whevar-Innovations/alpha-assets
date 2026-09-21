@@ -192,7 +192,7 @@ export const VideoFeatureSection: React.FC<VideoFeatureSectionProps> = ({ items 
               <button
                 key={i}
                 onClick={() => { goTo(i); }}
-                aria-label={`Go to video ${i + 1}`}
+                aria-label={`Go to video ${String(i + 1)}`}
                 aria-current={i === current ? 'true' : undefined}
                 className={`rounded-full transition-all duration-300 ${
                   i === current

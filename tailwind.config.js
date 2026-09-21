@@ -6,7 +6,35 @@ export default {
   ],
   theme: {
     extend: {
+      fontSize: {
+        // xs default: 0.75rem (12px)
+        'xs': ['0.875rem', { lineHeight: '1.25rem' }],
+        // sm default: 0.875rem (14px)
+        'sm': ['1rem', { lineHeight: '1.5rem' }],
+        // base default: 1rem (16px)
+        'base': ['1.125rem', { lineHeight: '1.75rem' }],
+        // lg default: 1.125rem (18px)
+        'lg': ['1.25rem', { lineHeight: '1.75rem' }],
+        // xl default: 1.25rem (20px)
+        'xl': ['1.375rem', { lineHeight: '1.75rem' }],
+        // 2xl default: 1.5rem (24px)
+        '2xl': ['1.625rem', { lineHeight: '2rem' }],
+        // 3xl default: 1.875rem (30px)
+        '3xl': ['2rem', { lineHeight: '2.25rem' }],
+        // 4xl default: 2.25rem (36px)
+        '4xl': ['2.375rem', { lineHeight: '2.5rem' }],
+        // 5xl default: 3rem (48px)
+        '5xl': ['3.125rem', { lineHeight: '1' }],
+      },
       colors: {
+        gray: {
+          400: '#333333',
+          500: '#333333',
+          600: '#333333',
+          700: '#333333',
+          800: '#333333',
+          900: '#333333',
+        },
         brand: {
           dark: 'var(--color-brand-dark)',       // Dark teal/green (primary background, footer)
           primary: 'var(--color-brand-primary)', // Logo teal, primary headings

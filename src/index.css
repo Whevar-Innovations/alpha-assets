@@ -101,12 +101,12 @@ input[type=number] {
 :root {
   --color-brand-dark: #002e2e;
   --color-brand-primary: #005b5c;
-  --color-brand-gray: #818286;
+  --color-brand-gray: #333333;
   --color-brand-card-bg: #e1efef;
   --color-brand-faq-bg: #e8f4e8;
   --color-brand-green: #b0de96;
   --color-brand-gold: #c5a880;
-  --color-brand-gray-text: #96a8a8;
+  --color-brand-gray-text: #333333;
 }
 
 /* ── Modal & Bottom Sheet Animations ─────────────────── */
