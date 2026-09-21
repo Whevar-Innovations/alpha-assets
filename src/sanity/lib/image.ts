@@ -5,7 +5,7 @@ import type { SanityImage } from '../../types';
 const imageBuilder = createImageUrlBuilder(sanityClient);
 
 export const urlForImage = (source: Parameters<typeof imageBuilder.image>[0]) => {
-  return imageBuilder.image(source).auto('format').fit('max');
+  return imageBuilder.image(source).auto('format').fit('max').quality(100);
 };
 
 export const resolveImage = (imgObj?: SanityImage | null, fallback = ''): string => {

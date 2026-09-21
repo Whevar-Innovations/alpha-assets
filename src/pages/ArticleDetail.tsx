@@ -10,6 +10,7 @@ import bannerBg from '../assets/images/banner_bg.jpg';
 import { useSanityPage } from '../sanity/hooks/useSanityPage';
 import { ARTICLE_DETAIL_QUERY, ARTICLES_QUERY } from '../sanity/lib/queries';
 import { resolveImage } from '../sanity/lib/image';
+import { SanityImage } from '../components/UI/SanityImage';
 import type { ArticleItem } from '../types';
 
 // ─── Fallback articles ────────────────────────────────────────────────────────
@@ -94,6 +95,7 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({ slug, allAr
         title={article.title}
         description={article.excerpt}
         ogImage={article.coverImage}
+        preloadImage={coverUrl}
       />
 
       {/* ── Hero — matches InvestDetail exactly ─────────────────────────── */}
@@ -152,8 +154,11 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({ slug, allAr
 
               {/* Cover image — matches the rounded service image */}
               <div className="rounded-[1.5rem] overflow-hidden h-[300px] sm:h-[400px] shadow-sm">
-                <img
-                  src={coverUrl}
+                <SanityImage
+                  image={article.coverImage}
+                  fallback={bannerBg}
+                  priority={true}
+                  sizes="(min-width: 1024px) 66vw, 100vw"
                   alt={article.coverImage?.alt ?? article.title}
                   className="w-full h-full object-cover"
                 />
@@ -202,8 +207,9 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({ slug, allAr
               {article.author?.name && (
                 <div className="border-t border-gray-100 pt-8 flex items-start gap-4">
                   {article.author.photo && (
-                    <img
-                      src={resolveImage(article.author.photo)}
+                    <SanityImage
+                      image={article.author.photo}
+                      sizes="128px"
                       alt={article.author.name}
                       className="w-14 h-14 rounded-full object-cover shrink-0"
                     />

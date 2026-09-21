@@ -7,6 +7,8 @@ interface VideoFeatureSectionProps {
   items: VideoFeatureItem[];
 }
 
+import { SanityImage } from './SanityImage';
+
 // ── YouTube helpers ────────────────────────────────────────────────────────────
 function extractYouTubeId(url: string): string | null {
   const patterns = [
@@ -33,7 +35,6 @@ const VideoSlide: React.FC<SlideProps> = ({ item }) => {
   const videoId = extractYouTubeId(item.youtubeUrl);
   const customThumb = resolveImage(item.thumbnail);
   const thumbUrl = customThumb || (videoId ? getYouTubeThumbnail(videoId) : '');
-  const speakerPhotoUrl = resolveImage(item.speakerPhoto);
 
   const handlePlay = () => {
     if (videoId) setPlaying(true);
@@ -48,8 +49,10 @@ const VideoSlide: React.FC<SlideProps> = ({ item }) => {
           <>
             {/* Thumbnail */}
             {thumbUrl && (
-              <img
-                src={thumbUrl}
+              <SanityImage
+                image={item.thumbnail}
+                fallback={thumbUrl}
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 alt={item.speakerName ? `${item.speakerName} video` : 'Video thumbnail'}
                 className="absolute inset-0 w-full h-full object-cover"
               />
@@ -90,10 +93,11 @@ const VideoSlide: React.FC<SlideProps> = ({ item }) => {
       <div className="w-full lg:w-1/2 bg-brand-dark flex flex-col justify-center px-6 sm:px-10 lg:px-14 py-8 sm:py-12 lg:py-16">
 
         {/* Speaker avatar */}
-        {speakerPhotoUrl && (
+        {(item.speakerPhoto) && (
           <div className="mb-4 sm:mb-6 lg:mb-8">
-            <img
-              src={speakerPhotoUrl}
+            <SanityImage
+              image={item.speakerPhoto}
+              sizes="120px"
               alt={item.speakerName ?? 'Speaker'}
               className="w-16 h-16 sm:w-22 sm:h-22 md:w-26 md:h-26 rounded-full object-cover border-2 sm:border-3 border-brand-green/50 shadow-md"
             />

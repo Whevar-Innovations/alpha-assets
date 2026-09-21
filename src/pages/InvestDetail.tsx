@@ -9,6 +9,7 @@ import investTablet from '../assets/images/invest_tablet.jpg';
 import { useSanityPage } from '../sanity/hooks/useSanityPage';
 import { ALL_SERVICES_QUERY, SERVICE_DETAIL_QUERY } from '../sanity/lib/queries';
 import { resolveImage } from '../sanity/lib/image';
+import { SanityImage } from '../components/UI/SanityImage';
 import { getServiceDefault } from '../sanity/defaults/services';
 
 const getPlainText = (val: unknown): string => {
@@ -66,7 +67,11 @@ const InvestDetailContent = ({ currentId, allServices }: { currentId: string; al
 
   return (
     <div className="flex flex-col min-h-screen">
-      <SEO title={data.title} description={seoDescription} />
+      <SEO 
+        title={data.title} 
+        description={seoDescription} 
+        preloadImage={imageUrl}
+      />
       
       {/* Hero Banner */}
       <div className="pt-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
@@ -120,8 +125,11 @@ const InvestDetailContent = ({ currentId, allServices }: { currentId: string; al
             <article className="lg:col-span-8 space-y-10 order-1 lg:order-2">
               
               <div className="rounded-[1.5rem] overflow-hidden h-[300px] sm:h-[400px] shadow-sm">
-                <img 
-                  src={imageUrl} 
+                <SanityImage 
+                  image={data.detailImage} 
+                  fallback={investTablet}
+                  priority={true}
+                  sizes="(min-width: 1024px) 66vw, 100vw"
                   alt={data.detailImage?.alt ?? data.title} 
                   className="w-full h-full object-cover"
                 />
