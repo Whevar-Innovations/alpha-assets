@@ -5,7 +5,7 @@ import { Accordion } from '../components/UI/Accordion';
 import { FooterCTA } from '../components/UI/FooterCTA';
 import { SectionHeader } from '../components/UI/SectionHeader';
 import { FeatureCard } from '../components/UI/FeatureCard';
-import type { HomePageData, ServiceItem, CTAButton, HeroSlide } from '../types';
+import type { HomePageData, ServiceItem, CTAButton } from '../types';
 import { DynamicIcon } from '../components/UI/DynamicIcon';
 import { SEO } from '../components/SEO';
 import { HeroCarousel } from '../components/UI/HeroCarousel';
@@ -36,7 +36,7 @@ export const Home: React.FC = () => {
   const rawSlides = data.heroSlides?.length
     ? data.heroSlides
     : data.hero
-      ? [data.hero as HeroSlide]
+      ? [data.hero]
       : (homeDefaults.heroSlides ?? []);
 
   // Enforce hard max of 3 at runtime (mirrors Sanity validation)

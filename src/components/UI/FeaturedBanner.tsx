@@ -148,7 +148,7 @@ export const FeaturedBanner: React.FC<FeaturedBannerProps> = ({ articles, onNavi
               <button
                 key={a._id}
                 onClick={() => { goTo(i); }}
-                aria-label={`Go to slide ${i + 1}`}
+                aria-label={`Go to slide ${String(i + 1)}`}
                 aria-current={i === current ? 'true' : undefined}
                 className={`rounded-full transition-all duration-300 ${
                   i === current
@@ -161,7 +161,7 @@ export const FeaturedBanner: React.FC<FeaturedBannerProps> = ({ articles, onNavi
 
           {/* Progress bar */}
           {!isPaused && (
-            <div className="absolute bottom-0 left-0 h-0.5 bg-brand-primary/60 animate-featured-progress" style={{ animationDuration: `${AUTO_ADVANCE_MS}ms` }} />
+            <div className="absolute bottom-0 left-0 h-0.5 bg-brand-primary/60 animate-featured-progress" style={{ animationDuration: `${String(AUTO_ADVANCE_MS)}ms` }} />
           )}
         </>
       )}

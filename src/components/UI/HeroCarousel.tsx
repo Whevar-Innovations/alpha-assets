@@ -73,7 +73,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ slides, onNavigate }
         <div className="px-6 sm:px-12 lg:px-16 py-20 relative z-10 w-full">
           <div className="max-w-2xl text-white space-y-8">
             <h1
-              key={`heading-${current}`}
+              key={`heading-${String(current)}`}
               className="text-4xl sm:text-5xl lg:text-6xl font-light leading-tight sm:leading-none animate-hero-fade-up"
             >
               {slide.heading} <br />
@@ -86,7 +86,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ slides, onNavigate }
 
             {slide.subtext && (
               <p
-                key={`sub-${current}`}
+                key={`sub-${String(current)}`}
                 className="text-base sm:text-lg text-teal-50 leading-relaxed font-light whitespace-pre-line animate-hero-fade-up"
                 style={{ animationDelay: '80ms' }}
               >
@@ -96,7 +96,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ slides, onNavigate }
 
             {slide.ctaButtons && slide.ctaButtons.length > 0 && (
               <div
-                key={`cta-${current}`}
+                key={`cta-${String(current)}`}
                 className="flex flex-col sm:flex-row gap-4 pt-4 animate-hero-fade-up"
                 style={{ animationDelay: '160ms' }}
               >
@@ -142,7 +142,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ slides, onNavigate }
                 <button
                   key={i}
                   onClick={() => { goTo(i); }}
-                  aria-label={`Go to slide ${i + 1}`}
+                  aria-label={`Go to slide ${String(i + 1)}`}
                   aria-current={i === current ? 'true' : undefined}
                   className={`rounded-full transition-all duration-300 ${
                     i === current
@@ -156,9 +156,9 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ slides, onNavigate }
             {/* Progress bar */}
             {!isPaused && (
               <div
-                key={`progress-${current}`}
+                key={`progress-${String(current)}`}
                 className="absolute bottom-0 left-0 h-0.5 bg-brand-green/70 animate-hero-progress rounded-full"
-                style={{ animationDuration: `${AUTO_ADVANCE_MS}ms` }}
+                style={{ animationDuration: `${String(AUTO_ADVANCE_MS)}ms` }}
               />
             )}
           </>
