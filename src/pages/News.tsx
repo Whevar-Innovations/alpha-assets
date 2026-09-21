@@ -12,6 +12,7 @@ import { useSanityPage } from '../sanity/hooks/useSanityPage';
 import { NEWS_QUERY, ARTICLES_QUERY } from '../sanity/lib/queries';
 import { newsDefaults } from '../sanity/defaults/news';
 import { resolveImage } from '../sanity/lib/image';
+import { SanityImage } from '../components/UI/SanityImage';
 
 
 // Fallback articles if none in Sanity
@@ -72,7 +73,12 @@ export const News: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <SEO title={pageData.seo?.metaTitle} description={pageData.seo?.metaDescription} ogImage={pageData.seo?.ogImage} />
+      <SEO 
+        title={pageData.seo?.metaTitle} 
+        description={pageData.seo?.metaDescription} 
+        ogImage={pageData.seo?.ogImage} 
+        preloadImage={bgImgUrl}
+      />
 
       {/* Hero Banner — matches About / Invest style */}
       {heroVisible && (
@@ -147,7 +153,6 @@ export const News: React.FC = () => {
                 const formattedDate = new Date(article.publishedAt ?? '').toLocaleDateString('en-US', {
                   year: 'numeric', month: 'short', day: 'numeric',
                 });
-                const coverUrl = resolveImage(article.coverImage);
 
                 return (
                   <article
@@ -156,9 +161,10 @@ export const News: React.FC = () => {
                   >
                     {/* Cover image — always present, with brand-dark fallback */}
                     <div className="w-full h-48 sm:h-44 lg:h-48 overflow-hidden bg-brand-dark shrink-0">
-                      {coverUrl ? (
-                        <img
-                          src={coverUrl}
+                      {article.coverImage ? (
+                        <SanityImage
+                          image={article.coverImage}
+                          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                           alt={article.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />

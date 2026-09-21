@@ -7,9 +7,10 @@ interface SEOProps {
   title?: string;
   description?: string;
   ogImage?: SanityImage;
+  preloadImage?: string;
 }
 
-export const SEO: React.FC<SEOProps> = ({ title, description, ogImage }) => {
+export const SEO: React.FC<SEOProps> = ({ title, description, ogImage, preloadImage }) => {
   const siteName = 'Alpha Asset Managers';
   const fullTitle = title ? `${title} | ${siteName}` : siteName;
   const defaultDesc = 'Alpha Asset Managers provides professional investment management services, helping individuals and institutions grow and preserve their wealth.';
@@ -24,6 +25,7 @@ export const SEO: React.FC<SEOProps> = ({ title, description, ogImage }) => {
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description ?? defaultDesc} />
       <meta name="twitter:card" content="summary_large_image" />
+      {preloadImage && <link rel="preload" as="image" href={preloadImage} />}
     </Helmet>
   );
 };

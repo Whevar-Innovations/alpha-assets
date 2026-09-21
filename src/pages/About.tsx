@@ -7,6 +7,7 @@ import { DynamicIcon } from "../components/UI/DynamicIcon";
 import { Button } from "../components/UI/Button";
 import { PortableText } from "../components/UI/PortableText";
 import { SEO } from "../components/SEO";
+import { SanityImage } from "../components/UI/SanityImage";
 import { VideoFeatureSection } from "../components/UI/VideoFeatureSection";
 import bannerBg from "../assets/images/banner_bg.jpg";
 import aboutWoman from "../assets/images/about_woman.jpg";
@@ -74,12 +75,10 @@ export const About: React.FC = () => {
     : (aboutDefaults.videoFeatures ?? []);
 
   const quoteVisible = data.quoteVisible ?? true;
-  const quoteLeftImage = resolveImage(data.quoteLeftImage, aboutWoman);
   const quoteText = data.quoteText ?? aboutDefaults.quoteText;
   const quoteAuthor = data.quoteAuthor ?? aboutDefaults.quoteAuthor;
   const quoteAuthorTitle =
     data.quoteAuthorTitle ?? aboutDefaults.quoteAuthorTitle;
-  const quoteRightImage = resolveImage(data.quoteRightImage, aboutChart);
 
   const coreValuesVisible = data.coreValuesVisible ?? true;
   const coreValuesSubtitle = data.coreValuesSubtitle ?? aboutDefaults.coreValuesSubtitle;
@@ -117,6 +116,7 @@ export const About: React.FC = () => {
           title={data.seo?.metaTitle}
           description={data.seo?.metaDescription}
           ogImage={data.seo?.ogImage}
+          preloadImage={bgImgUrl}
         />
 
         {/* Hero Banner */}
@@ -177,8 +177,10 @@ export const About: React.FC = () => {
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
                 {/* Left image */}
                 <div className="rounded-2xl overflow-hidden h-[320px] lg:h-[420px]">
-                  <img
-                    src={quoteLeftImage}
+                  <SanityImage
+                    image={data.quoteLeftImage}
+                    fallback={aboutWoman}
+                    sizes="(min-width: 1024px) 33vw, 100vw"
                     alt="Professional female executive talking on phone"
                     className="w-full h-full object-cover"
                   />
@@ -211,8 +213,10 @@ export const About: React.FC = () => {
 
                 {/* Right image */}
                 <div className="rounded-2xl overflow-hidden h-[320px] lg:h-[420px]">
-                  <img
-                    src={quoteRightImage}
+                  <SanityImage
+                    image={data.quoteRightImage}
+                    fallback={aboutChart}
+                    sizes="(min-width: 1024px) 33vw, 100vw"
                     alt="Hands analyzing market trends during meeting"
                     className="w-full h-full object-cover"
                   />
@@ -327,7 +331,6 @@ export const About: React.FC = () => {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 max-w-5xl mx-auto">
                 {filteredTeam.map((member: TeamMember) => {
                   const isSelected = selectedMember?._id === member._id;
-                  const photoUrl = resolveImage(member.photo);
                   return (
                     <button
                       key={member._id}
@@ -341,13 +344,12 @@ export const About: React.FC = () => {
                       style={{ aspectRatio: "9/13" }}
                     >
                       <div className="flex-1 min-h-0 bg-gray-200 w-full relative">
-                        {photoUrl && (
-                          <img
-                            src={photoUrl}
-                            alt={member.name}
-                            className="w-full h-full object-cover object-top rounded-xl transition-transform duration-300 group-hover:scale-[1.01]"
-                          />
-                        )}
+                        <SanityImage
+                          image={member.photo}
+                          sizes="(min-width: 768px) 25vw, 50vw"
+                          alt={member.name}
+                          className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.01]"
+                        />
                       </div>
                       <div className="px-4 py-4 shrink-0 text-left">
                         <p className="text-white font-bold text-sm leading-tight">

@@ -55,6 +55,7 @@ export const Careers: React.FC = () => {
         title={pageData.seo?.metaTitle ?? careersDefaults.seo?.metaTitle}
         description={pageData.seo?.metaDescription ?? careersDefaults.seo?.metaDescription}
         ogImage={pageData.seo?.ogImage}
+        preloadImage={bgImgUrl}
       />
 
       {/* Hero Banner */}

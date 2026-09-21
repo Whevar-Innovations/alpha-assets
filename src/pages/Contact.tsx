@@ -63,7 +63,12 @@ export const Contact: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <SEO title={pageData.seo?.metaTitle} description={pageData.seo?.metaDescription} ogImage={pageData.seo?.ogImage} />
+      <SEO 
+        title={pageData.seo?.metaTitle} 
+        description={pageData.seo?.metaDescription} 
+        ogImage={pageData.seo?.ogImage} 
+        preloadImage={bgImgUrl}
+      />
       
       {/* Hero Banner — matches About / Invest style */}
       {heroVisible && (

@@ -6,6 +6,7 @@ import { FooterCTA } from '../components/UI/FooterCTA';
 import { SectionHeader } from '../components/UI/SectionHeader';
 import { FeatureCard } from '../components/UI/FeatureCard';
 import type { HomePageData, ServiceItem, CTAButton } from '../types';
+import heroMan from '../assets/images/hero_man.jpg';
 import { DynamicIcon } from '../components/UI/DynamicIcon';
 import { SEO } from '../components/SEO';
 import { HeroCarousel } from '../components/UI/HeroCarousel';
@@ -15,6 +16,7 @@ import { useSanityPage } from '../sanity/hooks/useSanityPage';
 import { HOME_QUERY } from '../sanity/lib/queries';
 import { homeDefaults } from '../sanity/defaults/home';
 import { resolveImage } from '../sanity/lib/image';
+import { SanityImage } from '../components/UI/SanityImage';
 import { formatCMSLines } from '../utils/formatText';
 
 
@@ -66,9 +68,16 @@ export const Home: React.FC = () => {
   const faqs = data.faqItems?.length ? data.faqItems : homeDefaults.faqItems;
 
 
+  const firstSlideImgUrl = heroSlides[0] ? resolveImage(heroSlides[0].backgroundImage, heroMan) : undefined;
+
   return (
     <div className="flex flex-col min-h-screen">
-      <SEO title={data.seo?.metaTitle} description={data.seo?.metaDescription} ogImage={data.seo?.ogImage} />
+      <SEO 
+        title={data.seo?.metaTitle} 
+        description={data.seo?.metaDescription} 
+        ogImage={data.seo?.ogImage} 
+        preloadImage={firstSlideImgUrl}
+      />
 
       {/* Hero Carousel */}
       {heroVisible && heroSlides.length > 0 && (
@@ -171,8 +180,9 @@ export const Home: React.FC = () => {
                   const partnerLogo = partner.logo as { image?: unknown; alt?: string } | undefined;
                   return (
                   <a key={idx} href={partner.url} target="_blank" rel="noopener noreferrer">
-                    <img 
-                      src={resolveImage(partnerLogo)} 
+                    <SanityImage 
+                      image={partnerLogo}
+                      sizes="256px"
                       alt={partnerLogo?.alt ?? partner.name} 
                       className="h-12 md:h-16 w-auto object-contain" 
                     />
