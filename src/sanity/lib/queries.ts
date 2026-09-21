@@ -121,5 +121,5 @@ export const JOB_VACANCIES_QUERY = `*[_type == "jobVacancy" && status == "Open"]
 
 export const JOB_VACANCY_DETAIL_QUERY = `*[_type == "jobVacancy" && slug.current == $slug && status == "Open"][0]{
   _id, title, slug, department, location, employmentType, datePosted, deadline, summary, description,
-  applicationType, applicationEmail, applicationUrl, status, seo
+  applicationType, applicationEmail, applicationUrl, showApplyButton, status, seo
 }`;

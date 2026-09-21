@@ -121,6 +121,14 @@ export const jobVacancy = defineType({
 
     // Application Method
     {
+      name: 'showApplyButton',
+      type: 'boolean',
+      title: 'Show Apply Button',
+      description: 'Toggle on to show the application button in the Call-to-Action section. Toggle off to hide it.',
+      initialValue: true,
+      group: 'application',
+    },
+    {
       name: 'applicationType',
       type: 'string',
       title: 'Application Type',
