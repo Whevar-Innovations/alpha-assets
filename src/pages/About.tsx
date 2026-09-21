@@ -328,7 +328,7 @@ export const About: React.FC = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 max-w-5xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-5 max-w-5xl mx-auto">
                 {filteredTeam.map((member: TeamMember) => {
                   const isSelected = selectedMember?._id === member._id;
                   return (
@@ -568,7 +568,7 @@ const AboutSkeleton: React.FC = () => (
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-5 max-w-5xl mx-auto">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
             <div
               key={i}
