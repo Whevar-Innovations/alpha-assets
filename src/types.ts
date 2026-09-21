@@ -234,6 +234,7 @@ export interface JobVacancyItem {
   applicationType?: 'Email' | 'External Link';
   applicationEmail?: string;
   applicationUrl?: string;
+  showApplyButton?: boolean;
   status?: 'Open' | 'Closed' | 'Draft';
   order?: number;
   seo?: SEOData;

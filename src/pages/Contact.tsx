@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import bannerBg from '../assets/images/banner_bg.jpg';
-import { Phone, Mail, MapPin, Clock, CheckCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, CheckCircle, Loader2, AlertCircle } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { Button } from '../components/UI/Button';
 
@@ -10,6 +10,16 @@ import { CONTACT_QUERY, SITE_SETTINGS_QUERY } from '../sanity/lib/queries';
 import { contactDefaults } from '../sanity/defaults/contact';
 import { siteSettingsDefaults } from '../sanity/defaults/siteSettings';
 import { resolveImage } from '../sanity/lib/image';
+
+const SERVICE_LABELS: Record<string, string> = {
+  'general': 'General Enquiry',
+  'separately-managed-accounts': 'Separately Managed Accounts',
+  'advisory-capital-solutions': 'Advisory & Capital Solutions',
+  'direct-lending-fund': 'Direct Lending Fund',
+  'private-equity': 'Private Equity',
+  'unit-trusts': 'Unit Trusts',
+  'pension-retirement': 'Pension & Retirement Mandates',
+};
 
 export const Contact: React.FC = () => {
   const navigate = useNavigate();
@@ -22,8 +32,11 @@ export const Contact: React.FC = () => {
     phone: '',
     service: 'general',
     message: '',
+    _honey: '',
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
   if (isPageLoading || isSettingsLoading) {
@@ -35,20 +48,72 @@ export const Contact: React.FC = () => {
     return null;
   }
 
-  const handleSubmit = (e: React.SyntheticEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) {
-      alert("Please fill in all required fields.");
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      setErrorMessage('Please fill in all required fields.');
       return;
     }
-    setSubmitted(true);
+
+    // Honeypot spam trap
+    if (formData._honey) {
+      setSubmitted(true);
+      return;
+    }
+
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    const targetEmail = siteSettings.contactInfo?.email ?? 'invest@alphaeastafrica.com';
+    const selectedServiceName = SERVICE_LABELS[formData.service] ?? formData.service;
+    const phoneValue = formData.phone.trim().length > 0 ? formData.phone.trim() : 'Not provided';
+
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(targetEmail)}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: phoneValue,
+          service: selectedServiceName,
+          message: formData.message.trim(),
+          _subject: `New Contact Enquiry: ${formData.name.trim()} (${selectedServiceName})`,
+          _template: 'table',
+          _captcha: 'false',
+        }),
+      });
+
+      const result = (await response.json()) as { success?: string | boolean; message?: string };
+
+      if (response.ok && (result.success === 'true' || result.success === true)) {
+        setSubmitted(true);
+      } else {
+        setErrorMessage(
+          result.message ??
+            `Unable to submit your message. Please try again or email us directly at ${targetEmail}.`
+        );
+      }
+    } catch {
+      setErrorMessage(
+        `Failed to send message due to a network connection error. Please email us directly at ${targetEmail}.`
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+    if (errorMessage) {
+      setErrorMessage(null);
+    }
   };
 
   const hero = pageData.hero ?? contactDefaults.hero;
@@ -231,7 +296,8 @@ export const Contact: React.FC = () => {
                       <button
                         onClick={() => {
                           setSubmitted(false);
-                          setFormData({ name: '', email: '', phone: '', service: 'general', message: '' });
+                          setErrorMessage(null);
+                          setFormData({ name: '', email: '', phone: '', service: 'general', message: '', _honey: '' });
                         }}
                         className="text-xs font-bold uppercase tracking-wider text-brand-primary border border-brand-primary px-6 py-3 rounded hover:bg-brand-primary hover:text-white transition-colors duration-150"
                       >
@@ -239,11 +305,43 @@ export const Contact: React.FC = () => {
                       </button>
                     </div>
                   ) : (
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form
+                      onSubmit={(e) => {
+                        void handleSubmit(e);
+                      }}
+                      className="space-y-6"
+                      noValidate={false}
+                    >
                       <div className="space-y-2">
                         <h3 className="text-xl font-bold text-brand-dark">{pageData.formHeading}</h3>
                         <p className="text-xs text-brand-gray font-medium">Fields marked with * are required.</p>
                       </div>
+
+                      {/* Honeypot Bot Trap (Invisible to humans) */}
+                      <div className="hidden" aria-hidden="true">
+                        <label htmlFor="_honey">Do not fill this out if you are human</label>
+                        <input
+                          type="text"
+                          id="_honey"
+                          name="_honey"
+                          tabIndex={-1}
+                          autoComplete="off"
+                          value={formData._honey}
+                          onChange={handleChange}
+                        />
+                      </div>
+
+                      {/* Error Alert Message */}
+                      {errorMessage && (
+                        <div
+                          role="alert"
+                          aria-live="polite"
+                          className="p-4 rounded bg-red-50 border border-red-200 text-red-700 flex items-start gap-3 text-sm"
+                        >
+                          <AlertCircle size={18} className="shrink-0 mt-0.5 text-red-600" />
+                          <div>{errorMessage}</div>
+                        </div>
+                      )}
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div className="space-y-2">
@@ -255,9 +353,10 @@ export const Contact: React.FC = () => {
                             id="name"
                             name="name"
                             required
+                            disabled={isSubmitting}
                             value={formData.name}
                             onChange={handleChange}
-                            className="w-full px-4 py-2.5 text-sm bg-white border border-gray-250 rounded focus:outline-none focus:ring-1 focus:ring-brand-primary text-brand-dark placeholder-gray-400"
+                            className="w-full px-4 py-2.5 text-sm bg-white border border-gray-250 rounded focus:outline-none focus:ring-1 focus:ring-brand-primary text-brand-dark placeholder-gray-400 disabled:opacity-60 disabled:cursor-not-allowed"
                             placeholder="e.g. John Doe"
                           />
                         </div>
@@ -271,9 +370,10 @@ export const Contact: React.FC = () => {
                             id="email"
                             name="email"
                             required
+                            disabled={isSubmitting}
                             value={formData.email}
                             onChange={handleChange}
-                            className="w-full px-4 py-2.5 text-sm bg-white border border-gray-250 rounded focus:outline-none focus:ring-1 focus:ring-brand-primary text-brand-dark placeholder-gray-400"
+                            className="w-full px-4 py-2.5 text-sm bg-white border border-gray-250 rounded focus:outline-none focus:ring-1 focus:ring-brand-primary text-brand-dark placeholder-gray-400 disabled:opacity-60 disabled:cursor-not-allowed"
                             placeholder="e.g. john@example.com"
                           />
                         </div>
@@ -288,9 +388,10 @@ export const Contact: React.FC = () => {
                             type="tel"
                             id="phone"
                             name="phone"
+                            disabled={isSubmitting}
                             value={formData.phone}
                             onChange={handleChange}
-                            className="w-full px-4 py-2.5 text-sm bg-white border border-gray-250 rounded focus:outline-none focus:ring-1 focus:ring-brand-primary text-brand-dark placeholder-gray-400"
+                            className="w-full px-4 py-2.5 text-sm bg-white border border-gray-250 rounded focus:outline-none focus:ring-1 focus:ring-brand-primary text-brand-dark placeholder-gray-400 disabled:opacity-60 disabled:cursor-not-allowed"
                             placeholder="e.g. +256 700 000 000"
                           />
                         </div>
@@ -302,9 +403,10 @@ export const Contact: React.FC = () => {
                           <select
                             id="service"
                             name="service"
+                            disabled={isSubmitting}
                             value={formData.service}
                             onChange={handleChange}
-                            className="w-full px-4 py-2.5 text-sm bg-white border border-gray-250 rounded focus:outline-none focus:ring-1 focus:ring-brand-primary text-brand-dark"
+                            className="w-full px-4 py-2.5 text-sm bg-white border border-gray-250 rounded focus:outline-none focus:ring-1 focus:ring-brand-primary text-brand-dark disabled:opacity-60 disabled:cursor-not-allowed"
                           >
                             <option value="general">General Enquiry</option>
                             <option value="separately-managed-accounts">Separately Managed Accounts</option>
@@ -326,18 +428,27 @@ export const Contact: React.FC = () => {
                           name="message"
                           required
                           rows={4}
+                          disabled={isSubmitting}
                           value={formData.message}
                           onChange={handleChange}
-                          className="w-full px-4 py-2.5 text-sm bg-white border border-gray-250 rounded focus:outline-none focus:ring-1 focus:ring-brand-primary text-brand-dark placeholder-gray-400"
+                          className="w-full px-4 py-2.5 text-sm bg-white border border-gray-250 rounded focus:outline-none focus:ring-1 focus:ring-brand-primary text-brand-dark placeholder-gray-400 disabled:opacity-60 disabled:cursor-not-allowed"
                           placeholder="Write your message here..."
                         />
                       </div>
 
                       <button
                         type="submit"
-                        className="w-full bg-brand-primary hover:bg-brand-dark text-white font-bold text-xs uppercase tracking-wider py-4 rounded transition-all duration-150 shadow focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
+                        disabled={isSubmitting}
+                        className="w-full bg-brand-primary hover:bg-brand-dark disabled:opacity-70 disabled:cursor-not-allowed text-white font-bold text-xs uppercase tracking-wider py-4 rounded transition-all duration-150 shadow focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 flex items-center justify-center gap-2"
                       >
-                        Send Message
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 size={16} className="animate-spin" />
+                            <span>Sending Message...</span>
+                          </>
+                        ) : (
+                          <span>Send Message</span>
+                        )}
                       </button>
                     </form>
                   )}
