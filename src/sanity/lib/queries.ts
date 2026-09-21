@@ -2,18 +2,18 @@ export const HOME_QUERY = `*[_type == "homePage" && _id == "homePage"][0]{
   pageVisible, seo, heroVisible,
   heroSlides[]{
     heading, highlightText, subtext,
-    backgroundImage{ image{ asset->{url, metadata} }, alt },
+    backgroundImage{ image{ asset->{url, metadata} }, alt, url },
     ctaButtons[]{ label, linkType, url, variant, isVisible }
   },
   hero{ heading, highlightText, subtext,
-    backgroundImage{ image{ asset->{url, metadata} }, alt },
+    backgroundImage{ image{ asset->{url, metadata} }, alt, url },
     ctaButtons[]{ label, linkType, url, variant, isVisible }
   },
   videoFeaturesVisible,
   videoFeatures[]{
     _key, youtubeUrl, watchLabel, quoteText, speakerName, speakerTitle,
-    thumbnail{ image{ asset->{url, metadata} }, alt },
-    speakerPhoto{ image{ asset->{url, metadata} }, alt }
+    thumbnail{ image{ asset->{url, metadata} }, alt, url },
+    speakerPhoto{ image{ asset->{url, metadata} }, alt, url }
   },
   servicesVisible, servicesHeading, servicesSubtext,
   servicesList[@->isActive == true]->{ _id, title, slug, shortDescription, icon, order },
@@ -25,37 +25,37 @@ export const HOME_QUERY = `*[_type == "homePage" && _id == "homePage"][0]{
 
 export const ABOUT_QUERY = `*[_type == "aboutPage" && _id == "aboutPage"][0]{
   pageVisible, seo,
-  heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt }, ctaButton{ label, linkType, url, variant, isVisible } },
+  heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt, url }, ctaButton{ label, linkType, url, variant, isVisible } },
   introVisible, introHeading, introParagraphs,
   videoFeaturesVisible,
   videoFeatures[]{
     _key, youtubeUrl, watchLabel, quoteText, speakerName, speakerTitle,
-    thumbnail{ image{ asset->{url, metadata} }, alt },
-    speakerPhoto{ image{ asset->{url, metadata} }, alt }
+    thumbnail{ image{ asset->{url, metadata} }, alt, url },
+    speakerPhoto{ image{ asset->{url, metadata} }, alt, url }
   },
   quoteVisible,
-  quoteLeftImage{ image{ asset->{url, metadata} }, alt },
+  quoteLeftImage{ image{ asset->{url, metadata} }, alt, url },
   quoteText, quoteAuthor, quoteAuthorTitle,
-  quoteRightImage{ image{ asset->{url, metadata} }, alt },
+  quoteRightImage{ image{ asset->{url, metadata} }, alt, url },
   coreValuesVisible, coreValuesSubtitle, coreValuesHeading, coreValues[],
   committeeVisible, committeeHeading, committeeText,
   teamVisible, teamSubtitle, teamHeading,
-  teamMembers[@->isActive == true]->{_id, name, role, category, photo{ image{ asset->{url, metadata} }, alt }, bio, order} | order(order asc)
+  teamMembers[@->isActive == true]->{_id, name, role, category, photo{ image{ asset->{url, metadata} }, alt, url }, bio, order} | order(order asc)
 }`;
 
 export const INVEST_QUERY = `*[_type == "investPage" && _id == "investPage"][0]{
-  pageVisible, seo, heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt }, ctaButton{ label, linkType, url, variant, isVisible } },
+  pageVisible, seo, heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt, url }, ctaButton{ label, linkType, url, variant, isVisible } },
   strategiesVisible, strategiesHeading, strategiesDescription, strategiesList[]{ _key, title, description },
   servicesVisible, servicesSubtitle, servicesHeading,
   servicesList[@->isActive == true]->{ _id, title, slug, shortDescription, icon, order }
 }`;
 
 export const NEWS_QUERY = `*[_type == "newsPage" && _id == "newsPage"][0]{
-  pageVisible, seo, heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt }, ctaButton{ label, linkType, url, variant, isVisible } }
+  pageVisible, seo, heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt, url }, ctaButton{ label, linkType, url, variant, isVisible } }
 }`;
 
 export const CONTACT_QUERY = `*[_type == "contactPage" && _id == "contactPage"][0]{
-  pageVisible, seo, heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt }, ctaButton{ label, linkType, url, variant, isVisible } },
+  pageVisible, seo, heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt, url }, ctaButton{ label, linkType, url, variant, isVisible } },
   contactVisible, contactHeading, contactSubtext,
   formVisible, formHeading, formSuccessHeading, formSuccessMessage
 }`;
@@ -76,8 +76,8 @@ export const SITE_SETTINGS_QUERY = `*[_type == "siteSettings" && _id == "siteSet
       }
     }
   }, contactInfo, socialLinks[],
-  primaryLogo{ image{ asset->{url} }, alt },
-  whiteLogo{ image{ asset->{url} }, alt },
+  primaryLogo{ image{ asset->{url} }, alt, url },
+  whiteLogo{ image{ asset->{url} }, alt, url },
   regulatoryText, copyrightText
 }`;
 
@@ -110,7 +110,7 @@ export const POLICY_PAGE_QUERY = `*[_type == "policyPage" && policyType == $slug
 
 export const CAREERS_PAGE_QUERY = `*[_type == "careersPage" && _id == "careersPage"][0]{
   pageVisible, seo,
-  heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt }, ctaButton{ label, linkType, url, variant, isVisible } },
+  heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt, url }, ctaButton{ label, linkType, url, variant, isVisible } },
   introHeading, introDescription, noVacanciesTitle, noVacanciesMessage
 }`;
 
