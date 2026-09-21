@@ -63,9 +63,9 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ slides, onNavigate }
       <section
         className="relative min-h-[500px] md:min-h-[640px] flex items-center bg-brand-dark overflow-hidden rounded-2xl md:rounded-[32px] shadow-sm"
         style={{
-          backgroundImage: `linear-gradient(to right, rgba(0, 46, 46, 0.95) 0%, rgba(0, 46, 46, 0.85) 45%, rgba(0, 46, 46, 0.3) 100%), url(${bgImgUrl})`,
+          backgroundImage: `url(${bgImgUrl})`,
           backgroundSize: 'cover',
-          backgroundPosition: 'right center',
+          backgroundPosition: 'center',
           transition: 'background-image 0.6s ease-in-out',
         }}
       >

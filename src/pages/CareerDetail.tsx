@@ -143,35 +143,43 @@ export const CareerDetail: React.FC = () => {
             </div>
 
             {/* Bottom Apply Action Box */}
-            <div className="bg-brand-dark text-white rounded-2xl p-6 sm:p-10 shadow-sm mt-8 sm:mt-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-              <div>
+            <div
+              className={`bg-brand-dark text-white rounded-2xl p-6 sm:p-10 shadow-sm mt-8 sm:mt-12 ${
+                vacancy.showApplyButton !== false
+                  ? 'flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6'
+                  : 'flex flex-col items-center text-center gap-3'
+              }`}
+            >
+              <div className={vacancy.showApplyButton !== false ? undefined : 'max-w-xl mx-auto'}>
                 <h3 className="text-xl sm:text-2xl font-light text-white mb-2">
                   Interested in this position?
                 </h3>
-                <p className="text-xs sm:text-sm text-teal-100/80 font-light max-w-md">
+                <p className="text-xs sm:text-sm text-teal-100/80 font-light">
                   {isEmailApp
                     ? `Send your CV and a brief cover letter to ${applicationEmail}.`
                     : 'Submit your application through our online recruitment portal.'}
                 </p>
               </div>
 
-              {isEmailApp ? (
-                <a
-                  href={mailtoHref}
-                  className="w-full sm:w-auto px-6 sm:px-8 py-3.5 bg-brand-green text-brand-dark font-semibold text-xs sm:text-sm rounded-xl hover:bg-opacity-90 transition-all shadow-sm flex items-center justify-center gap-2 whitespace-nowrap text-center"
-                >
-                  <Mail size={16} />
-                  Apply via Email
-                </a>
-              ) : (
-                <a
-                  href={externalHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto px-6 sm:px-8 py-3.5 bg-brand-green text-brand-dark font-semibold text-xs sm:text-sm rounded-xl hover:bg-opacity-90 transition-all shadow-sm flex items-center justify-center gap-2 whitespace-nowrap text-center"
-                >
-                  Apply Now <ExternalLink size={16} />
-                </a>
+              {vacancy.showApplyButton !== false && (
+                isEmailApp ? (
+                  <a
+                    href={mailtoHref}
+                    className="w-full sm:w-auto px-6 sm:px-8 py-3.5 bg-brand-green text-brand-dark font-semibold text-xs sm:text-sm rounded-xl hover:bg-opacity-90 transition-all shadow-sm flex items-center justify-center gap-2 whitespace-nowrap text-center"
+                  >
+                    <Mail size={16} />
+                    Apply via Email
+                  </a>
+                ) : (
+                  <a
+                    href={externalHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto px-6 sm:px-8 py-3.5 bg-brand-green text-brand-dark font-semibold text-xs sm:text-sm rounded-xl hover:bg-opacity-90 transition-all shadow-sm flex items-center justify-center gap-2 whitespace-nowrap text-center"
+                  >
+                    Apply Now <ExternalLink size={16} />
+                  </a>
+                )
               )}
             </div>
           </main>
@@ -209,26 +217,6 @@ export const CareerDetail: React.FC = () => {
                       })}
                     </span>
                   </div>
-                )}
-              </div>
-
-              <div className="pt-3 border-t border-gray-100">
-                {isEmailApp ? (
-                  <a
-                    href={mailtoHref}
-                    className="w-full py-3 bg-brand-primary hover:bg-opacity-95 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm flex items-center justify-center gap-2"
-                  >
-                    <Mail size={15} /> Apply via Email
-                  </a>
-                ) : (
-                  <a
-                    href={externalHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-3 bg-brand-primary hover:bg-opacity-95 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm flex items-center justify-center gap-2"
-                  >
-                    Apply on Portal <ExternalLink size={15} />
-                  </a>
                 )}
               </div>
             </div>
