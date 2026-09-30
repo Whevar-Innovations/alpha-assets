@@ -240,7 +240,7 @@ export const About: React.FC = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 w-full">
             <section className="py-16 sm:py-20 bg-gradient-to-b from-brand-dark to-brand-primary rounded-3xl md:rounded-[40px] px-6 sm:px-12">
               <div className="text-center max-w-4xl mx-auto mb-14 space-y-3">
-                <span className="text-xs font-semibold uppercase tracking-widest text-brand-grayText">
+                <span className="text-xs font-semibold uppercase tracking-widest text-brand-green">
                   {coreValuesSubtitle}
                 </span>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-brand-green leading-tight whitespace-pre-line">
