@@ -17,7 +17,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
 }) => {
   return (
     <div className={`${centered ? 'text-center mx-auto' : ''} space-y-4 max-w-3xl ${className}`}>
-      <span className={`text-xs font-semibold uppercase tracking-widest ${theme === 'dark' ? 'text-brand-grayText' : 'text-brand-gray'}`}>
+      <span className={`text-xs font-semibold uppercase tracking-widest ${theme === 'dark' ? 'text-brand-green' : 'text-brand-gray'}`}>
         {subtitle}
       </span>
       <h2 className={`text-4xl sm:text-5xl lg:text-[56px] font-light leading-[1.1] tracking-tight whitespace-pre-line ${theme === 'dark' ? 'text-brand-green' : 'text-brand-dark'}`}>
