@@ -201,11 +201,17 @@ export interface FooterLink {
   };
 }
 
+export interface SocialLink {
+  platform: 'Facebook' | 'X' | 'LinkedIn' | 'Instagram' | 'YouTube' | 'TikTok';
+  url: string;
+  isVisible?: boolean;
+}
+
 export interface SiteSettingsData {
   navItems?: { label: string; path: string; isDisabled: boolean; order?: number; isVisible?: boolean }[];
   primaryLogo?: SanityImage;
   whiteLogo?: SanityImage;
-  socialLinks?: { platform: string; url: string; isVisible?: boolean }[];
+  socialLinks?: SocialLink[];
   contactInfo?: { address?: string; phone?: string; email?: string; officeHours?: string };
   regulatoryText?: string;
   copyrightText?: string;

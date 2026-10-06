@@ -14,6 +14,7 @@ import { Contact } from './pages/Contact';
 import { PolicyPage } from './pages/PolicyPage';
 import { Careers } from './pages/Careers';
 import { CareerDetail } from './pages/CareerDetail';
+import { PensionCalculatorPage } from './pages/PensionCalculatorPage';
 
 export const App: React.FC = () => {
   return (
@@ -29,6 +30,8 @@ export const App: React.FC = () => {
               <Route path="/about" element={<About />} />
               <Route path="/invest" element={<Invest />} />
               <Route path="/invest/:serviceId" element={<InvestDetail />} />
+              <Route path="/calculator" element={<PensionCalculatorPage />} />
+              <Route path="/pensions-calculator" element={<PensionCalculatorPage />} />
               <Route path="/news" element={<News />} />
               <Route path="/news/:slug" element={<ArticleDetail />} />
               <Route path="/contact" element={<Contact />} />

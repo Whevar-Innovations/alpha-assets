@@ -5,8 +5,9 @@ import { SEO } from '../components/SEO';
 import type { ArticleItem } from '../types';
 import bannerBg from '../assets/images/banner_bg.jpg';
 import { Button } from '../components/UI/Button';
-import { Calendar, Clock, ArrowRight } from 'lucide-react';
+import { Calendar, Clock, ArrowRight, Share2 } from 'lucide-react';
 import { FeaturedBanner } from '../components/UI/FeaturedBanner';
+import { ArticleShareModal } from '../components/UI/ArticleShareModal';
 
 import { useSanityPage } from '../sanity/hooks/useSanityPage';
 import { NEWS_QUERY, ARTICLES_QUERY } from '../sanity/lib/queries';
@@ -43,6 +44,7 @@ export const News: React.FC = () => {
   const { data: articles, isLoading: isArticlesLoading } = useSanityPage<ArticleItem[]>(ARTICLES_QUERY, fallbackArticles);
 
   const [filter, setFilter] = useState<string>('All');
+  const [shareModalArticle, setShareModalArticle] = useState<ArticleItem | null>(null);
 
   if (isPageLoading || isArticlesLoading) {
     return <NewsSkeleton />;
@@ -209,13 +211,29 @@ export const News: React.FC = () => {
                           )}
                         </div>
 
-                        <button
-                          onClick={() => { void navigate(`/news/${article.slug?.current ?? ''}`); }}
-                          className="text-xs font-bold uppercase tracking-wider text-brand-primary hover:text-brand-dark inline-flex items-center gap-2 group/btn"
-                        >
-                          Read Article
-                          <ArrowRight size={13} className="transform translate-x-0 group-hover/btn:translate-x-1 transition-transform duration-150" />
-                        </button>
+                        <div className="flex items-center justify-between">
+                          <button
+                            type="button"
+                            onClick={() => { void navigate(`/news/${article.slug?.current ?? ''}`); }}
+                            className="text-xs font-bold uppercase tracking-wider text-brand-primary hover:text-brand-dark inline-flex items-center gap-2 group/btn"
+                          >
+                            Read Article
+                            <ArrowRight size={13} className="transform translate-x-0 group-hover/btn:translate-x-1 transition-transform duration-150" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setShareModalArticle(article);
+                            }}
+                            className="p-1.5 rounded-lg text-brand-gray hover:text-brand-primary hover:bg-teal-50 transition-colors flex items-center gap-1 text-xs"
+                            aria-label={`Share ${article.title}`}
+                            title="Share article"
+                          >
+                            <Share2 size={13} />
+                            <span className="text-[11px] font-medium hidden sm:inline">Share</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </article>
@@ -230,6 +248,15 @@ export const News: React.FC = () => {
 
         </div>
       </section>
+
+      {/* ── Card Share Modal ────────────────────────────────────────────── */}
+      <ArticleShareModal
+        isOpen={Boolean(shareModalArticle)}
+        onClose={() => {
+          setShareModalArticle(null);
+        }}
+        article={shareModalArticle}
+      />
 
       <FooterCTA />
     </div>

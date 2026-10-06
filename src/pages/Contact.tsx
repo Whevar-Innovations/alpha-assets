@@ -11,6 +11,8 @@ import { contactDefaults } from '../sanity/defaults/contact';
 import { siteSettingsDefaults } from '../sanity/defaults/siteSettings';
 import { resolveImage } from '../sanity/lib/image';
 
+import { submitFormData } from '../utils/formSubmission';
+
 const SERVICE_LABELS: Record<string, string> = {
   'general': 'General Enquiry',
   'separately-managed-accounts': 'Separately Managed Accounts',
@@ -55,12 +57,6 @@ export const Contact: React.FC = () => {
       return;
     }
 
-    // Honeypot spam trap
-    if (formData._honey) {
-      setSubmitted(true);
-      return;
-    }
-
     setIsSubmitting(true);
     setErrorMessage(null);
 
@@ -68,42 +64,25 @@ export const Contact: React.FC = () => {
     const selectedServiceName = SERVICE_LABELS[formData.service] ?? formData.service;
     const phoneValue = formData.phone.trim().length > 0 ? formData.phone.trim() : 'Not provided';
 
-    try {
-      const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(targetEmail)}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          phone: phoneValue,
-          service: selectedServiceName,
-          message: formData.message.trim(),
-          _subject: `New Contact Enquiry: ${formData.name.trim()} (${selectedServiceName})`,
-          _template: 'table',
-          _captcha: 'false',
-        }),
-      });
+    const result = await submitFormData(targetEmail, {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      phone: phoneValue,
+      service: selectedServiceName,
+      message: formData.message.trim(),
+      _honey: formData._honey,
+      _subject: `New Contact Enquiry: ${formData.name.trim()} (${selectedServiceName})`,
+    });
 
-      const result = (await response.json()) as { success?: string | boolean; message?: string };
-
-      if (response.ok && (result.success === 'true' || result.success === true)) {
-        setSubmitted(true);
-      } else {
-        setErrorMessage(
-          result.message ??
-            `Unable to submit your message. Please try again or email us directly at ${targetEmail}.`
-        );
-      }
-    } catch {
+    if (result.success) {
+      setSubmitted(true);
+    } else {
       setErrorMessage(
-        `Failed to send message due to a network connection error. Please email us directly at ${targetEmail}.`
+        result.message ??
+          `Unable to submit your message. Please try again or email us directly at ${targetEmail}.`
       );
-    } finally {
-      setIsSubmitting(false);
     }
+    setIsSubmitting(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
