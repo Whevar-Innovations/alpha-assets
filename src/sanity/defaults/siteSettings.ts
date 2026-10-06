@@ -23,8 +23,9 @@ export const siteSettingsDefaults: SiteSettingsData = {
   },
   socialLinks: [
     { platform: 'Facebook', url: 'https://facebook.com', isVisible: true },
-    { platform: 'X', url: 'https://twitter.com', isVisible: true },
+    { platform: 'Instagram', url: 'https://instagram.com', isVisible: true },
     { platform: 'LinkedIn', url: 'https://linkedin.com', isVisible: true },
+    { platform: 'TikTok', url: 'https://tiktok.com', isVisible: true },
   ],
   regulatoryText: 'Licensed & Regulated by the Capital Markets Authority',
   copyrightText: '© 2026 Alpha Asset Managers, All Rights Reserved',

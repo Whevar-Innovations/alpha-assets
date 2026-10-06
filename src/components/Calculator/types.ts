@@ -1,3 +1,5 @@
+import type React from 'react';
+
 export type Currency = 'UGX' | 'USD';
 
 export type SchemeType = 'umbrella' | 'individual' | 'occupational';
@@ -73,3 +75,20 @@ export interface PensionGoalResult {
   yearsToRetirement: number;
   yearlyBreakdown: YearProjectionPoint[];
 }
+
+export interface QuickPreset {
+  id: string;
+  title: string;
+  subtitle: string;
+  icon: React.FC<{ className?: string }>;
+  currentAge: number;
+  retirementAge: number;
+  initialPot: { UGX: number; USD: number };
+  monthlyContribution: { UGX: number; USD: number };
+  schemeType: SchemeType;
+  contributionMethod: ContributionMethod;
+  grossSalary?: { UGX: number; USD: number };
+  employeeRatePercent?: number;
+  employerRatePercent?: number;
+}
+

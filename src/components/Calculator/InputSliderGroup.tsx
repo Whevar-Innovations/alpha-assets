@@ -14,6 +14,7 @@ export interface InputSliderGroupProps {
   minLabel?: string;
   maxLabel?: string;
   presets?: { label: string; value: number }[];
+  showPresets?: boolean;
   onChange: (newValue: number) => void;
   disabled?: boolean;
 }
@@ -31,18 +32,26 @@ export const InputSliderGroup: React.FC<InputSliderGroupProps> = ({
   minLabel,
   maxLabel,
   presets,
+  showPresets = false,
   onChange,
   disabled = false,
 }) => {
   // Local edit buffer: string when focused/editing, null when resting
   const [editingText, setEditingText] = useState<string | null>(null);
 
+  const isDecimal = step < 1 || value % 1 !== 0;
+
   const displayValue =
-    editingText ?? (isNaN(value) ? '0' : Math.round(value).toLocaleString('en-US'));
+    editingText ??
+    (isNaN(value)
+      ? '0'
+      : isDecimal
+      ? value.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 2 })
+      : Math.round(value).toLocaleString('en-US'));
 
   const handleFocus = () => {
-    // Strip commas and non-digits so user can easily edit/type
-    const rawNum = isNaN(value) ? 0 : Math.round(value);
+    // Strip commas and non-digits/decimals so user can easily edit/type
+    const rawNum = isNaN(value) ? 0 : isDecimal ? value : Math.round(value);
     setEditingText(rawNum > 0 ? rawNum.toString() : '');
   };
 
@@ -81,18 +90,21 @@ export const InputSliderGroup: React.FC<InputSliderGroupProps> = ({
   const percentage = Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100));
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-1.5 py-1">
       {/* Label */}
       <div className="flex justify-between items-center">
-        <label htmlFor={`${id}-input`} className="text-xs font-bold uppercase tracking-wider text-brand-gray/80">
+        <label
+          htmlFor={`${id}-input`}
+          className="text-xs font-bold uppercase tracking-wider text-brand-dark/80 select-none"
+        >
           {label}
         </label>
       </div>
 
-      {/* Formatted Number Input Box */}
-      <div className="relative flex items-center rounded-xl border border-gray-200 bg-white shadow-sm focus-within:border-brand-primary focus-within:ring-2 focus-within:ring-brand-primary/20 transition-all duration-150">
+      {/* Formatted Number Input Box on Next Line */}
+      <div className="relative flex items-center rounded-xl border border-gray-200/90 bg-white shadow-xs focus-within:border-brand-primary focus-within:ring-2 focus-within:ring-brand-primary/20 transition-all duration-150">
         {prefix && (
-          <span className="pl-4 pr-1 text-sm font-semibold text-brand-dark/70 select-none">
+          <span className="pl-3.5 pr-1 text-xs sm:text-sm font-semibold text-brand-gray/80 select-none shrink-0">
             {prefix}
           </span>
         )}
@@ -106,20 +118,20 @@ export const InputSliderGroup: React.FC<InputSliderGroupProps> = ({
           onKeyDown={handleKeyDown}
           disabled={disabled}
           placeholder="0"
-          className={`w-full py-2.5 px-3 text-lg font-bold text-brand-dark bg-transparent focus:outline-none ${
+          className={`w-full py-2 px-3 text-sm sm:text-base font-bold text-brand-dark bg-transparent focus:outline-none ${
             disabled ? 'opacity-50 cursor-not-allowed' : ''
           }`}
           aria-label={label}
         />
         {suffix && (
-          <span className="pr-4 pl-1 text-sm font-medium text-brand-gray/60 select-none">
+          <span className="pr-3.5 pl-1 text-xs sm:text-sm font-medium text-brand-gray/70 select-none shrink-0">
             {suffix}
           </span>
         )}
       </div>
 
       {/* Range Slider */}
-      <div className="pt-2">
+      <div className="pt-0.5">
         <div className="relative flex items-center">
           <input
             id={`${id}-slider`}
@@ -131,24 +143,24 @@ export const InputSliderGroup: React.FC<InputSliderGroupProps> = ({
             onChange={handleSliderChange}
             disabled={disabled}
             style={{
-              background: `linear-gradient(to right, #005b5c ${percentage.toFixed(1)}%, #d1e5e5 ${percentage.toFixed(1)}%)`,
+              background: `linear-gradient(to right, #005b5c ${percentage.toFixed(1)}%, #cfe2e2 ${percentage.toFixed(1)}%)`,
             }}
-            className="w-full h-2 rounded-lg appearance-none cursor-pointer accent-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/30"
+            className="w-full h-1.5 rounded-lg appearance-none cursor-pointer accent-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/20"
             aria-label={`${label} slider`}
           />
         </div>
 
         {/* Min / Max Labels */}
         {(minLabel !== undefined || maxLabel !== undefined) && (
-          <div className="flex justify-between items-center text-[11px] font-medium text-brand-gray/60 mt-1.5">
+          <div className="flex justify-between items-center text-[10px] font-medium text-brand-gray/50 mt-1 select-none">
             <span>{minLabel ?? min.toLocaleString()}</span>
             <span>{maxLabel ?? max.toLocaleString()}</span>
           </div>
         )}
       </div>
 
-      {/* Optional Preset Pills */}
-      {presets && presets.length > 0 && (
+      {/* Optional Preset Pills (Off by default for cleaner, untangled UI) */}
+      {showPresets && presets && presets.length > 0 && (
         <div className="flex flex-wrap gap-1.5 pt-1">
           {presets.map((preset) => (
             <button
@@ -158,7 +170,7 @@ export const InputSliderGroup: React.FC<InputSliderGroupProps> = ({
                 onChange(preset.value);
                 setEditingText(null);
               }}
-              className={`text-[11px] font-medium px-2.5 py-1 rounded-full border transition-all duration-150 ${
+              className={`text-[11px] font-medium px-2 py-0.5 rounded-full border transition-all duration-150 ${
                 Math.round(value) === preset.value
                   ? 'bg-brand-primary text-white border-brand-primary'
                   : 'bg-white text-brand-dark border-gray-200 hover:border-brand-primary hover:bg-brand-cardBg/50'
@@ -172,7 +184,7 @@ export const InputSliderGroup: React.FC<InputSliderGroupProps> = ({
 
       {/* Helper text */}
       {helperText && (
-        <p className="text-[12px] text-brand-gray/70 pt-0.5 leading-snug">
+        <p className="text-[11px] text-brand-gray/70 leading-snug">
           {helperText}
         </p>
       )}

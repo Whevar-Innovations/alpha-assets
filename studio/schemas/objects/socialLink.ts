@@ -9,7 +9,7 @@ export const socialLink = defineType({
       name: 'platform', 
       type: 'string', 
       title: 'Platform',
-      options: { list: ['Facebook', 'X', 'LinkedIn', 'Instagram', 'YouTube'] },
+      options: { list: ['Facebook', 'X', 'LinkedIn', 'Instagram', 'YouTube', 'TikTok'] },
       validation: (Rule) => Rule.required()
     },
     { name: 'url', type: 'url', title: 'URL', validation: (Rule) => Rule.required() },

@@ -1,12 +1,24 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Share2, ArrowRight, ShieldCheck, TrendingUp, Building2, User, Landmark } from 'lucide-react';
+import {
+  Share2,
+  ArrowRight,
+  ShieldCheck,
+  TrendingUp,
+  Building2,
+  User,
+  Landmark,
+  SlidersHorizontal,
+  ChevronDown,
+  ChevronUp,
+} from 'lucide-react';
 import type {
   Currency,
   SchemeType,
   CalculationMode,
   ContributionMethod,
   PensionInputState,
+  QuickPreset,
 } from './types';
 import {
   calculatePensionAccumulation,
@@ -19,6 +31,7 @@ import { ScenarioComparison } from './ScenarioComparison';
 import { BreakdownTable } from './BreakdownTable';
 import { AdvisorCallModal } from './AdvisorCallModal';
 import { SharePlanModal } from './SharePlanModal';
+import { QuickPresetsBar } from './QuickPresetsBar';
 
 const SCHEME_CONFIGS: Record<SchemeType, { label: string; icon: React.FC<{ className?: string }>; desc: string }> = {
   umbrella: {
@@ -67,6 +80,12 @@ export const PensionCalculator: React.FC = () => {
   const [retirementAge, setRetirementAge] = useState<number>(initialRetAge);
   const [initialPot, setInitialPot] = useState<number>(initialPotVal);
 
+  // Active Starter Preset ID
+  const [activePresetId, setActivePresetId] = useState<string | null>(null);
+
+  // Progressive Disclosure: Advanced Assumptions Tray
+  const [showAdvancedAssumptions, setShowAdvancedAssumptions] = useState<boolean>(false);
+
   // Contribution Method (fixed vs percentage of salary)
   const [contributionMethod, setContributionMethod] = useState<ContributionMethod>('fixed');
   const [monthlyContribution, setMonthlyContribution] = useState<number>(initialMonthly);
@@ -95,6 +114,36 @@ export const PensionCalculator: React.FC = () => {
   const potMax = isUGX ? 1000000000 : 500000;
   const monthlyMin = 0;
   const monthlyMax = isUGX ? 50000000 : 15000;
+
+  // Handler for Quick Presets Bar
+  const handleSelectPreset = (preset: QuickPreset) => {
+    setActivePresetId(preset.id);
+    setCurrentAge(preset.currentAge);
+    setRetirementAge(preset.retirementAge);
+    setSchemeType(preset.schemeType);
+    setContributionMethod(preset.contributionMethod);
+
+    if (currency === 'UGX') {
+      setInitialPot(preset.initialPot.UGX);
+      setMonthlyContribution(preset.monthlyContribution.UGX);
+      if (preset.grossSalary) {
+        setGrossMonthlySalary(preset.grossSalary.UGX);
+      }
+    } else {
+      setInitialPot(preset.initialPot.USD);
+      setMonthlyContribution(preset.monthlyContribution.USD);
+      if (preset.grossSalary) {
+        setGrossMonthlySalary(preset.grossSalary.USD);
+      }
+    }
+
+    if (preset.employeeRatePercent !== undefined) {
+      setEmployeeRatePercent(preset.employeeRatePercent);
+    }
+    if (preset.employerRatePercent !== undefined) {
+      setEmployerRatePercent(preset.employerRatePercent);
+    }
+  };
 
   // Compute Active Return Rate based on scenario selection
   const activeRate = useMemo(() => {
@@ -178,14 +227,14 @@ export const PensionCalculator: React.FC = () => {
   return (
     <div className="w-full">
       {/* ── Mode Switcher Tabs ─────────────────────────────────── */}
-      <div className="flex flex-wrap items-center justify-start gap-4 mb-8">
-        <div className="inline-flex p-1.5 bg-gray-100 rounded-full border border-gray-200 shadow-inner">
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+        <div className="inline-flex p-1 bg-gray-100 rounded-full border border-gray-200/90 shadow-inner">
           <button
             type="button"
             onClick={() => { setMode('grow'); }}
-            className={`px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${
+            className={`px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${
               mode === 'grow'
-                ? 'bg-brand-dark text-white shadow-md'
+                ? 'bg-brand-dark text-white shadow-xs'
                 : 'text-brand-gray/80 hover:text-brand-dark'
             }`}
           >
@@ -194,25 +243,42 @@ export const PensionCalculator: React.FC = () => {
           <button
             type="button"
             onClick={() => { setMode('goal'); }}
-            className={`px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${
+            className={`px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${
               mode === 'goal'
-                ? 'bg-brand-dark text-white shadow-md'
+                ? 'bg-brand-dark text-white shadow-xs'
                 : 'text-brand-gray/80 hover:text-brand-dark'
             }`}
           >
             Plan for a retirement goal
           </button>
         </div>
+
+        {/* Currency badge indicator */}
+        <div className="text-xs font-semibold text-brand-gray/80 hidden sm:flex items-center gap-1.5">
+          <span>Currency:</span>
+          <span className="px-2 py-0.5 rounded-md bg-brand-cardBg/60 text-brand-dark border border-brand-primary/20 font-bold">
+            {currency}
+          </span>
+        </div>
       </div>
 
+      {/* ── 1-Click Quick Starter Presets Bar ───────────────────── */}
+      {mode === 'grow' && (
+        <QuickPresetsBar
+          currency={currency}
+          activePresetId={activePresetId}
+          onSelectPreset={handleSelectPreset}
+        />
+      )}
+
       {/* ── Main Split-Panel Card Layout ───────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-        {/* ════ LEFT PANEL: Controls & Inputs (Light Card) ═════ */}
-        <div className="lg:col-span-5 bg-[#e1efef]/60 border border-brand-primary/20 rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col justify-between space-y-6">
-          <div className="space-y-6">
-            {/* Scheme Type Selector */}
-            <div className="space-y-2">
-              <label className="text-xs font-bold uppercase tracking-wider text-brand-gray/80 block">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
+        {/* ════ LEFT PANEL: Controls & Inputs (Clean & Focused) ═════ */}
+        <div className="lg:col-span-5 bg-[#e1efef]/60 border border-brand-primary/20 rounded-3xl p-5 sm:p-7 shadow-sm flex flex-col justify-between space-y-5">
+          <div className="space-y-5">
+            {/* 1. Scheme Type Selector (Compact Segmented Tabs) */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold uppercase tracking-wider text-brand-dark/80 block">
                 PENSION SCHEME
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -224,14 +290,17 @@ export const PensionCalculator: React.FC = () => {
                     <button
                       key={key}
                       type="button"
-                      onClick={() => { setSchemeType(key); }}
+                      onClick={() => {
+                        setSchemeType(key);
+                        setActivePresetId(null);
+                      }}
                       className={`p-2.5 rounded-xl border text-left transition-all duration-150 flex flex-col justify-between ${
                         isSelected
-                          ? 'bg-brand-dark text-white border-brand-dark shadow-sm'
-                          : 'bg-white text-brand-dark border-gray-200 hover:border-brand-primary'
+                          ? 'bg-brand-dark text-white border-brand-dark shadow-xs'
+                          : 'bg-white text-brand-dark border-gray-200/90 hover:border-brand-primary/60'
                       }`}
                     >
-                      <Icon className={`w-4 h-4 mb-1.5 ${isSelected ? 'text-brand-green' : 'text-brand-primary'}`} />
+                      <Icon className={`w-3.5 h-3.5 mb-1 ${isSelected ? 'text-brand-green' : 'text-brand-primary'}`} />
                       <span className="text-[11px] font-bold leading-tight block truncate">
                         {cfg.label.split(' ')[0]}
                       </span>
@@ -239,14 +308,14 @@ export const PensionCalculator: React.FC = () => {
                   );
                 })}
               </div>
-              <p className="text-[11px] text-brand-gray/70 pt-0.5">
+              <p className="text-[11px] text-brand-gray/70 pt-0.5 line-clamp-1">
                 {SCHEME_CONFIGS[schemeType].desc}
               </p>
             </div>
 
-            {/* Age Horizon Controls */}
-            <div className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* 2. Age Horizon Controls (Clean, Compact Row) */}
+            <div className="space-y-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <InputSliderGroup
                   id="current-age"
                   label="CURRENT AGE"
@@ -254,16 +323,11 @@ export const PensionCalculator: React.FC = () => {
                   min={18}
                   max={69}
                   suffix="yrs"
-                  minLabel="18 yrs (min legal)"
+                  minLabel="18 yrs"
                   maxLabel="69 yrs"
-                  presets={[
-                    { label: '25 yrs', value: 25 },
-                    { label: '30 yrs', value: 30 },
-                    { label: '35 yrs', value: 35 },
-                    { label: '45 yrs', value: 45 },
-                  ]}
                   onChange={(val) => {
                     setCurrentAge(val);
+                    setActivePresetId(null);
                     if (val >= retirementAge) {
                       setRetirementAge(Math.min(70, val + 5));
                     }
@@ -277,68 +341,52 @@ export const PensionCalculator: React.FC = () => {
                   max={70}
                   suffix="yrs"
                   minLabel={`${Math.max(currentAge + 1, 45).toString()} yrs`}
-                  maxLabel="70 yrs (max URBRA)"
-                  helperText="Uganda statutory retirement age is 60 (URBRA ceiling: 70 years)."
-                  presets={[
-                    { label: '55 (Early)', value: 55 },
-                    { label: '60 (Statutory)', value: 60 },
-                    { label: '65 (Late)', value: 65 },
-                    { label: '70 (Max URBRA)', value: 70 },
-                  ]}
+                  maxLabel="70 yrs"
                   onChange={(val) => {
                     setRetirementAge(val);
+                    setActivePresetId(null);
                   }}
                 />
               </div>
             </div>
 
-            {/* Mode A: Accumulation Mode Inputs */}
+            {/* 3. Mode A: Accumulation Mode Inputs */}
             {mode === 'grow' ? (
-              <>
-                {/* Initial Starting Pot */}
+              <div className="space-y-4 pt-1 border-t border-brand-primary/10">
+                {/* Starting Pot / Initial Balance */}
                 <InputSliderGroup
                   id="initial-pot"
-                  label="INITIAL AMOUNT / EXISTING BALANCE"
+                  label="EXISTING BALANCE / POT"
                   value={initialPot}
                   min={potMin}
                   max={potMax}
                   step={isUGX ? 500000 : 100}
                   prefix={currency}
-                  helperText="Fund minimum: UGX 100,000 (or equivalent)"
                   minLabel={`${currency} 0`}
                   maxLabel={formatCurrency(potMax, currency, true)}
-                  presets={
-                    isUGX
-                      ? [
-                          { label: '0', value: 0 },
-                          { label: '5M', value: 5000000 },
-                          { label: '20M', value: 20000000 },
-                          { label: '50M', value: 50000000 },
-                        ]
-                      : [
-                          { label: '0', value: 0 },
-                          { label: '$1.5k', value: 1500 },
-                          { label: '$5k', value: 5000 },
-                          { label: '$15k', value: 15000 },
-                        ]
-                  }
-                  onChange={setInitialPot}
+                  onChange={(val) => {
+                    setInitialPot(val);
+                    setActivePresetId(null);
+                  }}
                 />
 
                 {/* Contribution Method Selector */}
                 {schemeType === 'umbrella' || schemeType === 'occupational' ? (
-                  <div className="space-y-3 pt-2">
+                  <div className="space-y-2.5 pt-1">
                     <div className="flex justify-between items-center">
-                      <label className="text-xs font-bold uppercase tracking-wider text-brand-gray/80">
+                      <label className="text-xs font-bold uppercase tracking-wider text-brand-dark/80">
                         CONTRIBUTION TYPE
                       </label>
                       <div className="inline-flex p-0.5 bg-white rounded-lg border border-gray-200 text-[11px] font-semibold">
                         <button
                           type="button"
-                          onClick={() => { setContributionMethod('fixed'); }}
+                          onClick={() => {
+                            setContributionMethod('fixed');
+                            setActivePresetId(null);
+                          }}
                           className={`px-2.5 py-1 rounded-md transition-colors ${
                             contributionMethod === 'fixed'
-                              ? 'bg-brand-primary text-white'
+                              ? 'bg-brand-primary text-white shadow-xs'
                               : 'text-brand-gray hover:text-brand-dark'
                           }`}
                         >
@@ -346,10 +394,13 @@ export const PensionCalculator: React.FC = () => {
                         </button>
                         <button
                           type="button"
-                          onClick={() => { setContributionMethod('salary'); }}
+                          onClick={() => {
+                            setContributionMethod('salary');
+                            setActivePresetId(null);
+                          }}
                           className={`px-2.5 py-1 rounded-md transition-colors ${
                             contributionMethod === 'salary'
-                              ? 'bg-brand-primary text-white'
+                              ? 'bg-brand-primary text-white shadow-xs'
                               : 'text-brand-gray hover:text-brand-dark'
                           }`}
                         >
@@ -359,7 +410,7 @@ export const PensionCalculator: React.FC = () => {
                     </div>
 
                     {contributionMethod === 'salary' ? (
-                      <div className="space-y-4 bg-white/80 p-4 rounded-2xl border border-gray-200/80">
+                      <div className="space-y-3 bg-white/70 p-3.5 rounded-2xl border border-gray-200/80">
                         <InputSliderGroup
                           id="gross-salary"
                           label="GROSS MONTHLY SALARY"
@@ -368,7 +419,10 @@ export const PensionCalculator: React.FC = () => {
                           max={isUGX ? 50000000 : 15000}
                           step={isUGX ? 250000 : 100}
                           prefix={currency}
-                          onChange={setGrossMonthlySalary}
+                          onChange={(val) => {
+                            setGrossMonthlySalary(val);
+                            setActivePresetId(null);
+                          }}
                         />
                         <div className="grid grid-cols-2 gap-3">
                           <InputSliderGroup
@@ -378,7 +432,10 @@ export const PensionCalculator: React.FC = () => {
                             min={0}
                             max={30}
                             suffix="%"
-                            onChange={setEmployeeRatePercent}
+                            onChange={(val) => {
+                              setEmployeeRatePercent(val);
+                              setActivePresetId(null);
+                            }}
                           />
                           <InputSliderGroup
                             id="employer-rate"
@@ -387,7 +444,10 @@ export const PensionCalculator: React.FC = () => {
                             min={0}
                             max={30}
                             suffix="%"
-                            onChange={setEmployerRatePercent}
+                            onChange={(val) => {
+                              setEmployerRatePercent(val);
+                              setActivePresetId(null);
+                            }}
                           />
                         </div>
                         <InputSliderGroup
@@ -398,9 +458,12 @@ export const PensionCalculator: React.FC = () => {
                           max={isUGX ? 5000000 : 1500}
                           step={isUGX ? 50000 : 25}
                           prefix={currency}
-                          onChange={setVoluntaryMonthlyTopup}
+                          onChange={(val) => {
+                            setVoluntaryMonthlyTopup(val);
+                            setActivePresetId(null);
+                          }}
                         />
-                        <div className="text-[11px] text-brand-dark/80 font-medium pt-1 border-t border-gray-100 flex justify-between">
+                        <div className="text-[11px] text-brand-dark font-medium pt-1 border-t border-gray-100 flex justify-between">
                           <span>Total Monthly Deposit:</span>
                           <span className="font-bold text-brand-primary">
                             {formatCurrency(
@@ -419,25 +482,12 @@ export const PensionCalculator: React.FC = () => {
                         max={monthlyMax}
                         step={isUGX ? 50000 : 25}
                         prefix={currency}
-                        helperText="Set it to 0 for a lump-sum-only plan."
                         minLabel={`${currency} 0`}
                         maxLabel={formatCurrency(monthlyMax, currency, true)}
-                        presets={
-                          isUGX
-                            ? [
-                                { label: '100k', value: 100000 },
-                                { label: '250k', value: 250000 },
-                                { label: '500k', value: 500000 },
-                                { label: '1M', value: 1000000 },
-                              ]
-                            : [
-                                { label: '$50', value: 50 },
-                                { label: '$150', value: 150 },
-                                { label: '$300', value: 300 },
-                                { label: '$500', value: 500 },
-                              ]
-                        }
-                        onChange={setMonthlyContribution}
+                        onChange={(val) => {
+                          setMonthlyContribution(val);
+                          setActivePresetId(null);
+                        }}
                       />
                     )}
                   </div>
@@ -450,33 +500,20 @@ export const PensionCalculator: React.FC = () => {
                     max={monthlyMax}
                     step={isUGX ? 50000 : 25}
                     prefix={currency}
-                    helperText="Set it to 0 for a lump-sum-only plan."
                     minLabel={`${currency} 0`}
                     maxLabel={formatCurrency(monthlyMax, currency, true)}
-                    presets={
-                      isUGX
-                        ? [
-                            { label: '100k', value: 100000 },
-                            { label: '250k', value: 250000 },
-                            { label: '500k', value: 500000 },
-                            { label: '1M', value: 1000000 },
-                          ]
-                        : [
-                            { label: '$50', value: 50 },
-                            { label: '$150', value: 150 },
-                            { label: '$300', value: 300 },
-                            { label: '$500', value: 500 },
-                          ]
-                    }
-                    onChange={setMonthlyContribution}
+                    onChange={(val) => {
+                      setMonthlyContribution(val);
+                      setActivePresetId(null);
+                    }}
                   />
                 )}
-              </>
+              </div>
             ) : (
               /* Mode B: Goal Mode Target Inputs */
-              <div className="space-y-4">
+              <div className="space-y-3 pt-1 border-t border-brand-primary/10">
                 <div className="flex justify-between items-center">
-                  <label className="text-xs font-bold uppercase tracking-wider text-brand-gray/80">
+                  <label className="text-xs font-bold uppercase tracking-wider text-brand-dark/80">
                     TARGET DEFINITION
                   </label>
                   <div className="inline-flex p-0.5 bg-white rounded-lg border border-gray-200 text-[11px] font-semibold">
@@ -485,7 +522,7 @@ export const PensionCalculator: React.FC = () => {
                       onClick={() => { setGoalType('monthly_income'); }}
                       className={`px-2.5 py-1 rounded-md transition-colors ${
                         goalType === 'monthly_income'
-                          ? 'bg-brand-primary text-white'
+                          ? 'bg-brand-primary text-white shadow-xs'
                           : 'text-brand-gray hover:text-brand-dark'
                       }`}
                     >
@@ -496,7 +533,7 @@ export const PensionCalculator: React.FC = () => {
                       onClick={() => { setGoalType('lump_sum'); }}
                       className={`px-2.5 py-1 rounded-md transition-colors ${
                         goalType === 'lump_sum'
-                          ? 'bg-brand-primary text-white'
+                          ? 'bg-brand-primary text-white shadow-xs'
                           : 'text-brand-gray hover:text-brand-dark'
                       }`}
                     >
@@ -508,13 +545,13 @@ export const PensionCalculator: React.FC = () => {
                 {goalType === 'monthly_income' ? (
                   <InputSliderGroup
                     id="target-income"
-                    label="DESIRED MONTHLY RETIREMENT INCOME"
+                    label="DESIRED RETIREMENT INCOME"
                     value={targetRetirementIncome}
                     min={isUGX ? 500000 : 150}
                     max={isUGX ? 30000000 : 10000}
                     step={isUGX ? 250000 : 50}
                     prefix={currency}
-                    helperText="Projected monthly income across a 20-year retirement drawdown."
+                    helperText="Projected monthly payout across standard 20-year post-retirement drawdown."
                     onChange={setTargetRetirementIncome}
                   />
                 ) : (
@@ -543,43 +580,73 @@ export const PensionCalculator: React.FC = () => {
               </div>
             )}
 
-            {/* Expected Annual Rate */}
-            <InputSliderGroup
-              id="expected-return"
-              label="EXPECTED ANNUAL RETURN RATE"
-              value={expectedReturnRate}
-              min={6}
-              max={18}
-              step={0.5}
-              suffix="% p.a."
-              helperText="Compounded monthly based on East African long-term capital benchmarks."
-              presets={[
-                { label: 'Conservative (9.5%)', value: 9.5 },
-                { label: 'Balanced (12.5%)', value: 12.5 },
-                { label: 'Optimistic (15.0%)', value: 15.0 },
-              ]}
-              onChange={setExpectedReturnRate}
-            />
+            {/* 4. Progressive Disclosure: Advanced Assumptions Drawer */}
+            <div className="pt-2 border-t border-brand-primary/10">
+              <button
+                type="button"
+                onClick={() => { setShowAdvancedAssumptions(!showAdvancedAssumptions); }}
+                className="w-full flex items-center justify-between py-2 text-xs font-bold uppercase tracking-wider text-brand-dark/80 hover:text-brand-primary transition-colors cursor-pointer group"
+                aria-expanded={showAdvancedAssumptions}
+              >
+                <span className="flex items-center gap-1.5">
+                  <SlidersHorizontal className="w-3.5 h-3.5 text-brand-primary group-hover:rotate-45 transition-transform" />
+                  <span>Advanced Return Assumptions</span>
+                </span>
+                <span className="text-[11px] font-semibold text-brand-primary flex items-center gap-1 bg-white/70 px-2 py-0.5 rounded-md border border-brand-primary/20">
+                  {expectedReturnRate.toFixed(1)}% p.a.
+                  {showAdvancedAssumptions ? (
+                    <ChevronUp className="w-3 h-3" />
+                  ) : (
+                    <ChevronDown className="w-3 h-3" />
+                  )}
+                </span>
+              </button>
+
+              {showAdvancedAssumptions && (
+                <div className="mt-2.5 p-3.5 bg-white/80 rounded-2xl border border-brand-primary/20 space-y-3 animate-fade-in">
+                  <InputSliderGroup
+                    id="expected-return"
+                    label="EXPECTED ANNUAL RETURN RATE"
+                    value={expectedReturnRate}
+                    min={6}
+                    max={18}
+                    step={0.5}
+                    suffix="% p.a."
+                    helperText="Compounded monthly based on East African long-term capital benchmarks."
+                    presets={[
+                      { label: 'Conservative (9.5%)', value: 9.5 },
+                      { label: 'Balanced (12.5%)', value: 12.5 },
+                      { label: 'Optimistic (15.0%)', value: 15.0 },
+                    ]}
+                    showPresets={true}
+                    onChange={setExpectedReturnRate}
+                  />
+                  <div className="text-[10px] text-brand-gray/60 leading-normal pt-1 border-t border-gray-100">
+                    Statutory benchmarks governed by URBRA and CMA portfolio allocation standards.
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Guarantee & Regulation Footnote */}
-          <div className="pt-4 border-t border-brand-primary/10 flex items-center gap-2 text-xs text-brand-dark/70">
+          <div className="pt-3 border-t border-brand-primary/10 flex items-center gap-2 text-[11px] text-brand-dark/70">
             <ShieldCheck className="w-4 h-4 text-brand-primary shrink-0" />
             <span>Regulated by the Capital Markets Authority (CMA) of Uganda.</span>
           </div>
         </div>
 
         {/* ════ RIGHT PANEL: Visualizer & Projection (Dark Teal) ═════ */}
-        <div className="lg:col-span-7 bg-[#002e2e] text-white rounded-3xl p-6 sm:p-8 shadow-2xl flex flex-col justify-between relative overflow-hidden border border-teal-900/40">
+        <div className="lg:col-span-7 bg-[#002e2e] text-white rounded-3xl p-5 sm:p-8 shadow-2xl flex flex-col justify-between relative overflow-hidden border border-teal-900/40">
           {/* Subtle Background Radial Aura */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-brand-primary/20 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
 
-          <div className="space-y-6 relative z-10">
+          <div className="space-y-5 relative z-10">
             {/* Header / Hero Numbers */}
-            <div className="flex justify-between items-start">
+            <div className="flex justify-between items-start gap-4">
               <div>
                 <span className="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-brand-green block mb-1">
-                  PROJECTED VALUE · AGE {retirementAge.toString()} (YEAR {yearsHorizon.toString()})
+                  PROJECTED VALUE · AGE {retirementAge.toString()} ({yearsHorizon.toString()} YEARS)
                 </span>
                 <div className="flex items-baseline gap-2">
                   <span className="text-xs sm:text-sm font-semibold text-teal-200/70">
@@ -590,7 +657,7 @@ export const PensionCalculator: React.FC = () => {
                   </span>
                 </div>
                 {activeMonthlyIncome > 0 && (
-                  <div className="mt-2 text-xs sm:text-sm text-teal-100/80 font-light flex items-center gap-1.5">
+                  <div className="mt-2 text-xs sm:text-sm text-teal-100/90 font-light flex items-center gap-1.5">
                     <TrendingUp className="w-4 h-4 text-brand-green" />
                     <span>
                       Est. monthly retirement payout:{' '}
@@ -607,16 +674,16 @@ export const PensionCalculator: React.FC = () => {
               <button
                 type="button"
                 onClick={() => { setIsShareModalOpen(true); }}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-semibold backdrop-blur-sm transition-colors border border-white/15 shrink-0"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-semibold backdrop-blur-sm transition-colors border border-white/15 shrink-0"
               >
                 <Share2 className="w-3.5 h-3.5 text-brand-green" />
-                <span className="hidden sm:inline">Share my plan</span>
+                <span className="hidden sm:inline">Share plan</span>
               </button>
             </div>
 
             {/* Mode B Goal Banner Note */}
             {mode === 'goal' && (
-              <div className="bg-brand-primary/40 border border-brand-green/30 rounded-2xl p-4 text-xs text-white flex items-center justify-between gap-4">
+              <div className="bg-brand-primary/40 border border-brand-green/30 rounded-2xl p-3.5 text-xs text-white flex items-center justify-between gap-4">
                 <div>
                   <span className="text-brand-green font-bold block mb-0.5">Required Monthly Savings:</span>
                   <span className="text-xl font-bold text-white">
@@ -630,7 +697,7 @@ export const PensionCalculator: React.FC = () => {
             )}
 
             {/* Growth Visualizer SVG Chart */}
-            <div className="pt-2">
+            <div className="pt-1">
               <PensionGrowthChart
                 data={activeChartData}
                 currency={currency}
@@ -640,7 +707,7 @@ export const PensionCalculator: React.FC = () => {
             </div>
 
             {/* Chart Legend & Range Toggle */}
-            <div className="flex flex-wrap items-center justify-between gap-4 text-xs text-white/90 pt-1">
+            <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-white/90">
               <div className="flex flex-wrap items-center gap-4 text-[11px] sm:text-xs">
                 <span className="flex items-center gap-1.5">
                   <span className="w-2.5 h-2.5 rounded-sm bg-[#427878]"></span>
@@ -678,12 +745,12 @@ export const PensionCalculator: React.FC = () => {
                   onChange={(e) => { setShowRange(e.target.checked); }}
                   className="rounded border-gray-300 text-brand-primary focus:ring-brand-primary h-3.5 w-3.5 accent-brand-green"
                 />
-                <span>Range: Base to Best case</span>
+                <span>Show Base–Best band</span>
               </label>
             </div>
 
             {/* CTAs Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 pt-2">
+            <div className="flex flex-col sm:flex-row gap-3 pt-1">
               <button
                 type="button"
                 onClick={handleOpenAccount}
