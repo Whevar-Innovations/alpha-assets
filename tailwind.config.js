@@ -29,11 +29,11 @@ export default {
       colors: {
         gray: {
           400: '#333333',
-          500: '#333333',
-          600: '#333333',
-          700: '#333333',
-          800: '#333333',
-          900: '#333333',
+          500: '#2e2e2e',
+          600: '#242424',
+          700: '#1c1c1c',
+          800: '#141414',
+          900: '#0f0f0f',
         },
         brand: {
           dark: 'var(--color-brand-dark)',       // Dark teal/green (primary background, footer)
@@ -45,6 +45,7 @@ export default {
           green: 'var(--color-brand-green)',     // Speak to Advisor button green
           gold: 'var(--color-brand-gold)',       // Accent gold/beige
           grayText: 'var(--color-brand-gray-text)', // Navigation default, secondary elements
+          white: 'var(--color-brand-white)',       // White text
         }
       },
       fontFamily: {

@@ -47,7 +47,7 @@ export const Footer: React.FC = () => {
                   type="email"
                   required
                   placeholder="Email"
-                  className="flex-grow px-4 py-2.5 text-sm bg-transparent border border-teal-800 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-green text-white placeholder-teal-650"
+                  className="flex-grow px-4 py-2.5 text-sm bg-transparent border border-green-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-green text-white placeholder-teal-50"
                 />
                 <button
                   type="submit"
@@ -99,7 +99,7 @@ export const Footer: React.FC = () => {
                 data.footerContent.map((column: { title: string; links?: FooterLink[] }, idx: number) => (
                   <div key={idx} className="space-y-4">
                     <h3 className="text-base font-semibold text-white">{column.title}</h3>
-                    <ul className="space-y-2.5 text-sm text-brand-gray-text font-light">
+                    <ul className="space-y-2.5 text-sm text-brand-grey-400 font-light">
                       {column.links?.map((link, linkIdx) => {
                         let href = '#';
                         if (link.linkType === 'custom' && link.customPath) {

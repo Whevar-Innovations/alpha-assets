@@ -90,10 +90,10 @@ const InvestDetailContent = ({ currentId, allServices }: { currentId: string; al
       {/* Main Two-Column Content */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             
             {/* Left Sidebar Navigation */}
-            <aside className="lg:col-span-4 space-y-6 order-2 lg:order-1">
+            <aside className="lg:col-span-4 space-y-6 order-2 lg:order-1 lg:sticky lg:top-28 lg:self-start">
               <div className="bg-white border border-brand-primary rounded-[1.5rem] p-6 sm:p-8">
                 <h3 className="text-3xl font-light text-brand-primary mb-6">
                   Our Services
@@ -107,10 +107,10 @@ const InvestDetailContent = ({ currentId, allServices }: { currentId: string; al
                           to={`/invest/${item.slug?.current ?? ''}`}
                           className="group transition-all duration-150 py-3 flex items-center gap-2 w-full"
                         >
-                          <span className={`text-base ${isActive ? 'text-brand-primary font-bold' : 'text-gray-500 font-light group-hover:text-brand-primary'}`}>
+                          <span className={`text-base ${isActive ? 'text-brand-primary font-bold' : 'text-gray-500 font-light group-hover:font-bold'}`}>
                             •
                           </span>
-                          <span className={`text-base ${isActive ? 'text-brand-primary font-bold' : 'text-gray-500 font-light group-hover:text-brand-primary'}`}>
+                          <span className={`text-base ${isActive ? 'text-brand-primary font-bold' : 'text-gray-500 font-light group-hover:font-bold'}`}>
                             {item.title}
                           </span>
                         </Link>
@@ -160,6 +160,30 @@ const InvestDetailContent = ({ currentId, allServices }: { currentId: string; al
                         </li>
                       ))}
                   </ul>
+                </div>
+              )}
+
+              {/* Special Pension Calculator Callout for Pension & Retirement */}
+              {currentId === 'pension-retirement' && (
+                <div className="bg-brand-cardBg border border-brand-primary/30 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-sm">
+                  <div className="space-y-2 max-w-md">
+                    <span className="text-xs font-bold uppercase tracking-widest text-brand-primary block">
+                      Interactive Tool
+                    </span>
+                    <h4 className="text-xl font-bold text-brand-dark">
+                      Pension & Retirement Calculator
+                    </h4>
+                    <p className="text-xs sm:text-sm text-brand-gray/80 font-light leading-relaxed">
+                      Simulate employer matching, voluntary contributions, and projected monthly retirement payouts in real time.
+                    </p>
+                  </div>
+                  <Link
+                    to="/calculator"
+                    className="inline-flex items-center justify-center gap-2 py-3 px-6 rounded-full bg-brand-primary text-white font-bold text-xs sm:text-sm hover:bg-brand-dark transition-all shadow-md shrink-0"
+                  >
+                    <span>Launch Calculator</span>
+                    <span aria-hidden="true">→</span>
+                  </Link>
                 </div>
               )}
 
@@ -214,10 +238,10 @@ const InvestDetailSkeleton = ({ allServices, currentId }: { allServices: { _id: 
       {/* Main Two-Column Content Skeleton */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             
             {/* Sidebar Skeleton */}
-            <aside className="lg:col-span-4 space-y-6 order-2 lg:order-1">
+            <aside className="lg:col-span-4 space-y-6 order-2 lg:order-1 lg:sticky lg:top-28 lg:self-start">
               <div className="bg-white border border-gray-100 rounded-[1.5rem] p-6 sm:p-8">
                 <div className="h-8 bg-gray-200 rounded w-1/2 mb-6"></div>
                 <nav className="flex flex-col">
