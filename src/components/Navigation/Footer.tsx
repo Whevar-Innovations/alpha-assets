@@ -1,24 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import logoWhite from '../../assets/logos/white.png';
 
 import { useSanityPage } from '../../sanity/hooks/useSanityPage';
 import { SITE_SETTINGS_QUERY } from '../../sanity/lib/queries';
 import { siteSettingsDefaults } from '../../sanity/defaults/siteSettings';
 import { resolveImage } from '../../sanity/lib/image';
+import { submitFormData } from '../../utils/formSubmission';
 import type { FooterLink } from '../../types';
 
 export const Footer: React.FC = () => {
   const { data } = useSanityPage(SITE_SETTINGS_QUERY, siteSettingsDefaults);
+  const [email, setEmail] = useState('');
+  const [honey, setHoney] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSubscribe = (e: React.SyntheticEvent) => {
+  const contactInfo = data.contactInfo ?? siteSettingsDefaults.contactInfo;
+  const targetEmail = contactInfo?.email ?? 'invest@alphaeastafrica.com';
+
+  const handleSubscribe = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    alert("Thank you for subscribing to our newsletter!");
+    if (!email.trim()) return;
+
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    const result = await submitFormData(targetEmail, {
+      email: email.trim(),
+      source: 'Website Footer Newsletter',
+      _honey: honey,
+      _subject: `New Newsletter Subscription: ${email.trim()}`,
+    });
+
+    if (result.success) {
+      setIsSuccess(true);
+      setEmail('');
+    } else {
+      setErrorMessage(result.message ?? 'Subscription failed. Please try again.');
+    }
+    setIsSubmitting(false);
   };
 
   const logoUrl = resolveImage(data.whiteLogo, logoWhite);
   const socialLinks = data.socialLinks?.length ? data.socialLinks : siteSettingsDefaults.socialLinks;
-  const contactInfo = data.contactInfo ?? siteSettingsDefaults.contactInfo;
 
   return (
     <footer className="bg-gradient-to-br from-[#002e2e] to-[#005b5c] text-white pt-16 pb-12 print:hidden">
@@ -42,20 +69,69 @@ export const Footer: React.FC = () => {
               <h3 className="text-sm font-semibold tracking-wider text-white">
                 Subscribe to our newsletter
               </h3>
-              <form onSubmit={handleSubscribe} className="flex gap-4">
-                <input
-                  type="email"
-                  required
-                  placeholder="Email"
-                  className="flex-grow px-4 py-2.5 text-sm bg-transparent border border-green-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-green text-white placeholder-teal-50"
-                />
-                <button
-                  type="submit"
-                  className="bg-brand-green hover:bg-opacity-95 text-brand-dark font-semibold text-sm px-6 py-2.5 rounded-lg transition-all duration-150 whitespace-nowrap shadow-sm"
-                >
-                  Send
-                </button>
-              </form>
+
+              {isSuccess ? (
+                <div className="flex items-center gap-2 p-3 bg-white/10 border border-brand-green/50 rounded-lg text-brand-green text-sm">
+                  <CheckCircle className="w-5 h-5 flex-shrink-0" />
+                  <div className="flex-1">
+                    <p className="font-medium">Thank you for subscribing!</p>
+                    <p className="text-xs text-white/80">You will receive market updates and insights.</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => { setIsSuccess(false); }}
+                    className="text-xs text-white/70 hover:text-white underline ml-2"
+                  >
+                    Reset
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={(e) => { void handleSubscribe(e); }} className="space-y-2">
+                  <div className="hidden" aria-hidden="true">
+                    <input
+                      type="text"
+                      name="_honey"
+                      value={honey}
+                      onChange={(e) => { setHoney(e.target.value); }}
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                  </div>
+
+                  <div className="flex gap-3">
+                    <input
+                      type="email"
+                      required
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        if (errorMessage) setErrorMessage(null);
+                      }}
+                      placeholder="Enter your email"
+                      disabled={isSubmitting}
+                      className="flex-grow px-4 py-2.5 text-sm bg-transparent border border-green-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-green text-white placeholder-teal-100/70 disabled:opacity-50"
+                    />
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="bg-brand-green hover:bg-opacity-95 text-brand-dark font-semibold text-sm px-6 py-2.5 rounded-lg transition-all duration-150 whitespace-nowrap shadow-sm flex items-center justify-center min-w-[90px] disabled:opacity-75 cursor-pointer"
+                    >
+                      {isSubmitting ? (
+                        <Loader2 className="w-4 h-4 animate-spin text-brand-dark" />
+                      ) : (
+                        'Send'
+                      )}
+                    </button>
+                  </div>
+
+                  {errorMessage && (
+                    <div className="flex items-center gap-1.5 text-xs text-red-300 mt-1">
+                      <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                      <span>{errorMessage}</span>
+                    </div>
+                  )}
+                </form>
+              )}
 
               <div className="flex space-x-3 pt-4">
                 {socialLinks?.filter((s: { isVisible?: boolean }) => s.isVisible !== false).map((social: { platform: string; url: string; isVisible?: boolean }, idx: number) => {

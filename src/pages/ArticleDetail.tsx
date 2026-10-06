@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { Calendar, Clock, User, ArrowLeft, ArrowRight } from 'lucide-react';
+import { Calendar, Clock, User, ArrowLeft, ArrowRight, Share2 } from 'lucide-react';
 
 import { FooterCTA } from '../components/UI/FooterCTA';
 import { SEO } from '../components/SEO';
 import { PortableText } from '../components/UI/PortableText';
+import { ArticleShareBar } from '../components/UI/ArticleShareBar';
+import { ArticleShareModal } from '../components/UI/ArticleShareModal';
 import bannerBg from '../assets/images/banner_bg.jpg';
 
 import { useSanityPage } from '../sanity/hooks/useSanityPage';
@@ -54,6 +56,7 @@ interface ArticleDetailContentProps {
 // ─── Content component ────────────────────────────────────────────────────────
 const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({ slug, allArticles }) => {
   const navigate = useNavigate();
+  const [shareModalArticle, setShareModalArticle] = useState<ArticleItem | null>(null);
 
   const fallbackArticle: ArticleItem =
     fallbackArticles.find((a) => a.slug?.current === slug) ?? {
@@ -87,6 +90,8 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({ slug, allAr
 
   const coverUrl = resolveImage(article.coverImage, bannerBg);
   const hasBody = Array.isArray(article.body) && article.body.length > 0;
+  const currentOrigin = typeof window !== 'undefined' ? window.location.origin : '';
+  const currentArticleUrl = `${currentOrigin}/news/${slug}`;
 
   // Previous & Next navigation
   const currentIndex = allArticles.findIndex((a) => a.slug?.current === slug);
@@ -108,14 +113,36 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({ slug, allAr
         preloadImage={coverUrl}
       />
 
+      {/* ── Social Floating Share Bar (Desktop & Mobile) ─────────────── */}
+      <ArticleShareBar
+        url={currentArticleUrl}
+        title={article.title}
+        excerpt={article.excerpt}
+      />
+
       {/* ── Hero Banner ─────────────────────────────────────────────────── */}
       <div className="pt-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        <section className="relative h-52 sm:h-64 md:h-72 flex items-center justify-center overflow-hidden rounded-2xl md:rounded-[28px] bg-gradient-to-br from-[#005b5c] to-[#002e2e]">
-          <div className="text-center w-full px-4">
-            <span className="text-xs font-bold uppercase tracking-widest text-brand-green mb-4 block">
-              {article.category ?? 'News & Insights'}
-            </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-light text-white tracking-wide max-w-4xl mx-auto leading-snug">
+        <section className="relative min-h-[14rem] sm:min-h-[16rem] md:min-h-[18rem] py-8 sm:py-12 md:py-16 px-4 sm:px-6 flex flex-col items-center justify-center rounded-2xl md:rounded-[28px] bg-gradient-to-br from-[#005b5c] to-[#002e2e] shadow-sm">
+          <div className="text-center w-full max-w-4xl mx-auto flex flex-col items-center">
+            {/* Breadcrumb Navigation */}
+            <nav
+              aria-label="Breadcrumb"
+              className="flex items-center justify-center gap-2 text-[11px] sm:text-xs text-white/75 mb-3 sm:mb-4 font-medium flex-wrap"
+            >
+              <Link to="/" className="hover:text-white transition-colors">
+                Home
+              </Link>
+              <span className="text-white/40">/</span>
+              <Link to="/news" className="hover:text-white transition-colors">
+                News
+              </Link>
+              <span className="text-white/40">/</span>
+              <span className="text-brand-green font-bold uppercase tracking-wider">
+                {article.category ?? 'Insights'}
+              </span>
+            </nav>
+
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-white tracking-normal sm:tracking-wide leading-snug sm:leading-tight break-words">
               {article.title}
             </h1>
           </div>
@@ -358,16 +385,31 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({ slug, allAr
                           )}
                         </div>
 
-                        <Link
-                          to={`/news/${item.slug?.current ?? ''}`}
-                          className="text-xs font-bold uppercase tracking-wider text-brand-primary hover:text-brand-dark inline-flex items-center gap-2 group/btn"
-                        >
-                          Read Article
-                          <ArrowRight
-                            size={13}
-                            className="transform translate-x-0 group-hover/btn:translate-x-1 transition-transform duration-150"
-                          />
-                        </Link>
+                        <div className="flex items-center justify-between">
+                          <Link
+                            to={`/news/${item.slug?.current ?? ''}`}
+                            className="text-xs font-bold uppercase tracking-wider text-brand-primary hover:text-brand-dark inline-flex items-center gap-2 group/btn"
+                          >
+                            Read Article
+                            <ArrowRight
+                              size={13}
+                              className="transform translate-x-0 group-hover/btn:translate-x-1 transition-transform duration-150"
+                            />
+                          </Link>
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setShareModalArticle(item);
+                            }}
+                            className="p-1.5 rounded-lg text-brand-gray hover:text-brand-primary hover:bg-teal-50 transition-colors flex items-center gap-1 text-xs"
+                            aria-label={`Share ${item.title}`}
+                            title="Share article"
+                          >
+                            <Share2 size={13} />
+                            <span className="text-[11px] font-medium hidden sm:inline">Share</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </article>
@@ -377,6 +419,15 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({ slug, allAr
           </div>
         </section>
       )}
+
+      {/* ── Card Share Modal ────────────────────────────────────────────── */}
+      <ArticleShareModal
+        isOpen={Boolean(shareModalArticle)}
+        onClose={() => {
+          setShareModalArticle(null);
+        }}
+        article={shareModalArticle}
+      />
 
       <FooterCTA />
     </div>

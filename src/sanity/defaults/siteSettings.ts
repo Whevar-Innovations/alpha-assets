@@ -11,8 +11,9 @@ export const siteSettingsDefaults: SiteSettingsData = {
     { label: 'Home', path: '/', isDisabled: false, order: 1, isVisible: true },
     { label: 'About', path: '/about', isDisabled: false, order: 2, isVisible: true },
     { label: 'Invest', path: '/invest', isDisabled: false, order: 3, isVisible: true },
-    { label: 'News & Insights', path: '/news', isDisabled: false, order: 4, isVisible: true },
-    { label: 'Contact', path: '/contact', isDisabled: false, order: 5, isVisible: true },
+    { label: 'Calculator', path: '/calculator', isDisabled: false, order: 4, isVisible: true },
+    { label: 'News & Insights', path: '/news', isDisabled: false, order: 5, isVisible: true },
+    { label: 'Contact', path: '/contact', isDisabled: false, order: 6, isVisible: true },
   ],
   contactInfo: {
     address: 'Regency Plaza, 30 Lugogo Bypass\nKampala, Uganda',
@@ -42,6 +43,7 @@ export const siteSettingsDefaults: SiteSettingsData = {
     {
       title: 'Resources',
       links: [
+        createCustomLink('Pension Calculator', '/calculator'),
         createCustomLink('Finance knowledge', '#'),
         createCustomLink('Market research', '#'),
         createCustomLink('Steps for 2026', '#'),
