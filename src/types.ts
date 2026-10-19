@@ -83,6 +83,13 @@ export interface ArticleItem {
   author?: { name: string; role?: string; photo?: SanityImage; bio?: string };
 }
 
+export interface PartnerLogoItem {
+  name: string;
+  logo?: SanityImage;
+  url?: string;
+  isVisible?: boolean;
+}
+
 export interface HomePageData {
   seo?: SEOData;
   pageVisible?: boolean;
@@ -100,8 +107,10 @@ export interface HomePageData {
   howWeWorkHeading?: string;
   howWeWorkItems?: { title: string; description: string; icon?: { name?: string }; isVisible?: boolean }[];
   partnersVisible?: boolean;
+  partnersSubtitle?: string;
   partnersHeading?: string;
-  partnerLogos?: { name: string; logo: unknown; url?: string; isVisible?: boolean }[];
+  partnersSubtext?: string;
+  partnerLogos?: PartnerLogoItem[];
   faqVisible?: boolean;
   faqHeading?: string;
   faqSubtext?: string;

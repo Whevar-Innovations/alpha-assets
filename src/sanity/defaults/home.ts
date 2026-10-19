@@ -1,4 +1,7 @@
 import type { HomePageData } from '../../types';
+import cmaLogo from '../../assets/images/clients/cma-logo.png';
+import kcbLogo from '../../assets/images/clients/KCB_Bank_Kenya_Limited_logo.png';
+import absaLogo from '../../assets/images/clients/absa_logo.png';
 
 export const homeDefaults: HomePageData = {
   seo: { metaTitle: '', metaDescription: '', ogImage: undefined },
@@ -121,9 +124,30 @@ export const homeDefaults: HomePageData = {
       isVisible: true,
     },
   ],
-  partnersVisible: false,
-  partnersHeading: 'Building Strong Relationships With Every Client We Serve',
-  partnerLogos: [],
+  partnersVisible: true,
+  partnersSubtitle: 'REGULATION & AFFILIATIONS',
+  partnersHeading: 'Licensed and Regulated by the\nCapital Markets Authority of Uganda.',
+  partnersSubtext: '',
+  partnerLogos: [
+    {
+      name: 'Capital Markets Authority (CMA)',
+      logo: { url: cmaLogo, alt: 'Capital Markets Authority Uganda Logo' },
+      url: 'https://cmauganda.co.ug',
+      isVisible: true,
+    },
+    {
+      name: 'KCB Bank',
+      logo: { url: kcbLogo, alt: 'KCB Bank Uganda Logo' },
+      url: 'https://ug.kcbgroup.com',
+      isVisible: true,
+    },
+    {
+      name: 'Absa Bank',
+      logo: { url: absaLogo, alt: 'Absa Bank Uganda Logo' },
+      url: 'https://www.absa.africa/uganda/',
+      isVisible: true,
+    },
+  ],
   faqVisible: true,
   faqHeading: 'Frequently Asked Questions',
   faqSubtext: 'Got questions? Here are some quick answers to help you get the most out of Alpha Asset Managers.',

@@ -11,12 +11,12 @@ import { DynamicIcon } from '../components/UI/DynamicIcon';
 import { SEO } from '../components/SEO';
 import { HeroCarousel } from '../components/UI/HeroCarousel';
 import { VideoFeatureSection } from '../components/UI/VideoFeatureSection';
+import { AffiliationsSection } from '../components/UI/AffiliationsSection';
 
 import { useSanityPage } from '../sanity/hooks/useSanityPage';
 import { HOME_QUERY } from '../sanity/lib/queries';
 import { homeDefaults } from '../sanity/defaults/home';
 import { resolveImage } from '../sanity/lib/image';
-import { SanityImage } from '../components/UI/SanityImage';
 import { formatCMSLines } from '../utils/formatText';
 
 
@@ -58,9 +58,11 @@ export const Home: React.FC = () => {
   const howWeWorkHeading = data.howWeWorkHeading ?? homeDefaults.howWeWorkHeading;
   const howWeWorkItems = data.howWeWorkItems?.length ? data.howWeWorkItems : homeDefaults.howWeWorkItems;
   
-  const partnersVisible = data.partnersVisible ?? false;
-  const partnersHeading = data.partnersHeading ?? homeDefaults.partnersHeading;
-  const partnerLogos = data.partnerLogos?.length ? data.partnerLogos : homeDefaults.partnerLogos;
+  const partnersVisible = data.partnersVisible ?? homeDefaults.partnersVisible ?? true;
+  const partnersSubtitle = data.partnersSubtitle?.trim() ? data.partnersSubtitle : homeDefaults.partnersSubtitle;
+  const partnersHeading = data.partnersHeading?.trim() ? data.partnersHeading : homeDefaults.partnersHeading;
+  const partnersSubtext = data.partnersSubtext?.trim() ? data.partnersSubtext : homeDefaults.partnersSubtext;
+  const partnerLogos = data.partnerLogos?.length ? data.partnerLogos : (homeDefaults.partnerLogos ?? []);
   
   const faqVisible = data.faqVisible ?? true;
   const faqHeading = data.faqHeading ?? homeDefaults.faqHeading;
@@ -167,31 +169,14 @@ export const Home: React.FC = () => {
         </div>
       )}
 
-      {/* Trust & Partners */}
+      {/* Affiliations & Partners */}
       {partnersVisible && (
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col items-center">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-brand-primary text-center leading-tight whitespace-pre-line">
-                {formatCMSLines(partnersHeading)}
-              </h2>
-              <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16 mt-12">
-                {partnerLogos?.filter(p => p.isVisible !== false).map((partner: { name: string; logo: unknown; url?: string; isVisible?: boolean }, idx: number) => {
-                  const partnerLogo = partner.logo as { image?: unknown; alt?: string } | undefined;
-                  return (
-                  <a key={idx} href={partner.url} target="_blank" rel="noopener noreferrer">
-                    <SanityImage 
-                      image={partnerLogo}
-                      sizes="256px"
-                      alt={partnerLogo?.alt ?? partner.name} 
-                      className="h-12 md:h-16 w-auto object-contain" 
-                    />
-                  </a>
-                )})}
-              </div>
-            </div>
-          </div>
-        </section>
+        <AffiliationsSection
+          subtitle={partnersSubtitle}
+          heading={partnersHeading}
+          subtext={partnersSubtext}
+          partners={partnerLogos}
+        />
       )}
 
       {/* FAQ Section */}

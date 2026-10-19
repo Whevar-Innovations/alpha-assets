@@ -167,3 +167,28 @@ input[type=number] {
   animation: heroProgress linear forwards;
 }
 
+/* ── Affiliations Marquee ──────────────────────────────── */
+@keyframes affiliationsMarquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.animate-affiliations-marquee {
+  animation: affiliationsMarquee 26s linear infinite;
+}
+
+.animate-affiliations-marquee:hover,
+.animate-affiliations-marquee:focus-within {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-affiliations-marquee {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    width: 100%;
+  }
+}
+
+

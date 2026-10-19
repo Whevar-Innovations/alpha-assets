@@ -18,7 +18,8 @@ export const HOME_QUERY = `*[_type == "homePage" && _id == "homePage"][0]{
   servicesVisible, servicesHeading, servicesSubtext,
   servicesList[@->isActive == true]->{ _id, title, slug, shortDescription, icon, order },
   howWeWorkVisible, howWeWorkSubtitle, howWeWorkHeading, howWeWorkItems[],
-  partnersVisible, partnersHeading, partnerLogos[]{ name, logo, url },
+  partnersVisible, partnersSubtitle, partnersHeading, partnersSubtext,
+  partnerLogos[]{ name, logo{ image{ asset->{url, metadata} }, alt, url }, url, isVisible },
   faqVisible, faqHeading, faqSubtext, faqItems[],
   footerCtaVisible, footerCtaText, footerCtaBoldText, footerCtaButton
 }`;
