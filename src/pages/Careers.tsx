@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Briefcase, MapPin, Clock, Calendar, ArrowRight, Mail } from 'lucide-react';
 import { Button } from '../components/UI/Button';
+import { FooterCTA } from '../components/UI/FooterCTA';
 import { SEO } from '../components/SEO';
 import bannerBg from '../assets/images/banner_bg.jpg';
 
@@ -247,6 +248,14 @@ export const Careers: React.FC = () => {
           )}
         </div>
       </section>
+
+      {/* Footer CTA */}
+      <FooterCTA 
+        isVisible={pageData.footerCtaVisible}
+        text={pageData.footerCtaText} 
+        boldText={pageData.footerCtaBoldText} 
+        buttonConfig={pageData.footerCtaButton} 
+      />
     </div>
   );
 };

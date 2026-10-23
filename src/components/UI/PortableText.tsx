@@ -37,7 +37,7 @@ export const defaultPortableTextComponents: PortableTextProps['components'] = {
       </h4>
     ),
     normal: ({ children }) => (
-      <p className="text-gray-600 font-light leading-relaxed mb-5 last:mb-0">
+      <p className="text-gray-600 font-normal leading-relaxed mb-5 last:mb-0">
         {children}
       </p>
     ),
@@ -54,14 +54,14 @@ export const defaultPortableTextComponents: PortableTextProps['components'] = {
       </ul>
     ),
     number: ({ children }) => (
-      <ol className="space-y-3 my-5 pl-6 list-decimal text-gray-600 font-light">
+      <ol className="space-y-3 my-5 pl-6 list-decimal text-gray-600 font-normal">
         {children}
       </ol>
     ),
   },
   listItem: {
     bullet: ({ children }) => (
-      <li className="flex items-start gap-2.5 text-gray-600 font-light leading-relaxed">
+      <li className="flex items-start gap-2.5 text-gray-600 font-normal leading-relaxed">
         <span className="text-brand-primary font-bold text-lg leading-none mt-0.5 select-none shrink-0">
           ›
         </span>

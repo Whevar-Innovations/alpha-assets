@@ -94,7 +94,7 @@ export const News: React.FC = () => {
             }}
           >
             <div className="flex flex-col items-center gap-6 text-center px-4">
-              <h1 className="text-4xl sm:text-5xl font-light text-white tracking-tight">
+              <h1 className="text-4xl sm:text-5xl font-medium text-white tracking-tight">
                 {hero?.heading}
               </h1>
               {hero?.ctaButton?.isVisible && hero.ctaButton.label && (
@@ -171,7 +171,7 @@ export const News: React.FC = () => {
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-brand-dark to-brand-primary opacity-80" />
+                        <div className="w-full h-full bg-gradient-to-br from-brand-dark to-brand-primary" />
                       )}
                     </div>
 
@@ -191,7 +191,7 @@ export const News: React.FC = () => {
                         </h3>
 
                         {/* Excerpt */}
-                        <p className="text-sm text-teal-900 opacity-80 leading-relaxed font-light line-clamp-3">
+                        <p className="text-sm text-teal-900 leading-relaxed font-normal line-clamp-3">
                           {article.excerpt}
                         </p>
                       </div>
@@ -258,7 +258,13 @@ export const News: React.FC = () => {
         article={shareModalArticle}
       />
 
-      <FooterCTA />
+      {/* Footer CTA */}
+      <FooterCTA 
+        isVisible={pageData.footerCtaVisible}
+        text={pageData.footerCtaText} 
+        boldText={pageData.footerCtaBoldText} 
+        buttonConfig={pageData.footerCtaButton} 
+      />
     </div>
   );
 

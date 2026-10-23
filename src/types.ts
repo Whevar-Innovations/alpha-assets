@@ -90,7 +90,14 @@ export interface PartnerLogoItem {
   isVisible?: boolean;
 }
 
-export interface HomePageData {
+export interface FooterCTAData {
+  footerCtaVisible?: boolean;
+  footerCtaText?: string;
+  footerCtaBoldText?: string;
+  footerCtaButton?: CTAButton;
+}
+
+export interface HomePageData extends FooterCTAData {
   seo?: SEOData;
   pageVisible?: boolean;
   heroVisible?: boolean;
@@ -115,10 +122,6 @@ export interface HomePageData {
   faqHeading?: string;
   faqSubtext?: string;
   faqItems?: { question: string; answer: string; isVisible?: boolean }[];
-  footerCtaVisible?: boolean;
-  footerCtaText?: string;
-  footerCtaBoldText?: string;
-  footerCtaButton?: { label: string; linkType?: string; url: string; variant?: string; isVisible?: boolean };
 }
 
 export interface PageHeaderData {
@@ -127,7 +130,7 @@ export interface PageHeaderData {
   ctaButton?: CTAButton;
 }
 
-export interface AboutPageData {
+export interface AboutPageData extends FooterCTAData {
   seo?: SEOData;
   pageVisible?: boolean;
   heroVisible?: boolean;
@@ -162,7 +165,7 @@ export interface StrategyItem {
   description: string;
 }
 
-export interface InvestPageData {
+export interface InvestPageData extends FooterCTAData {
   seo?: SEOData;
   pageVisible?: boolean;
   heroVisible?: boolean;
@@ -177,14 +180,14 @@ export interface InvestPageData {
   servicesList?: ServiceItem[];
 }
 
-export interface NewsPageData {
+export interface NewsPageData extends FooterCTAData {
   seo?: SEOData;
   pageVisible?: boolean;
   heroVisible?: boolean;
   hero?: PageHeaderData;
 }
 
-export interface ContactPageData {
+export interface ContactPageData extends FooterCTAData {
   seo?: SEOData;
   pageVisible?: boolean;
   heroVisible?: boolean;
@@ -216,7 +219,7 @@ export interface SocialLink {
   isVisible?: boolean;
 }
 
-export interface SiteSettingsData {
+export interface SiteSettingsData extends FooterCTAData {
   navItems?: { label: string; path: string; isDisabled: boolean; order?: number; isVisible?: boolean }[];
   primaryLogo?: SanityImage;
   whiteLogo?: SanityImage;
@@ -255,7 +258,7 @@ export interface JobVacancyItem {
   seo?: SEOData;
 }
 
-export interface CareersPageData {
+export interface CareersPageData extends FooterCTAData {
   seo?: SEOData;
   pageVisible?: boolean;
   heroVisible?: boolean;

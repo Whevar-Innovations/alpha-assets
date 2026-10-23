@@ -41,24 +41,28 @@ export const ABOUT_QUERY = `*[_type == "aboutPage" && _id == "aboutPage"][0]{
   coreValuesVisible, coreValuesSubtitle, coreValuesHeading, coreValues[],
   committeeVisible, committeeHeading, committeeText,
   teamVisible, teamSubtitle, teamHeading,
-  teamMembers[@->isActive == true]->{_id, name, role, category, photo{ image{ asset->{url, metadata} }, alt, url }, bio, order} | order(order asc)
+  teamMembers[@->isActive == true]->{_id, name, role, category, photo{ image{ asset->{url, metadata} }, alt, url }, bio, order} | order(order asc),
+  footerCtaVisible, footerCtaText, footerCtaBoldText, footerCtaButton
 }`;
 
 export const INVEST_QUERY = `*[_type == "investPage" && _id == "investPage"][0]{
   pageVisible, seo, heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt, url }, ctaButton{ label, linkType, url, variant, isVisible } },
   strategiesVisible, strategiesHeading, strategiesDescription, strategiesList[]{ _key, title, description },
   servicesVisible, servicesSubtitle, servicesHeading,
-  servicesList[@->isActive == true]->{ _id, title, slug, shortDescription, icon, order }
+  servicesList[@->isActive == true]->{ _id, title, slug, shortDescription, icon, order },
+  footerCtaVisible, footerCtaText, footerCtaBoldText, footerCtaButton
 }`;
 
 export const NEWS_QUERY = `*[_type == "newsPage" && _id == "newsPage"][0]{
-  pageVisible, seo, heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt, url }, ctaButton{ label, linkType, url, variant, isVisible } }
+  pageVisible, seo, heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt, url }, ctaButton{ label, linkType, url, variant, isVisible } },
+  footerCtaVisible, footerCtaText, footerCtaBoldText, footerCtaButton
 }`;
 
 export const CONTACT_QUERY = `*[_type == "contactPage" && _id == "contactPage"][0]{
   pageVisible, seo, heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt, url }, ctaButton{ label, linkType, url, variant, isVisible } },
   contactVisible, contactHeading, contactSubtext,
-  formVisible, formHeading, formSuccessHeading, formSuccessMessage
+  formVisible, formHeading, formSuccessHeading, formSuccessMessage,
+  footerCtaVisible, footerCtaText, footerCtaBoldText, footerCtaButton
 }`;
 
 export const SITE_SETTINGS_QUERY = `*[_type == "siteSettings" && _id == "siteSettings"][0]{
@@ -79,7 +83,8 @@ export const SITE_SETTINGS_QUERY = `*[_type == "siteSettings" && _id == "siteSet
   }, contactInfo, socialLinks[],
   primaryLogo{ image{ asset->{url} }, alt, url },
   whiteLogo{ image{ asset->{url} }, alt, url },
-  regulatoryText, copyrightText
+  regulatoryText, copyrightText,
+  footerCtaVisible, footerCtaText, footerCtaBoldText, footerCtaButton
 }`;
 
 export const SERVICE_DETAIL_QUERY = `*[_type == "service" && slug.current == $slug && isActive == true][0]{
@@ -112,7 +117,8 @@ export const POLICY_PAGE_QUERY = `*[_type == "policyPage" && policyType == $slug
 export const CAREERS_PAGE_QUERY = `*[_type == "careersPage" && _id == "careersPage"][0]{
   pageVisible, seo,
   heroVisible, hero{ heading, backgroundImage{ image{ asset->{url, metadata} }, alt, url }, ctaButton{ label, linkType, url, variant, isVisible } },
-  introHeading, introDescription, noVacanciesTitle, noVacanciesMessage
+  introHeading, introDescription, noVacanciesTitle, noVacanciesMessage,
+  footerCtaVisible, footerCtaText, footerCtaBoldText, footerCtaButton
 }`;
 
 export const JOB_VACANCIES_QUERY = `*[_type == "jobVacancy" && status == "Open"] | order(datePosted desc, order asc){

@@ -5,7 +5,7 @@ import { Accordion } from '../components/UI/Accordion';
 import { FooterCTA } from '../components/UI/FooterCTA';
 import { SectionHeader } from '../components/UI/SectionHeader';
 import { FeatureCard } from '../components/UI/FeatureCard';
-import type { HomePageData, ServiceItem, CTAButton } from '../types';
+import type { HomePageData, ServiceItem } from '../types';
 import heroMan from '../assets/images/hero_man.jpg';
 import { DynamicIcon } from '../components/UI/DynamicIcon';
 import { SEO } from '../components/SEO';
@@ -106,10 +106,10 @@ export const Home: React.FC = () => {
         <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-brand-primary text-center leading-tight whitespace-pre-line">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-brand-primary text-center leading-tight whitespace-pre-line">
                 {formatCMSLines(servicesHeading)}
               </h2>
-              <p className="text-base text-teal-900 opacity-80 leading-relaxed whitespace-pre-line">
+              <p className="text-base text-teal-900  leading-relaxed whitespace-pre-line">
                 {formatCMSLines(servicesSubtext)}
               </p>
             </div>
@@ -184,10 +184,10 @@ export const Home: React.FC = () => {
         <section className="py-24 bg-brand-faqBg">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-14 space-y-4">
-              <h2 className="text-[32px] sm:text-[44px] font-light text-[#0D382D] whitespace-pre-line">
+              <h2 className="text-[32px] sm:text-[44px] font-medium text-[#0D382D] whitespace-pre-line">
                 {formatCMSLines(faqHeading)}
               </h2>
-              <p className="text-[15px] sm:text-base text-[#758E87] font-light whitespace-pre-line">
+              <p className="sm:text-base  font-normal whitespace-pre-line">
                 {formatCMSLines(faqSubtext)}
               </p>
             </div>
@@ -198,13 +198,12 @@ export const Home: React.FC = () => {
       )}
 
       {/* Footer CTA */}
-      {data.footerCtaVisible !== false && (
-        <FooterCTA 
-          text={data.footerCtaText} 
-          boldText={data.footerCtaBoldText} 
-          buttonConfig={data.footerCtaButton as CTAButton | undefined} 
-        />
-      )}
+      <FooterCTA 
+        isVisible={data.footerCtaVisible}
+        text={data.footerCtaText} 
+        boldText={data.footerCtaBoldText} 
+        buttonConfig={data.footerCtaButton} 
+      />
       
     </div>
   );

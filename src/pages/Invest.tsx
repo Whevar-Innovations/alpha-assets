@@ -62,7 +62,7 @@ export const Invest: React.FC = () => {
             }}
           >
             <div className="flex flex-col items-center gap-6 text-center">
-              <h1 className="text-4xl sm:text-5xl font-light text-white tracking-tight">
+              <h1 className="text-4xl sm:text-5xl font-medium text-white tracking-tight">
                 {hero?.heading}
               </h1>
               
@@ -94,11 +94,11 @@ export const Invest: React.FC = () => {
           <section className="bg-brand-dark rounded-2xl md:rounded-[32px] px-6 sm:px-12 lg:px-16 py-16 sm:py-20 shadow-sm text-white">
             {/* Header */}
             <div className="text-center max-w-4xl mx-auto mb-12 sm:mb-16 space-y-4 sm:space-y-6">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-[#b2d8d8]">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-[#b2d8d8]">
                 {strategiesHeading}
               </h2>
               {strategiesDescription && (
-                <p className="text-xs sm:text-sm md:text-base font-light leading-relaxed text-teal-100/80 max-w-3xl mx-auto whitespace-pre-line">
+                <p className="text-xs sm:text-sm md:text-base font-normal leading-relaxed text-teal-100 max-w-3xl mx-auto whitespace-pre-line">
                   {strategiesDescription}
                 </p>
               )}
@@ -120,7 +120,7 @@ export const Invest: React.FC = () => {
                     <h3 className="text-lg sm:text-xl font-bold tracking-tight text-brand-dark">
                       {strategy.title}
                     </h3>
-                    <p className="text-xs sm:text-[13px] md:text-sm text-gray-700 leading-relaxed font-light">
+                    <p className="text-xs sm:text-[13px] md:text-sm text-gray-700 leading-relaxed font-normal">
                       {strategy.description}
                     </p>
                   </div>
@@ -137,7 +137,7 @@ export const Invest: React.FC = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
               <span className="text-xs font-bold uppercase tracking-widest text-brand-primary">{servicesSubtitle}</span>
-              <h2 className="text-4xl sm:text-5xl font-light text-brand-dark whitespace-pre-line">
+              <h2 className="text-4xl sm:text-5xl font-normal text-brand-dark whitespace-pre-line">
                 {servicesHeading}
               </h2>
             </div>
@@ -171,7 +171,12 @@ export const Invest: React.FC = () => {
       )}
 
       {/* Footer CTA */}
-      <FooterCTA />
+      <FooterCTA 
+        isVisible={data.footerCtaVisible}
+        text={data.footerCtaText} 
+        boldText={data.footerCtaBoldText} 
+        buttonConfig={data.footerCtaButton} 
+      />
 
     </div>
   );

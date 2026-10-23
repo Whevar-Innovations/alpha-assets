@@ -125,7 +125,7 @@ export const ArticleShareModal: React.FC<ArticleShareModalProps> = ({
                 className="w-full h-full object-cover"
               />
             ) : (
-              <div className="w-full h-full bg-gradient-to-br from-brand-dark to-brand-primary opacity-80" />
+              <div className="w-full h-full bg-gradient-to-br from-brand-dark to-brand-primary " />
             )}
           </div>
           <div className="min-w-0 flex-1">

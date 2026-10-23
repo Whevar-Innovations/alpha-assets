@@ -72,7 +72,7 @@ const VideoSlide: React.FC<SlideProps> = ({ item }) => {
                   className="text-white fill-white translate-x-0.5 sm:w-7 sm:h-7"
                 />
               </span>
-              <span className="text-white text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em]">
+              <span className="text-white font-bold uppercase tracking-[0.2em]">
                 {item.watchLabel ?? 'Watch Video'}
               </span>
             </button>

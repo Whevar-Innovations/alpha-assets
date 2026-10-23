@@ -45,7 +45,7 @@ export const Accordion: React.FC<AccordionProps> = ({ items }) => {
               onKeyDown={(e) => { handleKeyDown(e, item.id); }}
               className="flex justify-between items-center px-6 py-5 cursor-pointer hover:bg-gray-50 transition-colors duration-150 focus:outline-none focus:bg-gray-50 select-none"
             >
-              <h3 className="text-[15px] sm:text-base font-bold text-brand-dark pr-4">
+              <h3 className="sm:text-base font-bold text-brand-dark pr-4">
                 {item.question}
               </h3>
               <span className="text-brand-dark shrink-0">
@@ -66,7 +66,7 @@ export const Accordion: React.FC<AccordionProps> = ({ items }) => {
                 isOpen ? 'max-h-[500px]' : 'max-h-0 pointer-events-none'
               } overflow-hidden`}
             >
-              <div className="px-6 pb-6 text-sm sm:text-[15px] leading-relaxed text-[#4a6360] font-normal">
+              <div className="px-6 pb-6 text-sm  leading-relaxed text-[#4a6360] font-normal">
                 {item.answer}
               </div>
             </div>

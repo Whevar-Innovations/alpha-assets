@@ -53,6 +53,12 @@ export const siteSettings = defineType({
       ]
     },
     
+    // Global Footer CTA Fallback
+    { name: 'footerCtaVisible', type: 'boolean', title: 'Show Global Footer CTA', initialValue: true, group: 'footer' },
+    { name: 'footerCtaText', type: 'string', title: 'Global Footer CTA Text', group: 'footer' },
+    { name: 'footerCtaBoldText', type: 'string', title: 'Global Footer CTA Bold Text', group: 'footer' },
+    { name: 'footerCtaButton', type: 'ctaButton', title: 'Global Footer CTA Button', group: 'footer' },
+    
     // Branding
     { name: 'primaryLogo', type: 'imageWithAlt', title: 'Primary Logo (Dark)', group: 'branding' },
     { name: 'whiteLogo', type: 'imageWithAlt', title: 'White Logo', group: 'branding' },

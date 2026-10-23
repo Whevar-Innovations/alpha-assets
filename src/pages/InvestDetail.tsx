@@ -80,7 +80,7 @@ const InvestDetailContent = ({ currentId, allServices }: { currentId: string; al
             <span className="text-xs font-bold uppercase tracking-widest text-brand-green mb-4 block">
               {data.category ?? 'OUR SERVICES'}
             </span>
-            <h1 className="text-4xl sm:text-5xl font-light text-white tracking-wide">
+            <h1 className="text-4xl sm:text-5xl font-medium text-white tracking-wide">
               {data.title}
             </h1>
           </div>
@@ -154,7 +154,7 @@ const InvestDetailContent = ({ currentId, allServices }: { currentId: string; al
                     {bulletsList
                       .filter((item) => item.isVisible !== false)
                       .map((item, index: number) => (
-                        <li key={item._key ?? index} className="text-sm sm:text-base font-light text-gray-500 flex items-start gap-2">
+                        <li key={item._key ?? index} className="text-sm sm:text-base font-normal text-gray-500 flex items-start gap-2">
                           <span className="text-brand-primary font-bold text-lg leading-none mt-[1px]">›</span>
                           <span>{item.text}</span>
                         </li>

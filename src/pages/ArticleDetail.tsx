@@ -183,7 +183,7 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({ slug, allAr
                 <User size={13} />
                 {article.author.name}
                 {article.author.role && (
-                  <span className="font-light text-gray-400">· {article.author.role}</span>
+                  <span className="font-medium text-gray-400">· {article.author.role}</span>
                 )}
               </span>
             )}
@@ -191,14 +191,14 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({ slug, allAr
 
           {/* Excerpt / lead */}
           {article.excerpt && (
-            <p className="text-base sm:text-lg text-teal-900 font-light leading-relaxed border-l-4 border-brand-primary pl-5">
+            <p className="text-base sm:text-lg text-teal-900 font-normal leading-relaxed border-l-4 border-brand-primary pl-5">
               {article.excerpt}
             </p>
           )}
 
           {/* Rich text body */}
           {hasBody && (
-            <div className="text-gray-500 text-base sm:text-lg leading-relaxed space-y-6 font-light">
+            <div className="text-gray-500 text-base sm:text-lg leading-relaxed space-y-6 font-normal">
               <PortableText value={article.body} />
             </div>
           )}
@@ -247,7 +247,7 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({ slug, allAr
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                       ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-brand-dark to-brand-primary opacity-80" />
+                        <div className="w-full h-full bg-gradient-to-br from-brand-dark to-brand-primary" />
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -288,7 +288,7 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({ slug, allAr
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                       ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-brand-dark to-brand-primary opacity-80" />
+                        <div className="w-full h-full bg-gradient-to-br from-brand-dark to-brand-primary " />
                       )}
                     </div>
                   </Link>
@@ -348,7 +348,7 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({ slug, allAr
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-brand-dark to-brand-primary opacity-80" />
+                        <div className="w-full h-full bg-gradient-to-br from-brand-dark to-brand-primary " />
                       )}
                     </div>
 
@@ -363,7 +363,7 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({ slug, allAr
                           {item.title}
                         </h3>
                         {item.excerpt && (
-                          <p className="text-sm text-teal-900 opacity-80 leading-relaxed font-light line-clamp-3">
+                          <p className="text-sm text-teal-900 leading-relaxed font-normal line-clamp-3">
                             {item.excerpt}
                           </p>
                         )}

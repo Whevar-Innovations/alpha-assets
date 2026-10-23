@@ -46,7 +46,7 @@ export const PensionCalculatorPage: React.FC = () => {
           <span className="text-xs font-bold uppercase tracking-widest text-brand-primary">
             GROWTH & RETIREMENT CALCULATOR
           </span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light text-brand-dark tracking-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-medium text-brand-dark tracking-tight">
             See what your money could become
           </h1>
           <p className="text-sm sm:text-base text-brand-gray/80 max-w-2xl mx-auto font-light leading-relaxed">

@@ -63,6 +63,17 @@ export default {
       spacing: {
         '18': '4.5rem',
         '22': '5.5rem',
+      },
+      fontWeight: {
+        thin: '200',
+        extralight: '300',
+        light: '400',
+        normal: '500',
+        medium: '600',
+        semibold: '700',
+        bold: '800',
+        extrabold: '900',
+        black: '900',
       }
     },
   },

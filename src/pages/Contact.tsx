@@ -4,6 +4,7 @@ import bannerBg from '../assets/images/banner_bg.jpg';
 import { Phone, Mail, MapPin, Clock, CheckCircle, Loader2, AlertCircle } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { Button } from '../components/UI/Button';
+import { FooterCTA } from '../components/UI/FooterCTA';
 
 import { useSanityPage } from '../sanity/hooks/useSanityPage';
 import { CONTACT_QUERY, SITE_SETTINGS_QUERY } from '../sanity/lib/queries';
@@ -126,7 +127,7 @@ export const Contact: React.FC = () => {
             }}
           >
             <div className="flex flex-col items-center gap-6 text-center px-4">
-              <h1 className="text-4xl sm:text-5xl font-light text-white tracking-tight">
+              <h1 className="text-4xl sm:text-5xl font-medium text-white tracking-tight">
                 {hero?.heading}
               </h1>
               {hero?.ctaButton?.isVisible && hero.ctaButton.label && (
@@ -165,7 +166,7 @@ export const Contact: React.FC = () => {
                   <h2 className="text-2xl sm:text-3xl font-extrabold text-brand-dark leading-tight whitespace-pre-line">
                     {pageData.contactHeading}
                   </h2>
-                  <p className="text-sm sm:text-base text-teal-900 opacity-90 leading-relaxed font-light whitespace-pre-line">
+                  <p className="text-sm sm:text-base text-teal-900 leading-relaxed font-light whitespace-pre-line">
                     {pageData.contactSubtext}
                   </p>
                 </div>
@@ -179,7 +180,7 @@ export const Contact: React.FC = () => {
                       </div>
                       <div>
                         <h3 className="text-sm font-extrabold text-brand-dark uppercase tracking-wider mb-1">Office Location</h3>
-                        <p className="text-sm text-teal-900 opacity-90 font-light leading-relaxed whitespace-pre-line">
+                        <p className="text-sm text-teal-900 font-light leading-relaxed whitespace-pre-line">
                           {contactInfo.address}
                         </p>
                       </div>
@@ -193,7 +194,7 @@ export const Contact: React.FC = () => {
                       </div>
                       <div>
                         <h3 className="text-sm font-extrabold text-brand-dark uppercase tracking-wider mb-1">Call Us</h3>
-                        <p className="text-sm text-teal-900 opacity-90 font-light hover:text-brand-primary transition-colors duration-150">
+                        <p className="text-sm text-teal-900 font-light hover:text-brand-primary transition-colors duration-150">
                           <a href={`tel:${contactInfo.phone.replace(/[^0-9+]/g, '')}`}>{contactInfo.phone}</a>
                         </p>
                       </div>
@@ -207,7 +208,7 @@ export const Contact: React.FC = () => {
                       </div>
                       <div>
                         <h3 className="text-sm font-extrabold text-brand-dark uppercase tracking-wider mb-1">Email</h3>
-                        <p className="text-sm text-teal-900 opacity-90 font-light hover:text-brand-primary transition-colors duration-150">
+                        <p className="text-sm text-teal-900 font-light hover:text-brand-primary transition-colors duration-150">
                           <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>
                         </p>
                       </div>
@@ -221,7 +222,7 @@ export const Contact: React.FC = () => {
                       </div>
                       <div>
                         <h3 className="text-sm font-extrabold text-brand-dark uppercase tracking-wider mb-1">Office Hours</h3>
-                        <p className="text-sm text-teal-900 opacity-90 font-light leading-relaxed whitespace-pre-line">
+                        <p className="text-sm text-teal-900 font-light leading-relaxed whitespace-pre-line">
                           {contactInfo.officeHours}
                         </p>
                       </div>
@@ -268,7 +269,7 @@ export const Contact: React.FC = () => {
                       </div>
                       <div className="space-y-2">
                         <h3 className="text-2xl font-extrabold text-brand-dark">{pageData.formSuccessHeading}</h3>
-                        <p className="text-sm text-teal-900 opacity-90 font-light max-w-sm mx-auto leading-relaxed">
+                        <p className="text-sm text-teal-900 font-light max-w-sm mx-auto leading-relaxed">
                           {pageData.formSuccessMessage}
                         </p>
                       </div>
@@ -439,6 +440,14 @@ export const Contact: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Footer CTA */}
+      <FooterCTA 
+        isVisible={pageData.footerCtaVisible}
+        text={pageData.footerCtaText} 
+        boldText={pageData.footerCtaBoldText} 
+        buttonConfig={pageData.footerCtaButton} 
+      />
 
     </div>
   );

@@ -131,7 +131,7 @@ export const About: React.FC = () => {
               }}
             >
               <div className="flex flex-col items-center gap-6 text-center">
-                <h1 className="text-4xl sm:text-5xl font-light text-white tracking-tight">
+                <h1 className="text-4xl sm:text-5xl font-medium text-white tracking-tight">
                   {hero?.heading}
                 </h1>
                 {hero?.ctaButton?.isVisible && hero.ctaButton.label && (
@@ -160,10 +160,10 @@ export const About: React.FC = () => {
         {introVisible && (
           <section className="py-20 bg-white">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center space-y-6">
-              <h2 className="text-4xl sm:text-5xl font-light text-brand-primary leading-tight">
+              <h2 className="text-4xl sm:text-5xl font-medium text-brand-primary leading-tight">
                 {introHeading}
               </h2>
-              <div className="space-y-4 text-[15px] sm:text-base leading-relaxed text-[#4a7060] font-light">
+              <div className="space-y-4 sm:text-base leading-relaxed text-[#4a7060] font-normal">
                 <PortableText value={introParagraphs} />
               </div>
             </div>
@@ -259,7 +259,7 @@ export const About: React.FC = () => {
                   </div>
                   <div className="space-y-1.5">
                     <h3 className="text-base font-bold text-brand-dark">{value.title}</h3>
-                    <p className="text-sm leading-relaxed text-[#4a7060]">{value.description}</p>
+                    <p className="text-sm leading-relaxed font">{value.description}</p>
                   </div>
                 </div>
               ))}
@@ -272,10 +272,10 @@ export const About: React.FC = () => {
       {committeeVisible && (
         <section className="py-20 bg-white">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center space-y-6">
-            <h2 className="text-4xl sm:text-5xl font-light text-brand-primary leading-tight">
+            <h2 className="text-4xl sm:text-5xl font-medium text-brand-primary leading-tight">
               {committeeHeading}
             </h2>
-            <div className="space-y-4 text-[15px] sm:text-base leading-relaxed text-[#4a7060] font-light">
+            <div className="space-y-4  sm:text-base leading-relaxed text-[#4a7060] font-light">
               <PortableText value={committeeText} />
             </div>
           </div>
@@ -290,7 +290,7 @@ export const About: React.FC = () => {
                 <span className="text-xs font-semibold uppercase tracking-widest text-brand-gray">
                   {teamSubtitle}
                 </span>
-                <h2 className="text-4xl sm:text-5xl font-light text-brand-primary leading-tight whitespace-pre-line">
+                <h2 className="text-4xl sm:text-5xl font-medium text-brand-primary leading-tight whitespace-pre-line">
                   {teamHeading}
                 </h2>
               </div>
@@ -370,7 +370,12 @@ export const About: React.FC = () => {
         )}
 
         {/* Footer CTA */}
-        <FooterCTA />
+        <FooterCTA 
+          isVisible={data.footerCtaVisible}
+          text={data.footerCtaText} 
+          boldText={data.footerCtaBoldText} 
+          buttonConfig={data.footerCtaButton} 
+        />
       </div>
 
       {/* Bio Portal */}

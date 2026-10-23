@@ -17,6 +17,7 @@ export const contactPage = defineType({
     { name: 'hero', title: 'Page Header', default: true },
     { name: 'contact', title: 'Contact Details' },
     { name: 'form', title: 'Form Settings' },
+    { name: 'footerCta', title: 'Footer CTA' },
   ],
   fields: [
     { name: 'pageVisible', type: 'boolean', title: 'Page is Visible (Active)', initialValue: true },
@@ -34,5 +35,11 @@ export const contactPage = defineType({
     { name: 'formHeading', type: 'text', title: 'Form Heading', rows: 2, group: 'form' },
     { name: 'formSuccessHeading', type: 'string', title: 'Success Heading', group: 'form' },
     { name: 'formSuccessMessage', type: 'text', title: 'Success Message', rows: 2, group: 'form' },
+
+    // Footer CTA
+    { name: 'footerCtaVisible', type: 'boolean', title: 'Show Footer CTA', initialValue: true, group: 'footerCta' },
+    { name: 'footerCtaText', type: 'string', title: 'CTA Text', group: 'footerCta' },
+    { name: 'footerCtaBoldText', type: 'string', title: 'Bold Text', group: 'footerCta' },
+    { name: 'footerCtaButton', type: 'ctaButton', group: 'footerCta' },
   ],
 });

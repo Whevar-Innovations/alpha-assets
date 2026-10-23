@@ -60,5 +60,15 @@ export const siteSettingsDefaults: SiteSettingsData = {
         createCustomLink('Macro Insights', '/about'),
       ]
     }
-  ]
+  ],
+  footerCtaVisible: true,
+  footerCtaText: 'Ready to optimize your portfolio?',
+  footerCtaBoldText: 'Start investing today',
+  footerCtaButton: {
+    label: 'Speak to an Advisor',
+    linkType: 'internal',
+    url: '/invest',
+    variant: 'primary',
+    isVisible: true,
+  },
 };

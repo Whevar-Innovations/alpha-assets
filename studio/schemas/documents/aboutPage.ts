@@ -21,6 +21,7 @@ export const aboutPage = defineType({
     { name: 'coreValues', title: 'Core Values' },
     { name: 'committee', title: 'Investment Committee' },
     { name: 'team', title: 'Team Section' },
+    { name: 'footerCta', title: 'Footer CTA' },
   ],
   fields: [
     { name: 'pageVisible', type: 'boolean', title: 'Page is Visible (Active)', initialValue: true },
@@ -77,5 +78,11 @@ export const aboutPage = defineType({
       of: [{ type: 'reference', to: [{ type: 'teamMember' }] }],
       group: 'team',
     },
+
+    // Footer CTA
+    { name: 'footerCtaVisible', type: 'boolean', title: 'Show Footer CTA', initialValue: true, group: 'footerCta' },
+    { name: 'footerCtaText', type: 'string', title: 'CTA Text', group: 'footerCta' },
+    { name: 'footerCtaBoldText', type: 'string', title: 'Bold Text', group: 'footerCta' },
+    { name: 'footerCtaButton', type: 'ctaButton', group: 'footerCta' },
   ],
 });

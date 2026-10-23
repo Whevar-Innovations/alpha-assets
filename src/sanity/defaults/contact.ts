@@ -21,4 +21,5 @@ export const contactDefaults: ContactPageData = {
   formHeading: 'Send a Message',
   formSuccessHeading: 'Message Sent Successfully!',
   formSuccessMessage: 'Thank you for reaching out. An investment advisor will contact you within the next 24 working hours.',
+  footerCtaVisible: false,
 };

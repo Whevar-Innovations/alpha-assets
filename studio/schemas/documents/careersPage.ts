@@ -16,6 +16,7 @@ export const careersPage = defineType({
     { name: 'seo', title: 'SEO', default: false },
     { name: 'hero', title: 'Page Header', default: true },
     { name: 'intro', title: 'Intro & Settings' },
+    { name: 'footerCta', title: 'Footer CTA' },
   ],
   fields: [
     { name: 'pageVisible', type: 'boolean', title: 'Page is Visible (Active)', initialValue: true },
@@ -56,5 +57,11 @@ export const careersPage = defineType({
       initialValue: 'There are currently no active job openings at Alpha Asset Managers. However, we welcome spontaneous applications from exceptional candidates.',
       group: 'intro',
     },
+
+    // Footer CTA
+    { name: 'footerCtaVisible', type: 'boolean', title: 'Show Footer CTA', initialValue: true, group: 'footerCta' },
+    { name: 'footerCtaText', type: 'string', title: 'CTA Text', group: 'footerCta' },
+    { name: 'footerCtaBoldText', type: 'string', title: 'Bold Text', group: 'footerCta' },
+    { name: 'footerCtaButton', type: 'ctaButton', group: 'footerCta' },
   ],
 });

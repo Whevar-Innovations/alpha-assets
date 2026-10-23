@@ -17,6 +17,7 @@ export const investPage = defineType({
     { name: 'hero', title: 'Page Header', default: true },
     { name: 'strategies', title: 'Investment Strategies' },
     { name: 'services', title: 'Services Grid' },
+    { name: 'footerCta', title: 'Footer CTA' },
   ],
   fields: [
     { name: 'pageVisible', type: 'boolean', title: 'Page is Visible (Active)', initialValue: true },
@@ -47,5 +48,11 @@ export const investPage = defineType({
       of: [{ type: 'reference', to: [{ type: 'service' }] }],
       group: 'services',
     },
+
+    // Footer CTA
+    { name: 'footerCtaVisible', type: 'boolean', title: 'Show Footer CTA', initialValue: true, group: 'footerCta' },
+    { name: 'footerCtaText', type: 'string', title: 'CTA Text', group: 'footerCta' },
+    { name: 'footerCtaBoldText', type: 'string', title: 'Bold Text', group: 'footerCta' },
+    { name: 'footerCtaButton', type: 'ctaButton', group: 'footerCta' },
   ],
 });

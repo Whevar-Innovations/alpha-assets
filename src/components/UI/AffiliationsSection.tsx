@@ -110,14 +110,14 @@ export const AffiliationsSection: React.FC<AffiliationsSectionProps> = ({
             {hasHeading && heading && (
               <h2
                 id="affiliations-heading"
-                className="text-xl sm:text-2xl md:text-[26px] font-light text-brand-primary leading-snug tracking-tight whitespace-pre-line"
+                className="text-xl sm:text-2xl md:text-[26px]  text-brand-primary leading-snug tracking-tight whitespace-pre-line"
               >
                 {formatCMSLines(heading)}
               </h2>
             )}
 
             {hasSubtext && subtext && (
-              <p className="text-xs sm:text-sm text-brand-gray/75 font-light leading-relaxed max-w-md mx-auto lg:mx-0 pt-1 whitespace-pre-line">
+              <p className="text-brand-gray/75  leading-relaxed max-w-md mx-auto lg:mx-0 pt-1 whitespace-pre-line">
                 {formatCMSLines(subtext)}
               </p>
             )}

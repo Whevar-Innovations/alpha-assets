@@ -74,7 +74,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ slides, onNavigate }
           <div className="max-w-2xl text-white space-y-8">
             <h1
               key={`heading-${String(current)}`}
-              className="text-4xl sm:text-5xl lg:text-6xl font-light leading-tight sm:leading-none animate-hero-fade-up"
+              className="text-4xl sm:text-5xl lg:text-6xl font-medium leading-tight sm:leading-none animate-hero-fade-up"
             >
               {slide.heading} <br />
               {slide.highlightText && (
