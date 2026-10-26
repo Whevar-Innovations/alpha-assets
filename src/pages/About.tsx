@@ -237,7 +237,7 @@ export const About: React.FC = () => {
 
         {/* Core Values Section */}
         {coreValuesVisible && (
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 w-full">
+          <div id="investment-philosophy" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 w-full scroll-mt-24">
             <section className="py-16 sm:py-20 bg-gradient-to-b from-brand-dark to-brand-primary rounded-3xl md:rounded-[40px] px-6 sm:px-12">
               <div className="text-center max-w-4xl mx-auto mb-14 space-y-3">
                 <span className="text-xs font-semibold uppercase tracking-widest text-brand-green">
@@ -270,7 +270,7 @@ export const About: React.FC = () => {
 
       {/* Investment Committee Section */}
       {committeeVisible && (
-        <section className="py-20 bg-white">
+        <section id="corporate-governance" className="py-20 bg-white scroll-mt-24">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center space-y-6">
             <h2 className="text-4xl sm:text-5xl font-medium text-brand-primary leading-tight">
               {committeeHeading}
@@ -284,7 +284,7 @@ export const About: React.FC = () => {
 
         {/* Our Team Section */}
         {teamVisible && (
-          <section className="py-20 bg-brand-faqBg">
+          <section id="our-team" className="py-20 bg-brand-faqBg scroll-mt-24">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
                 <span className="text-xs font-semibold uppercase tracking-widest text-brand-gray">

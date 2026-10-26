@@ -74,8 +74,12 @@ export const SITE_SETTINGS_QUERY = `*[_type == "siteSettings" && _id == "siteSet
       linkType,
       externalUrl,
       customPath,
+      sectionAnchor,
+      "fileUrl": file.asset->url,
+      "fileName": file.asset->originalFilename,
       internalLink->{
         _type,
+        title,
         "slug": slug.current,
         policyType
       }
@@ -89,7 +93,8 @@ export const SITE_SETTINGS_QUERY = `*[_type == "siteSettings" && _id == "siteSet
 
 export const SERVICE_DETAIL_QUERY = `*[_type == "service" && slug.current == $slug && isActive == true][0]{
   title, slug, category, description,
-  detailImage, featuresVisible, bulletsTitle, bullets, factsheetVisible, factsheet{ asset->{url, originalFilename} }
+  detailImage, featuresVisible, bulletsTitle, bullets, factsheetVisible, factsheet{ asset->{url, originalFilename} },
+  footerCtaVisible, footerCtaText, footerCtaBoldText, footerCtaButton
 }`;
 
 export const ALL_SERVICES_QUERY = `*[_type == "service" && isActive == true] | order(order asc){
@@ -97,12 +102,22 @@ export const ALL_SERVICES_QUERY = `*[_type == "service" && isActive == true] | o
 }`;
 
 export const ARTICLES_QUERY = `*[_type == "article" && isActive == true] | order(publishedAt desc){
-  _id, title, slug, excerpt, coverImage, category, publishedAt, readTime, isFeatured,
+  _id, title, slug, excerpt, coverImage,
+  "category": coalesce(category->title, category),
+  "categorySlug": category->slug.current,
+  publishedAt, readTime, isFeatured,
   author->{ name, photo }
 }`;
 
+export const ARTICLE_CATEGORIES_QUERY = `*[_type == "articleCategory" && isActive == true] | order(order asc, title asc){
+  _id, title, "slug": slug.current, description, order
+}`;
+
 export const ARTICLE_DETAIL_QUERY = `*[_type == "article" && slug.current == $slug && isActive == true][0]{
-  title, slug, excerpt, coverImage, body, category, publishedAt, readTime,
+  title, slug, excerpt, coverImage, body,
+  "category": coalesce(category->title, category),
+  "categorySlug": category->slug.current,
+  publishedAt, readTime,
   author->{ name, role, photo, bio }, seo
 }`;
 

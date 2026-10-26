@@ -164,7 +164,7 @@ const InvestDetailContent = ({ currentId, allServices }: { currentId: string; al
               )}
 
               {/* Special Pension Calculator Callout for Pension & Retirement */}
-              {currentId === 'pension-retirement' && (
+              {(currentId === 'pension-retirement' || currentId === 'pension-and-retirement-mandates') && (
                 <div className="bg-brand-cardBg border border-brand-primary/30 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-sm">
                   <div className="space-y-2 max-w-md">
                     <span className="text-xs font-bold uppercase tracking-widest text-brand-primary block">
@@ -217,7 +217,12 @@ const InvestDetailContent = ({ currentId, allServices }: { currentId: string; al
         </div>
       </section>
 
-      <FooterCTA />
+      <FooterCTA 
+        isVisible={data.footerCtaVisible ?? fallback.footerCtaVisible}
+        text={data.footerCtaText ?? fallback.footerCtaText}
+        boldText={data.footerCtaBoldText ?? fallback.footerCtaBoldText}
+        buttonConfig={data.footerCtaButton?.label ? data.footerCtaButton : fallback.footerCtaButton}
+      />
     </div>
   );
 };

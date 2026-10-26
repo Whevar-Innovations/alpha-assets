@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { FooterCTA } from '../components/UI/FooterCTA';
 import { SEO } from '../components/SEO';
-import type { ArticleItem } from '../types';
+import type { ArticleItem, ArticleCategoryItem } from '../types';
 import bannerBg from '../assets/images/banner_bg.jpg';
 import { Button } from '../components/UI/Button';
 import { Calendar, Clock, ArrowRight, Share2 } from 'lucide-react';
@@ -10,10 +10,16 @@ import { FeaturedBanner } from '../components/UI/FeaturedBanner';
 import { ArticleShareModal } from '../components/UI/ArticleShareModal';
 
 import { useSanityPage } from '../sanity/hooks/useSanityPage';
-import { NEWS_QUERY, ARTICLES_QUERY } from '../sanity/lib/queries';
+import { NEWS_QUERY, ARTICLES_QUERY, ARTICLE_CATEGORIES_QUERY } from '../sanity/lib/queries';
 import { newsDefaults } from '../sanity/defaults/news';
 import { resolveImage } from '../sanity/lib/image';
 import { SanityImage } from '../components/UI/SanityImage';
+
+const fallbackCategories: ArticleCategoryItem[] = [
+  { _id: 'category-market-update', title: 'Market Update', slug: 'market-update', order: 1 },
+  { _id: 'category-investment-advice', title: 'Investment Advice', slug: 'investment-advice', order: 2 },
+  { _id: 'category-company-news', title: 'Company News', slug: 'company-news', order: 3 },
+];
 
 
 // Fallback articles if none in Sanity
@@ -40,10 +46,12 @@ const fallbackArticles: ArticleItem[] = [
 
 export const News: React.FC = () => {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { data: pageData, isLoading: isPageLoading } = useSanityPage(NEWS_QUERY, newsDefaults);
   const { data: articles, isLoading: isArticlesLoading } = useSanityPage<ArticleItem[]>(ARTICLES_QUERY, fallbackArticles);
+  const { data: taxonomyCategories } = useSanityPage<ArticleCategoryItem[]>(ARTICLE_CATEGORIES_QUERY, fallbackCategories);
 
-  const [filter, setFilter] = useState<string>('All');
+  const rawFilter = searchParams.get('category') ?? 'All';
   const [shareModalArticle, setShareModalArticle] = useState<ArticleItem | null>(null);
 
   if (isPageLoading || isArticlesLoading) {
@@ -59,13 +67,31 @@ export const News: React.FC = () => {
   const heroVisible = pageData.heroVisible ?? true;
   const bgImgUrl = resolveImage(hero?.backgroundImage, bannerBg);
 
-  // Extract unique categories from articles
-  const categories = ['All', ...Array.from(new Set(articles.map((a: ArticleItem) => a.category).filter(Boolean)))] as string[];
+  // Combine dynamic taxonomy categories with any categories present on articles
+  const taxonomyTitles = (taxonomyCategories.length > 0 ? taxonomyCategories : fallbackCategories)
+    .map((c) => c.title)
+    .filter(Boolean);
+  const articleCategoryTitles = articles
+    .map((a: ArticleItem) => a.category)
+    .filter((c): c is string => Boolean(c));
+  const categories = ['All', ...Array.from(new Set([...taxonomyTitles, ...articleCategoryTitles]))];
+
+  // Resolve active filter by title or slug (case-insensitive)
+  const matchedCategoryFromSlug = taxonomyCategories.find(
+    (c) => c.slug?.toLowerCase() === rawFilter.toLowerCase() || c.title.toLowerCase() === rawFilter.toLowerCase()
+  );
+  const filter = rawFilter === 'All'
+    ? 'All'
+    : (matchedCategoryFromSlug?.title ?? categories.find((c) => c.toLowerCase() === rawFilter.toLowerCase()) ?? rawFilter);
 
   // Articles scoped to the active filter
   const filteredArticles = filter === 'All'
     ? articles
-    : articles.filter((a: ArticleItem) => a.category === filter);
+    : articles.filter(
+        (a: ArticleItem) =>
+          a.category?.toLowerCase() === filter.toLowerCase() ||
+          a.categorySlug?.toLowerCase() === rawFilter.toLowerCase()
+      );
 
   // Featured subset — respects the active filter
   const featuredArticles = filteredArticles.filter((a: ArticleItem) => a.isFeatured === true);
@@ -120,7 +146,7 @@ export const News: React.FC = () => {
       )}
 
       {/* Articles Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white">
+      <section id="articles" className="py-12 sm:py-16 lg:py-20 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Category Filter Pills */}
@@ -128,7 +154,15 @@ export const News: React.FC = () => {
             {categories.map((cat: string) => (
               <button
                 key={cat}
-                onClick={() => { setFilter(cat); }}
+                onClick={() => {
+                  if (cat === 'All') {
+                    const nextParams = new URLSearchParams(searchParams);
+                    nextParams.delete('category');
+                    setSearchParams(nextParams, { replace: true });
+                  } else {
+                    setSearchParams({ category: cat }, { replace: true });
+                  }
+                }}
                 className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-150 border ${
                   filter === cat
                     ? 'bg-brand-primary text-white border-brand-primary shadow-sm'

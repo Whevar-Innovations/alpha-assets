@@ -31,43 +31,39 @@ export const siteSettingsDefaults: SiteSettingsData = {
   copyrightText: '© 2026 Alpha Asset Managers, All Rights Reserved',
   footerContent: [
     {
+      title: 'Company',
+      links: [
+        createCustomLink('Investment Philosophy', '/about#investment-philosophy'),
+        createCustomLink('Our People', '/about#our-team'),
+        createCustomLink('Corporate Governance', '/about#corporate-governance'),
+      ]
+    },
+    {
       title: 'Helpful Links',
       links: [
         createCustomLink('Privacy Policy', '/legal/privacy-policy'),
         createCustomLink('Terms of Use', '/legal/terms-of-use'),
         createCustomLink('Cookie Policy', '/legal/cookie-policy'),
         createCustomLink('Careers', '/careers'),
-        createCustomLink('Risk Disclosures', '/legal/risk-disclosures'),
-        createCustomLink('Complaints Procedure', '/legal/complaints-procedure'),
       ]
     },
     {
       title: 'Resources',
       links: [
-        createCustomLink('Pension Calculator', '/calculator'),
-        createCustomLink('Finance knowledge', '#'),
-        createCustomLink('Market research', '#'),
-        createCustomLink('Steps for 2026', '#'),
-        createCustomLink('Risk advisory', '#'),
-      ]
-    },
-    {
-      title: 'Company',
-      links: [
-        createCustomLink('Investment Philosophy', '/about'),
-        createCustomLink('Our People', '/about'),
-        createCustomLink('Corporate Governance', '/about'),
-        createCustomLink('Macro Insights', '/about'),
+        createCustomLink('Macro Insights', '/news?category=Market+Update#articles'),
+        createCustomLink('Finance knowledge', '/news?category=Investment+Advice#articles'),
+        createCustomLink('Market research', '/news?category=Market+Update#articles'),
+        { label: 'Risk advisory', linkType: 'none' },
       ]
     }
   ],
   footerCtaVisible: true,
-  footerCtaText: 'Ready to optimize your portfolio?',
+  footerCtaText: 'Let us help you build a strategy that works for you',
   footerCtaBoldText: 'Start investing today',
   footerCtaButton: {
-    label: 'Speak to an Advisor',
+    label: 'Request your Confidential Portfolio Review',
     linkType: 'internal',
-    url: '/invest',
+    url: '/contact',
     variant: 'primary',
     isVisible: true,
   },

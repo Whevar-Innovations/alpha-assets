@@ -41,7 +41,7 @@ export interface VideoFeatureItem {
   speakerTitle?: string;
 }
 
-export interface ServiceItem {
+export interface ServiceItem extends FooterCTAData {
   _id: string;
   title: string;
   slug?: { current: string };
@@ -69,11 +69,20 @@ export interface TeamMember {
   order?: number;
 }
 
+export interface ArticleCategoryItem {
+  _id: string;
+  title: string;
+  slug?: string;
+  description?: string;
+  order?: number;
+}
+
 export interface ArticleItem {
   _id: string;
   title: string;
   slug?: { current: string };
   category?: string;
+  categorySlug?: string;
   excerpt?: string;
   readTime?: number | string;
   publishedAt?: string;
@@ -203,11 +212,15 @@ export interface ContactPageData extends FooterCTAData {
 
 export interface FooterLink {
   label: string;
-  linkType: 'internal' | 'external' | 'custom' | 'none';
+  linkType: 'internal' | 'external' | 'custom' | 'file' | 'none';
   externalUrl?: string;
   customPath?: string;
+  sectionAnchor?: string;
+  fileUrl?: string;
+  fileName?: string;
   internalLink?: {
     _type: string;
+    title?: string;
     slug?: string;
     policyType?: string;
   };

@@ -183,26 +183,45 @@ export const Footer: React.FC = () => {
                     <ul className="space-y-2.5 text-sm text-brand-grey-400 font-light">
                       {column.links?.map((link, linkIdx) => {
                         let href = '#';
-                        if (link.linkType === 'custom' && link.customPath) {
+                        if (link.linkType === 'file' && link.fileUrl) {
+                          href = link.fileUrl;
+                        } else if (link.linkType === 'custom' && link.customPath) {
                           href = link.customPath.startsWith('/') ? link.customPath : `/${link.customPath}`;
                         } else if (link.linkType === 'external' && link.externalUrl) {
                           href = link.externalUrl;
                         } else if (link.linkType === 'internal' && link.internalLink) {
                           const internal = link.internalLink;
-                          if (internal.slug) href = `/${internal.slug}`;
-                          else if (internal.policyType) href = `/legal/${internal.policyType}`;
-                          else if (internal._type === 'homePage') href = '/';
+                          if (internal._type === 'articleCategory') {
+                            const catParam = encodeURIComponent(internal.title ?? internal.slug ?? '');
+                            href = `/news?category=${catParam}#articles`;
+                          } else if (internal._type === 'service' && internal.slug) {
+                            href = `/invest/${internal.slug}`;
+                          } else if (internal._type === 'article' && internal.slug) {
+                            href = `/news/${internal.slug}`;
+                          } else if (internal.policyType) {
+                            href = `/legal/${internal.policyType}`;
+                          } else if (internal.slug) {
+                            href = `/${internal.slug}`;
+                          } else if (internal._type === 'homePage') href = '/';
                           else if (internal._type === 'aboutPage') href = '/about';
                           else if (internal._type === 'investPage') href = '/invest';
                           else if (internal._type === 'newsPage') href = '/news';
                           else if (internal._type === 'contactPage') href = '/contact';
                           else if (internal._type === 'careersPage') href = '/careers';
+
+                          if (link.sectionAnchor && href !== '#' && internal._type !== 'articleCategory') {
+                            const suffix = link.sectionAnchor.startsWith('#') || link.sectionAnchor.startsWith('?')
+                              ? link.sectionAnchor
+                              : `#${link.sectionAnchor}`;
+                            href = `${href}${suffix}`;
+                          }
                         } else if (link.label.toLowerCase() === 'careers') {
                           href = '/careers';
                         }
                         
                         const isExternal = link.linkType === 'external';
-                        const isDisabled = link.linkType === 'none';
+                        const isFile = link.linkType === 'file' && Boolean(link.fileUrl);
+                        const isDisabled = link.linkType === 'none' || (link.linkType === 'file' && !link.fileUrl);
                         
                         return (
                           <li key={linkIdx}>
@@ -213,6 +232,16 @@ export const Footer: React.FC = () => {
                               >
                                 {link.label}
                               </span>
+                            ) : isFile ? (
+                              <a 
+                                href={href} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                download={link.fileName ?? true}
+                                className="hover:text-white transition-colors duration-150 block"
+                              >
+                                {link.label}
+                              </a>
                             ) : isExternal ? (
                               <a 
                                 href={href} 
@@ -244,6 +273,14 @@ export const Footer: React.FC = () => {
               ) : (
                 <>
                   <div className="space-y-4">
+                    <h3 className="text-base font-semibold text-white">Company</h3>
+                    <ul className="space-y-2.5 text-sm text-brand-gray-text font-light">
+                      <li><Link to="/about#investment-philosophy" className="hover:text-white transition-colors duration-150">Investment Philosophy</Link></li>
+                      <li><Link to="/about#our-team" className="hover:text-white transition-colors duration-150">Our People</Link></li>
+                      <li><Link to="/about#corporate-governance" className="hover:text-white transition-colors duration-150">Corporate Governance</Link></li>
+                    </ul>
+                  </div>
+                  <div className="space-y-4">
                     <h3 className="text-base font-semibold text-white">Helpful Links</h3>
                     <ul className="space-y-2.5 text-sm text-brand-gray-text font-light">
                       <li><Link to="/legal/privacy-policy" className="hover:text-white transition-colors duration-150">Privacy Policy</Link></li>
@@ -255,20 +292,11 @@ export const Footer: React.FC = () => {
                   <div className="space-y-4">
                     <h3 className="text-base font-semibold text-white">Resources</h3>
                     <ul className="space-y-2.5 text-sm text-brand-gray-text font-light">
-                      <li><span className="opacity-60 cursor-not-allowed" title="Coming Soon">Finance knowledge</span></li>
-                      <li><span className="opacity-60 cursor-not-allowed" title="Coming Soon">Market research</span></li>
-                      <li><span className="opacity-60 cursor-not-allowed" title="Coming Soon">Steps for 2026</span></li>
+                      <li><Link to="/news?category=Market+Update#articles" className="hover:text-white transition-colors duration-150">Macro Insights</Link></li>
+                      <li><Link to="/news?category=Investment+Advice#articles" className="hover:text-white transition-colors duration-150">Finance knowledge</Link></li>
+                      <li><Link to="/news?category=Market+Update#articles" className="hover:text-white transition-colors duration-150">Market research</Link></li>
                       <li><span className="opacity-60 cursor-not-allowed" title="Coming Soon">Risk advisory</span></li>
                       <li><a href="/studio" className="opacity-40 hover:opacity-100 hover:text-white transition-all duration-150">Studio</a></li>
-                    </ul>
-                  </div>
-                  <div className="space-y-4">
-                    <h3 className="text-base font-semibold text-white">Company</h3>
-                    <ul className="space-y-2.5 text-sm text-brand-gray-text font-light">
-                      <li><Link to="/about" className="hover:text-white transition-colors duration-150">Investment Philosophy</Link></li>
-                      <li><Link to="/about" className="hover:text-white transition-colors duration-150">Our People</Link></li>
-                      <li><Link to="/about" className="hover:text-white transition-colors duration-150">Corporate Governance</Link></li>
-                      <li><Link to="/about" className="hover:text-white transition-colors duration-150">Macro Insights</Link></li>
                     </ul>
                   </div>
                 </>

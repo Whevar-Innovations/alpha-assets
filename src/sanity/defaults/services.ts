@@ -81,6 +81,61 @@ export const serviceDefaultsMap: Record<string, ServiceItem> = {
       { _type: 'serviceFeatureItem', text: 'Capital Preservation & Strict Covenants', isVisible: true },
       { _type: 'serviceFeatureItem', text: 'Consistent Monthly Cash Distribution', isVisible: true },
     ],
+    footerCtaButton: {
+      label: 'Request a Direct Lending Briefing',
+      linkType: 'internal',
+      url: '/contact',
+      variant: 'primary',
+      isVisible: true,
+    },
+    isActive: true,
+  },
+  'direct-lending': {
+    _id: 'direct-lending',
+    title: 'Direct Lending',
+    category: 'OUR SERVICES',
+    description: [
+      {
+        _type: 'block',
+        _key: 'b1',
+        style: 'normal',
+        children: [
+          {
+            _type: 'span',
+            _key: 's1',
+            text: 'Secured senior lending strategy for institutional and sophisticated investors seeking attractive risk-adjusted income.',
+          },
+        ],
+      },
+      {
+        _type: 'block',
+        _key: 'b2',
+        style: 'normal',
+        children: [
+          {
+            _type: 'span',
+            _key: 's2',
+            text: 'Our Direct Lending Fund targets mid-market lending opportunities offering high cash yield and senior security protections. We perform rigorous credit assessments and structuring to ensure downside protection while maximizing yields. Investors gain exposure to a diversified portfolio of private credit assets uncorrelated with traditional public equities.',
+          },
+        ],
+      },
+    ],
+    featuresVisible: true,
+    bulletsTitle: 'Key Fund Characteristics',
+    bullets: [
+      { _type: 'serviceFeatureItem', text: 'Corporate Debt Financing', isVisible: true },
+      { _type: 'serviceFeatureItem', text: 'Acquisition Finance Solutions', isVisible: true },
+      { _type: 'serviceFeatureItem', text: 'Secured Term Loans & Collateral', isVisible: true },
+      { _type: 'serviceFeatureItem', text: 'Capital Preservation & Strict Covenants', isVisible: true },
+      { _type: 'serviceFeatureItem', text: 'Consistent Monthly Cash Distribution', isVisible: true },
+    ],
+    footerCtaButton: {
+      label: 'Request a Direct Lending Briefing',
+      linkType: 'internal',
+      url: '/contact',
+      variant: 'primary',
+      isVisible: true,
+    },
     isActive: true,
   },
   'private-equity': {
@@ -163,6 +218,13 @@ export const serviceDefaultsMap: Record<string, ServiceItem> = {
       { _type: 'serviceFeatureItem', text: 'Tactical Adjustments by Dedicated Managers', isVisible: true },
       { _type: 'serviceFeatureItem', text: 'Real-time Access & Personalized Advisory', isVisible: true },
     ],
+    footerCtaButton: {
+      label: 'Request a Confidential Portfolio Review',
+      linkType: 'internal',
+      url: '/contact',
+      variant: 'primary',
+      isVisible: true,
+    },
     isActive: true,
   },
   'unit-trusts': {
@@ -204,6 +266,13 @@ export const serviceDefaultsMap: Record<string, ServiceItem> = {
       { _type: 'serviceFeatureItem', text: 'Capital Raising Support', isVisible: true },
       { _type: 'serviceFeatureItem', text: 'Financial Modelling', isVisible: true },
     ],
+    footerCtaButton: {
+      label: 'Go to Client Portal',
+      linkType: 'internal',
+      url: '/contact',
+      variant: 'primary',
+      isVisible: true,
+    },
     isActive: true,
   },
   'pension-retirement': {
@@ -245,6 +314,61 @@ export const serviceDefaultsMap: Record<string, ServiceItem> = {
       { _type: 'serviceFeatureItem', text: 'Capital Protection during Downside Markets', isVisible: true },
       { _type: 'serviceFeatureItem', text: 'Diversified Real Estate & Bond Allocation', isVisible: true },
     ],
+    footerCtaButton: {
+      label: 'Request a Confidential Trustee Briefing',
+      linkType: 'internal',
+      url: '/contact',
+      variant: 'primary',
+      isVisible: true,
+    },
+    isActive: true,
+  },
+  'pension-and-retirement-mandates': {
+    _id: 'pension-and-retirement-mandates',
+    title: 'Pension & Retirement Mandates',
+    category: 'OUR SERVICES',
+    description: [
+      {
+        _type: 'block',
+        _key: 'b1',
+        style: 'normal',
+        children: [
+          {
+            _type: 'span',
+            _key: 's1',
+            text: 'Retirement-focused portfolio management with liability-aware construction for trustees and scheme sponsors.',
+          },
+        ],
+      },
+      {
+        _type: 'block',
+        _key: 'b2',
+        style: 'normal',
+        children: [
+          {
+            _type: 'span',
+            _key: 's2',
+            text: 'Alpha works closely with board of trustees and corporate scheme sponsors to design portfolios matching the long-term pension payment schedules. We employ robust asset-liability modeling (ALM) to ensure solvency, optimize capital returns under regulatory limits, and secure stable returns for retiring beneficiaries.',
+          },
+        ],
+      },
+    ],
+    featuresVisible: true,
+    bulletsTitle: 'Mandate Scopes',
+    bullets: [
+      { _type: 'serviceFeatureItem', text: 'Asset-Liability Matching (ALM) Strategy', isVisible: true },
+      { _type: 'serviceFeatureItem', text: 'Trustee Investment Guidance & Policy Drafting', isVisible: true },
+      { _type: 'serviceFeatureItem', text: 'Statutory & Regulatory Compliance Reports', isVisible: true },
+      { _type: 'serviceFeatureItem', text: 'Capital Protection during Downside Markets', isVisible: true },
+      { _type: 'serviceFeatureItem', text: 'Diversified Real Estate & Bond Allocation', isVisible: true },
+    ],
+    footerCtaButton: {
+      label: 'Request a Confidential Trustee Briefing',
+      linkType: 'internal',
+      url: '/contact',
+      variant: 'primary',
+      isVisible: true,
+    },
     isActive: true,
   },
 };
