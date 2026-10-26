@@ -28,22 +28,25 @@ export const FooterCTA: React.FC<FooterCTAProps> = ({
   }
 
   const pageText = text?.trim();
-  const globalText = siteSettings.footerCtaText?.trim();
-  const displayText = pageText && pageText.length > 0
-    ? pageText
-    : (globalText && globalText.length > 0 ? globalText : 'Ready to optimize your portfolio?');
-
   const pageBoldText = boldText?.trim();
+  const hasPageTextOverride = Boolean(pageText) || Boolean(pageBoldText);
+
+  const globalText = siteSettings.footerCtaText?.trim();
   const globalBoldText = siteSettings.footerCtaBoldText?.trim();
-  const displayBoldText = pageBoldText && pageBoldText.length > 0
-    ? pageBoldText
+
+  const displayText = hasPageTextOverride
+    ? (pageText ?? '')
+    : (globalText && globalText.length > 0 ? globalText : 'Let us help you build a strategy that works for you');
+
+  const displayBoldText = hasPageTextOverride
+    ? (pageBoldText ?? '')
     : (globalBoldText && globalBoldText.length > 0 ? globalBoldText : 'Start investing today');
 
   const hasPageButton = Boolean(buttonConfig?.label.trim());
   const displayButton = hasPageButton ? buttonConfig : siteSettings.footerCtaButton;
 
   const showButton = displayButton ? displayButton.isVisible : true;
-  const buttonLabel = displayButton?.label.trim() ? displayButton.label : 'Speak to an Advisor';
+  const buttonLabel = displayButton?.label.trim() ? displayButton.label : 'Request your Confidential Portfolio Review';
   const buttonVariant = displayButton?.variant ?? 'primary';
 
   const handleCTA = () => {
@@ -54,24 +57,28 @@ export const FooterCTA: React.FC<FooterCTAProps> = ({
         void navigate(displayButton.url);
       }
     } else {
-      void navigate('/invest');
+      void navigate('/contact');
     }
   };
 
   return (
     <section className="bg-white border-t border-b border-gray-100 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-lg md:text-[22px] font-light text-brand-primary text-center md:text-left leading-relaxed">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-5 sm:gap-6">
+          <p className="text-lg md:text-[22px] font-light text-brand-primary text-center lg:text-left leading-relaxed">
             {displayText}
-            <span className="ml-2 font-bold text-brand-dark">{displayBoldText}</span>
+            {displayBoldText && (
+              <span className={`${displayText ? 'ml-2 ' : ''}font-bold text-brand-dark`}>
+                {displayBoldText}
+              </span>
+            )}
           </p>
           {showButton && (
             <Button
               variant={buttonVariant}
               size="lg"
               onClick={handleCTA}
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto shrink-0"
             >
               {buttonLabel}
             </Button>
