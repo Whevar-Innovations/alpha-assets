@@ -8,6 +8,7 @@ const policyTypes = [
   { title: 'Risk Disclosures', value: 'risk-disclosures' },
   { title: 'Complaints Procedure', value: 'complaints-procedure' },
   { title: 'Regulatory Information', value: 'regulatory-information' },
+  { title: 'Investment Philosophy', value: 'investment-philosophy' },
 ];
 
 export const policyPage = defineType({

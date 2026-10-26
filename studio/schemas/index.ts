@@ -7,6 +7,7 @@ import { siteSettings } from './documents/siteSettings'
 import { service } from './documents/service'
 import { teamMember } from './documents/teamMember'
 import { article } from './documents/article'
+import { articleCategory } from './documents/articleCategory'
 import { author } from './documents/author'
 import { policyPage } from './documents/policyPage'
 import { jobVacancy } from './documents/jobVacancy'
@@ -62,6 +63,7 @@ export const schemaTypes = [
   service,
   teamMember,
   article,
+  articleCategory,
   author,
   policyPage,
   jobVacancy,

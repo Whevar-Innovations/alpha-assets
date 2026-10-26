@@ -24,6 +24,7 @@ export default defineConfig({
             S.divider(),
             S.listItem().title('💼 Services').child(S.documentTypeList('service').title('Investment Services')),
             S.listItem().title('📝 Articles').child(S.documentTypeList('article').title('News Articles')),
+            S.listItem().title('🏷️ Article Categories').child(S.documentTypeList('articleCategory').title('Article Categories')),
             S.listItem().title('✍️ Authors').child(S.documentTypeList('author').title('Authors')),
             S.listItem().title('👥 Team Members').child(S.documentTypeList('teamMember').title('Team Members')),
             S.listItem().title('🎯 Job Vacancies').child(S.documentTypeList('jobVacancy').title('Job Vacancies')),

@@ -13,8 +13,9 @@ export const footerLink = defineType({
       options: { 
         list: [
           { title: 'Internal Page', value: 'internal' },
+          { title: 'Custom Path / Section Link', value: 'custom' },
+          { title: 'Downloadable File (PDF / Document)', value: 'file' },
           { title: 'External URL', value: 'external' },
-          { title: 'Custom Path', value: 'custom' },
           { title: 'Text Only (Disabled / Coming Soon)', value: 'none' }
         ], 
         layout: 'radio' 
@@ -33,10 +34,25 @@ export const footerLink = defineType({
         { type: 'contactPage' },
         { type: 'service' },
         { type: 'article' },
+        { type: 'articleCategory' },
         { type: 'policyPage' },
         { type: 'careersPage' },
       ],
       hidden: ({ parent }) => parent?.linkType !== 'internal',
+    },
+    {
+      name: 'sectionAnchor',
+      type: 'string',
+      title: 'Section Anchor or Query Filter (Optional)',
+      description: 'e.g. #our-team or ?category=Market+Update#articles',
+      hidden: ({ parent }) => parent?.linkType !== 'internal',
+    },
+    {
+      name: 'file',
+      type: 'file',
+      title: 'Downloadable Resource File',
+      description: 'Upload a PDF or document to open/download when clicked.',
+      hidden: ({ parent }) => parent?.linkType !== 'file',
     },
     {
       name: 'externalUrl',
@@ -49,7 +65,7 @@ export const footerLink = defineType({
       name: 'customPath',
       type: 'string',
       title: 'Custom Path',
-      description: 'e.g. /legal/privacy-policy',
+      description: 'e.g. /about#our-team or /news?category=Market+Update#articles',
       hidden: ({ parent }) => parent?.linkType !== 'custom',
     },
   ],
@@ -58,15 +74,20 @@ export const footerLink = defineType({
       title: 'label',
       linkType: 'linkType',
       externalUrl: 'externalUrl',
-      customPath: 'customPath'
+      customPath: 'customPath',
+      sectionAnchor: 'sectionAnchor',
     },
     prepare(selection) {
-      const { title, linkType, externalUrl, customPath } = selection;
+      const { title, linkType, externalUrl, customPath, sectionAnchor } = selection;
       let subtitle = '';
       if (linkType === 'internal') {
-        subtitle = 'Internal reference';
+        subtitle = sectionAnchor ? `Internal reference (${sectionAnchor})` : 'Internal reference';
+      } else if (linkType === 'file') {
+        subtitle = 'Downloadable file';
       } else if (linkType === 'external') {
         subtitle = externalUrl;
+      } else if (linkType === 'none') {
+        subtitle = 'Disabled / Coming Soon';
       } else {
         subtitle = customPath;
       }

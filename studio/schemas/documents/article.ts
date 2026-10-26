@@ -41,15 +41,10 @@ export const article = defineType({
     },
     {
       name: 'category',
-      type: 'string',
+      type: 'reference',
       title: 'Category',
-      options: {
-        list: [
-          { title: 'Market Update', value: 'Market Update' },
-          { title: 'Investment Advice', value: 'Investment Advice' },
-          { title: 'Company News', value: 'Company News' },
-        ],
-      },
+      description: 'Select an existing category or create a new one.',
+      to: [{ type: 'articleCategory' }],
       group: 'meta',
     },
     { name: 'publishedAt', type: 'datetime', title: 'Published Date', group: 'meta' },
@@ -62,7 +57,7 @@ export const article = defineType({
     { title: 'Published Date (Newest)', name: 'publishedDesc', by: [{ field: 'publishedAt', direction: 'desc' }] },
   ],
   preview: {
-    select: { title: 'title', subtitle: 'category', media: 'coverImage.image', isActive: 'isActive' },
+    select: { title: 'title', subtitle: 'category.title', media: 'coverImage.image', isActive: 'isActive' },
     prepare({ title, subtitle, media, isActive }) {
       return { title: `${isActive ? '🟢' : '🔴'} ${title}`, subtitle, media };
     }

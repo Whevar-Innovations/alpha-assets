@@ -9,6 +9,7 @@ export const service = defineType({
     { name: 'settings', title: 'Settings', default: true },
     { name: 'card', title: 'Card Display' },
     { name: 'detail', title: 'Detail Page' },
+    { name: 'footerCta', title: 'Footer CTA' },
   ],
   fields: [
     { name: 'isActive', type: 'boolean', title: 'Is Active?', description: 'Turn off to hide from the website.', initialValue: true, group: 'settings' },
@@ -44,6 +45,12 @@ export const service = defineType({
     },
     { name: 'factsheetVisible', type: 'boolean', title: 'Show Factsheet Section', description: 'Toggle to show or hide the factsheet download card on the service page.', initialValue: true, group: 'detail' },
     { name: 'factsheet', type: 'file', title: 'Factsheet PDF', group: 'detail' },
+
+    // Footer CTA Override
+    { name: 'footerCtaVisible', type: 'boolean', title: 'Show Footer CTA', initialValue: true, group: 'footerCta' },
+    { name: 'footerCtaText', type: 'string', title: 'CTA Text Override', description: 'Leave blank to use global Footer CTA text.', group: 'footerCta' },
+    { name: 'footerCtaBoldText', type: 'string', title: 'CTA Bold Text Override', description: 'Leave blank to use global Footer CTA bold text.', group: 'footerCta' },
+    { name: 'footerCtaButton', type: 'ctaButton', title: 'CTA Button Override', description: 'Overrides the global CTA button on this service detail page.', group: 'footerCta' },
   ],
   orderings: [{ title: 'Display Order', name: 'order', by: [{ field: 'order', direction: 'asc' }] }],
   preview: {
