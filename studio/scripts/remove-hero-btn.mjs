@@ -5,7 +5,7 @@ const client = createClient({
   dataset: 'production',
   apiVersion: '2024-01-01',
   useCdn: false,
-  token: 'skWPcUqdeiy5mOt8iQmvuUiDy6M8GjxWPDFFKaKtqUNMGcvfORobmUHosA7GPVp7Uf4ntiACIgsVOhUjGG24oD9ymyMIV6eSnckOIVp80e5jqP4DaSKhLr4mVauFfoIzRwVeqLZtCCOxqmrCt22gjML8K1JqYF8cG3H1a4xVBz63Z4u5JX6l',
+  token: process.env.SANITY_API_TOKEN,
 });
 
 async function main() {

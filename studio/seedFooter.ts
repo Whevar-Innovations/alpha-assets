@@ -1,11 +1,11 @@
 import { getCliClient } from 'sanity/cli'
 
-const client = getCliClient()
+const client = getCliClient({ apiVersion: '2024-01-01' })
 
 const generateKey = () => Math.random().toString(36).substring(2, 9)
 
 const createLink = (label: string, linkType: string, path: string = '') => {
-  const base = { _key: generateKey(), label, linkType }
+  const base = { _key: generateKey(), _type: 'footerLink', label, linkType }
   if (linkType === 'custom') return { ...base, customPath: path }
   return base
 }
@@ -13,34 +13,34 @@ const createLink = (label: string, linkType: string, path: string = '') => {
 const footerContent = [
   {
     _key: generateKey(),
+    _type: 'footerColumn',
+    title: 'Company',
+    links: [
+      createLink('Investment Philosophy', 'custom', '/about#investment-philosophy'),
+      createLink('Our People', 'custom', '/about#our-team'),
+      createLink('Corporate Governance', 'custom', '/about#corporate-governance'),
+    ]
+  },
+  {
+    _key: generateKey(),
+    _type: 'footerColumn',
     title: 'Helpful Links',
     links: [
       createLink('Privacy Policy', 'custom', '/legal/privacy-policy'),
       createLink('Terms of Use', 'custom', '/legal/terms-of-use'),
       createLink('Cookie Policy', 'custom', '/legal/cookie-policy'),
-      createLink('Risk Disclosures', 'custom', '/legal/risk-disclosures'),
-      createLink('Complaints Procedure', 'custom', '/legal/complaints-procedure'),
-      createLink('Regulatory Information', 'custom', '/legal/regulatory-information')
+      createLink('Careers', 'custom', '/careers'),
     ]
   },
   {
     _key: generateKey(),
+    _type: 'footerColumn',
     title: 'Resources',
     links: [
-      createLink('Finance knowledge', 'none'),
-      createLink('Market research', 'none'),
-      createLink('Steps for 2026', 'none'),
+      createLink('Macro Insights', 'custom', '/news?category=Market+Update#articles'),
+      createLink('Finance knowledge', 'custom', '/news?category=Investment+Advice#articles'),
+      createLink('Market research', 'custom', '/news?category=Market+Update#articles'),
       createLink('Risk advisory', 'none')
-    ]
-  },
-  {
-    _key: generateKey(),
-    title: 'Company',
-    links: [
-      createLink('Investment Philosophy', 'custom', '/about'),
-      createLink('Our People', 'custom', '/about'),
-      createLink('Corporate Governance', 'custom', '/about'),
-      createLink('Macro Insights', 'custom', '/about')
     ]
   }
 ]
