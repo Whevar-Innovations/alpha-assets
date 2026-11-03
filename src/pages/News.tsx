@@ -214,13 +214,13 @@ export const News: React.FC = () => {
                       <div className="flex-grow">
                         {/* Category tag */}
                         {article.category && (
-                          <span className="text-[10px] font-extrabold uppercase tracking-widest text-brand-primary bg-teal-50 px-2.5 py-1 rounded">
+                          <span className="text-[10px] font-bold uppercase tracking-widest text-brand-primary bg-teal-50 px-2.5 py-1 rounded">
                             {article.category}
                           </span>
                         )}
 
                         {/* Title */}
-                        <h3 className="text-base sm:text-lg font-extrabold text-brand-dark mt-3 mb-2 leading-snug">
+                        <h3 className="text-base sm:text-lg font-bold text-brand-dark mt-3 mb-2 leading-snug">
                           {article.title}
                         </h3>
 

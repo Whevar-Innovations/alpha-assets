@@ -215,7 +215,7 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({ slug, allAr
                 />
               )}
               <div>
-                <p className="text-sm font-extrabold text-brand-dark">{article.author.name}</p>
+                <p className="text-sm font-bold text-brand-dark">{article.author.name}</p>
                 {article.author.role && (
                   <p className="text-xs text-brand-gray font-light">{article.author.role}</p>
                 )}
@@ -355,11 +355,11 @@ const ArticleDetailContent: React.FC<ArticleDetailContentProps> = ({ slug, allAr
                     <div className="p-5 sm:p-6 flex flex-col flex-grow">
                       <div className="flex-grow">
                         {item.category && (
-                          <span className="text-[10px] font-extrabold uppercase tracking-widest text-brand-primary bg-teal-50 px-2.5 py-1 rounded">
+                          <span className="text-[10px] font-bold uppercase tracking-widest text-brand-primary bg-teal-50 px-2.5 py-1 rounded">
                             {item.category}
                           </span>
                         )}
-                        <h3 className="text-base sm:text-lg font-extrabold text-brand-dark mt-3 mb-2 leading-snug line-clamp-2">
+                        <h3 className="text-base sm:text-lg font-bold text-brand-dark mt-3 mb-2 leading-snug line-clamp-2">
                           {item.title}
                         </h3>
                         {item.excerpt && (
