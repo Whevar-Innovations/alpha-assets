@@ -12,6 +12,7 @@ import { author } from './documents/author'
 import { policyPage } from './documents/policyPage'
 import { jobVacancy } from './documents/jobVacancy'
 import { careersPage } from './documents/careersPage'
+import { pensionCalculatorPage } from './documents/pensionCalculatorPage'
 
 import { iconPicker } from './objects/iconPicker'
 import { seo } from './objects/seo'
@@ -68,4 +69,5 @@ export const schemaTypes = [
   policyPage,
   jobVacancy,
   careersPage,
+  pensionCalculatorPage,
 ]

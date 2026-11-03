@@ -145,3 +145,13 @@ export const JOB_VACANCY_DETAIL_QUERY = `*[_type == "jobVacancy" && slug.current
   _id, title, slug, department, location, employmentType, datePosted, deadline, summary, description,
   applicationType, applicationEmail, applicationUrl, showApplyButton, status, seo
 }`;
+
+export const PENSION_CALCULATOR_QUERY = `*[_type == "pensionCalculatorPage" && _id in ["pensionCalculatorPage", "drafts.pensionCalculatorPage"]] | order(_updatedAt desc)[0]{
+  pageVisible, seo,
+  heroVisible, heroSubtitle, heroHeading, heroDescription,
+  advantagesVisible, advantagesSubtitle, advantagesHeading,
+  advantagesItems[]{ title, description, icon, isVisible },
+  faqVisible, faqSubtitle, faqHeading,
+  faqItems[]{ _key, question, answer, isVisible },
+  footerCtaVisible, footerCtaText, footerCtaBoldText, footerCtaButton
+}`;

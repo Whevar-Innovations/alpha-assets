@@ -281,3 +281,36 @@ export interface CareersPageData extends FooterCTAData {
   noVacanciesTitle?: string;
   noVacanciesMessage?: string;
 }
+
+export interface PensionAdvantageItem {
+  _key?: string;
+  title: string;
+  description: string;
+  icon?: { name?: string };
+  isVisible?: boolean;
+}
+
+export interface PensionFAQItem {
+  _key?: string;
+  id?: string;
+  question: string;
+  answer: string;
+  isVisible?: boolean;
+}
+
+export interface PensionCalculatorPageData extends FooterCTAData {
+  seo?: SEOData;
+  pageVisible?: boolean;
+  heroVisible?: boolean;
+  heroSubtitle?: string;
+  heroHeading?: string;
+  heroDescription?: string;
+  advantagesVisible?: boolean;
+  advantagesSubtitle?: string;
+  advantagesHeading?: string;
+  advantagesItems?: PensionAdvantageItem[];
+  faqVisible?: boolean;
+  faqSubtitle?: string;
+  faqHeading?: string;
+  faqItems?: PensionFAQItem[];
+}

@@ -4,3 +4,4 @@ export * from './invest';
 export * from './news';
 export * from './contact';
 export * from './siteSettings';
+export * from './pensionCalculator';

@@ -21,6 +21,7 @@ export default defineConfig({
             S.listItem().title('📰 News & Insights').child(S.document().schemaType('newsPage').documentId('newsPage')),
             S.listItem().title('📞 Contact Page').child(S.document().schemaType('contactPage').documentId('contactPage')),
             S.listItem().title('🎯 Careers Page').child(S.document().schemaType('careersPage').documentId('careersPage')),
+            S.listItem().title('🧮 Pension Calculator').child(S.document().schemaType('pensionCalculatorPage').documentId('pensionCalculatorPage')),
             S.divider(),
             S.listItem().title('💼 Services').child(S.documentTypeList('service').title('Investment Services')),
             S.listItem().title('📝 Articles').child(S.documentTypeList('article').title('News Articles')),
