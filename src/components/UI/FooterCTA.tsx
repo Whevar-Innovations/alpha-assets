@@ -6,6 +6,19 @@ import { SITE_SETTINGS_QUERY } from '../../sanity/lib/queries';
 import { siteSettingsDefaults } from '../../sanity/defaults/siteSettings';
 import type { CTAButton } from '../../types';
 
+/**
+ * CMS button payloads can be partially filled in (e.g. a button object saved
+ * without a label), so every field is treated as optional at runtime.
+ */
+type CmsButton = Partial<CTAButton> | null | undefined;
+
+const DEFAULT_BUTTON_LABEL = 'Request your Confidential Portfolio Review';
+
+const getButtonLabel = (button: CmsButton): string | undefined => {
+  const label = button?.label?.trim();
+  return label && label.length > 0 ? label : undefined;
+};
+
 export interface FooterCTAProps {
   isVisible?: boolean;
   text?: string;
@@ -42,11 +55,11 @@ export const FooterCTA: React.FC<FooterCTAProps> = ({
     ? (pageBoldText ?? '')
     : (globalBoldText && globalBoldText.length > 0 ? globalBoldText : 'Start investing today');
 
-  const hasPageButton = Boolean(buttonConfig?.label.trim());
-  const displayButton = hasPageButton ? buttonConfig : siteSettings.footerCtaButton;
+  const hasPageButton = getButtonLabel(buttonConfig) !== undefined;
+  const displayButton: CmsButton = hasPageButton ? buttonConfig : siteSettings.footerCtaButton;
 
-  const showButton = displayButton ? displayButton.isVisible : true;
-  const buttonLabel = displayButton?.label.trim() ? displayButton.label : 'Request your Confidential Portfolio Review';
+  const showButton = displayButton ? Boolean(displayButton.isVisible) : true;
+  const buttonLabel = getButtonLabel(displayButton) ?? DEFAULT_BUTTON_LABEL;
   const buttonVariant = displayButton?.variant ?? 'primary';
 
   const handleCTA = () => {
