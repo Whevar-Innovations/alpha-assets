@@ -39,7 +39,7 @@ const PartnerLogoNode: React.FC<PartnerLogoNodeProps> = ({ partner, isDuplicate 
       fallback={fallbackSrc}
       sizes="(max-width: 640px) 130px, 160px"
       alt={isDuplicate ? '' : (partner.logo?.alt ?? `${partner.name} logo`)}
-      className="h-8 sm:h-10 md:h-11 w-auto max-w-[120px] sm:max-w-[150px] object-contain grayscale opacity-75 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+      className="h-8 sm:h-10 md:h-11 w-auto max-w-[120px] sm:max-w-[150px] object-contain"
     />
   ) : (
     <span className="text-sm sm:text-base font-semibold uppercase tracking-wider text-brand-primary/70 group-hover:text-brand-primary transition-colors duration-300">
