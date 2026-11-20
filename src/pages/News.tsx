@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import { FooterCTA } from '../components/UI/FooterCTA';
 import { SEO } from '../components/SEO';
 import type { ArticleItem, ArticleCategoryItem } from '../types';
@@ -59,8 +59,7 @@ export const News: React.FC = () => {
   }
 
   if (pageData.pageVisible === false) {
-    void navigate('/404');
-    return null;
+    return <Navigate to="/" replace />;
   }
 
   const hero = pageData.hero ?? newsDefaults.hero;

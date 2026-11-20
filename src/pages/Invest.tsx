@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { ServiceCard } from '../components/UI/ServiceCard';
 import { FooterCTA } from '../components/UI/FooterCTA';
 import { SEO } from '../components/SEO';
@@ -21,8 +21,7 @@ export const Invest: React.FC = () => {
   }
 
   if (data.pageVisible === false) {
-    void navigate('/404');
-    return null;
+    return <Navigate to="/" replace />;
   }
 
   const hero = data.hero ?? investDefaults.hero;

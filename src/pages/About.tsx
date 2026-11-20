@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
 import { FooterCTA } from "../components/UI/FooterCTA";
 import { DynamicIcon } from "../components/UI/DynamicIcon";
@@ -57,8 +57,7 @@ export const About: React.FC = () => {
   }
 
   if (data.pageVisible === false) {
-    void navigate("/404");
-    return null;
+    return <Navigate to="/" replace />;
   }
 
   // Fallbacks

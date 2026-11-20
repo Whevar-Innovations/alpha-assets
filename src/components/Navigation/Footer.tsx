@@ -4,6 +4,7 @@ import { Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import logoWhite from '../../assets/logos/white.png';
 
 import { useSanityPage } from '../../sanity/hooks/useSanityPage';
+import { usePageVisibility } from '../../sanity/hooks/usePageVisibility';
 import { SITE_SETTINGS_QUERY } from '../../sanity/lib/queries';
 import { siteSettingsDefaults } from '../../sanity/defaults/siteSettings';
 import { resolveImage } from '../../sanity/lib/image';
@@ -12,6 +13,7 @@ import type { FooterLink } from '../../types';
 
 export const Footer: React.FC = () => {
   const { data } = useSanityPage(SITE_SETTINGS_QUERY, siteSettingsDefaults);
+  const { isPathHidden } = usePageVisibility();
   const [email, setEmail] = useState('');
   const [honey, setHoney] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -208,6 +210,7 @@ export const Footer: React.FC = () => {
                           else if (internal._type === 'newsPage') href = '/news';
                           else if (internal._type === 'contactPage') href = '/contact';
                           else if (internal._type === 'careersPage') href = '/careers';
+                          else if (internal._type === 'pensionCalculatorPage') href = '/calculator';
 
                           if (link.sectionAnchor && href !== '#' && internal._type !== 'articleCategory') {
                             const suffix = link.sectionAnchor.startsWith('#') || link.sectionAnchor.startsWith('?')
@@ -222,7 +225,12 @@ export const Footer: React.FC = () => {
                         const isExternal = link.linkType === 'external';
                         const isFile = link.linkType === 'file' && Boolean(link.fileUrl);
                         const isDisabled = link.linkType === 'none' || (link.linkType === 'file' && !link.fileUrl);
-                        
+
+                        // Hide in-site links that point to a page disabled in the CMS.
+                        if (!isExternal && !isFile && href !== '#' && isPathHidden(href)) {
+                          return null;
+                        }
+
                         return (
                           <li key={linkIdx}>
                             {isDisabled ? (

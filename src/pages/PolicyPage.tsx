@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useMemo } from 'react';
+import { Navigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useSanityPage } from '../sanity/hooks/useSanityPage';
 import { POLICY_PAGE_QUERY } from '../sanity/lib/queries';
@@ -27,8 +27,6 @@ interface TOCItem {
 
 export const PolicyPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
-  const navigate = useNavigate();
-  
   const defaults = getPolicyPageDefaults(slug);
 
   const { data, isLoading } = useSanityPage<PolicyPageData>(
@@ -36,12 +34,6 @@ export const PolicyPage: React.FC = () => {
     defaults,
     { slug }
   );
-
-  useEffect(() => {
-    if (!isLoading && data.pageVisible === false) {
-      void navigate('/404');
-    }
-  }, [isLoading, data.pageVisible, navigate]);
 
   // Extract TOC from the content blocks
   const tocItems = useMemo<TOCItem[]>(() => {
@@ -59,7 +51,11 @@ export const PolicyPage: React.FC = () => {
       });
   }, [data.content, defaults.content]);
 
-  if (isLoading || data.pageVisible === false) {
+  if (!isLoading && data.pageVisible === false) {
+    return <Navigate to="/" replace />;
+  }
+
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-[#fafbfa] flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-primary"></div>

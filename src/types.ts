@@ -5,6 +5,12 @@ export interface SanityImage {
   alt?: string;
 }
 
+/** Singleton pages whose `pageVisible` flag controls menu visibility. */
+export type PageKey = 'home' | 'about' | 'invest' | 'news' | 'contact' | 'careers' | 'calculator';
+
+/** `null` means the field or document is missing in Sanity (treated as visible). */
+export type PageVisibilityData = Partial<Record<PageKey, boolean | null>>;
+
 export interface SEOData {
   metaTitle?: string;
   metaDescription?: string;

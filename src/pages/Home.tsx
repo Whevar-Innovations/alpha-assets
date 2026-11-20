@@ -28,11 +28,6 @@ export const Home: React.FC = () => {
     return <HomeSkeleton />;
   }
 
-  if (data.pageVisible === false) {
-    void navigate('/404');
-    return null;
-  }
-
   // Fallbacks
   // Prefer heroSlides from CMS; fall back to wrapping the legacy hero; last resort: seeded defaults
   const rawSlides = data.heroSlides?.length

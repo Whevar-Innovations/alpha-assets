@@ -4,6 +4,7 @@ import { Menu, X } from 'lucide-react';
 import logoPrimary from '../../assets/logos/primary.png';
 
 import { useSanityPage } from '../../sanity/hooks/useSanityPage';
+import { usePageVisibility } from '../../sanity/hooks/usePageVisibility';
 import { SITE_SETTINGS_QUERY } from '../../sanity/lib/queries';
 import { siteSettingsDefaults } from '../../sanity/defaults/siteSettings';
 import { resolveImage } from '../../sanity/lib/image';
@@ -11,8 +12,13 @@ import { resolveImage } from '../../sanity/lib/image';
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data } = useSanityPage(SITE_SETTINGS_QUERY, siteSettingsDefaults);
+  const { isPathHidden } = usePageVisibility();
 
-  const navItems = data.navItems?.length ? data.navItems : siteSettingsDefaults.navItems;
+  const navItems = data.navItems?.length ? data.navItems : (siteSettingsDefaults.navItems ?? []);
+  // Drop items switched off in Site Settings and items whose page is disabled in the CMS.
+  const visibleNavItems = navItems.filter(
+    (item) => item.isVisible !== false && !isPathHidden(item.path)
+  );
   const logoUrl = resolveImage(data.primaryLogo, logoPrimary);
 
   return (
@@ -30,7 +36,7 @@ export const Navbar: React.FC = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex md:space-x-4 lg:space-x-8 items-center">
-            {navItems?.filter((item: { isVisible?: boolean }) => item.isVisible !== false).map((item: { label: string; path: string; isDisabled: boolean; isVisible?: boolean }) => (
+            {visibleNavItems.map((item) => (
               item.isDisabled ? (
                 <span
                   key={item.path}
@@ -79,7 +85,7 @@ export const Navbar: React.FC = () => {
         id="mobile-menu"
       >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-100 shadow-lg">
-          {navItems?.filter((item: { isVisible?: boolean }) => item.isVisible !== false).map((item: { label: string; path: string; isDisabled: boolean; isVisible?: boolean }) => (
+          {visibleNavItems.map((item) => (
             item.isDisabled ? (
               <span
                 key={item.path}

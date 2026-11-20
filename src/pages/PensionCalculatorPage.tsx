@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { SEO } from '../components/SEO';
 import { PensionCalculator } from '../components/Calculator/PensionCalculator';
 import { FooterCTA } from '../components/UI/FooterCTA';
@@ -11,15 +11,13 @@ import { pensionCalculatorDefaults } from '../sanity/defaults/pensionCalculator'
 import type { PensionCalculatorPageData } from '../types';
 
 export const PensionCalculatorPage: React.FC = () => {
-  const navigate = useNavigate();
   const { data } = useSanityPage<PensionCalculatorPageData>(
     PENSION_CALCULATOR_QUERY,
     pensionCalculatorDefaults
   );
 
   if (data.pageVisible === false) {
-    void navigate('/404');
-    return null;
+    return <Navigate to="/" replace />;
   }
 
   const heroVisible = data.heroVisible !== false;

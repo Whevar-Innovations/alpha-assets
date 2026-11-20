@@ -155,3 +155,18 @@ export const PENSION_CALCULATOR_QUERY = `*[_type == "pensionCalculatorPage" && _
   faqItems[]{ _key, question, answer, isVisible },
   footerCtaVisible, footerCtaText, footerCtaBoldText, footerCtaButton
 }`;
+
+/**
+ * The `pageVisible` flag of every singleton page, used to hide disabled pages
+ * from the header menu and footer links. The calculator selector mirrors
+ * PENSION_CALCULATOR_QUERY so the menu and the page always agree.
+ */
+export const PAGE_VISIBILITY_QUERY = `{
+  "home": *[_type == "homePage" && _id == "homePage"][0].pageVisible,
+  "about": *[_type == "aboutPage" && _id == "aboutPage"][0].pageVisible,
+  "invest": *[_type == "investPage" && _id == "investPage"][0].pageVisible,
+  "news": *[_type == "newsPage" && _id == "newsPage"][0].pageVisible,
+  "contact": *[_type == "contactPage" && _id == "contactPage"][0].pageVisible,
+  "careers": *[_type == "careersPage" && _id == "careersPage"][0].pageVisible,
+  "calculator": *[_type == "pensionCalculatorPage" && _id in ["pensionCalculatorPage", "drafts.pensionCalculatorPage"]] | order(_updatedAt desc)[0].pageVisible
+}`;

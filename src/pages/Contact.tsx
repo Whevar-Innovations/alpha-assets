@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import bannerBg from '../assets/images/banner_bg.jpg';
 import { Phone, Mail, MapPin, Clock, CheckCircle, Loader2, AlertCircle } from 'lucide-react';
 import { SEO } from '../components/SEO';
@@ -47,8 +47,7 @@ export const Contact: React.FC = () => {
   }
 
   if (pageData.pageVisible === false) {
-    void navigate('/404');
-    return null;
+    return <Navigate to="/" replace />;
   }
 
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {

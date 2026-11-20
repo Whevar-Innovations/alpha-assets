@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { Briefcase, MapPin, Clock, Calendar, ArrowRight, Mail } from 'lucide-react';
 import { Button } from '../components/UI/Button';
 import { FooterCTA } from '../components/UI/FooterCTA';
@@ -31,8 +31,7 @@ export const Careers: React.FC = () => {
   }
 
   if (pageData.pageVisible === false) {
-    void navigate('/404');
-    return null;
+    return <Navigate to="/" replace />;
   }
 
   const hero = pageData.hero ?? careersDefaults.hero;
